@@ -16,12 +16,10 @@ export const HeaderWrapper = styled.header`
       align-items: flex-start;
 
       .user-name {
-          font-size: 2.5rem;
-          font-weight: 600;
-      }
-
-      .user-email {
-          color: #ccc;
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -1px;
+        color: ${props => props.theme.colors.primary}
       }
   }
 
@@ -31,9 +29,9 @@ export const HeaderWrapper = styled.header`
       justify-content: flex-end;
 
       svg {
-          font-size: 2.3rem;
-          margin-right: 2rem;
-          cursor: pointer;
+        font-size: 2.3rem;
+        margin-right: 2rem;
+        cursor: pointer;
       }
 
       .form-search {
@@ -70,31 +68,3 @@ export const HeaderWrapper = styled.header`
       }
   }
 `;
-
-export const ModalUserSettignsWrapper = styled.div`
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    background: #fff;
-    width: min-content !important;
-    transform: translate(-100%);
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 20px rgb(0, 0, 0, 0.1);
-
-    nav {
-        display: flex;
-        flex-direction: column;
-
-        a {
-            color: #645BDE;
-            font-weight: 500;
-            padding: 1rem 2rem;
-            white-space: nowrap;
-
-            :hover {
-                background: #645BDE;
-                color: #fff;
-            }
-        }
-    }
-`

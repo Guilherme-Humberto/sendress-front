@@ -8,14 +8,14 @@ const stripeClient = new Stripe(stripeSecretKey, {
 
 module.exports = async (req: NextApiRequest & { customerId: string }, res: NextApiResponse) => {
 
-    // const user = await stripeClient.customers.retrieve(String('cus_KKfGsbnN2c1buy'))
-    // const subscription = await stripeClient.subscriptions.list({
-    //     customer: user.id
-    // })
+    const user = await stripeClient.customers.retrieve(String('cus_KNENHpaTzMFvbZ'))
+    const subscription = await stripeClient.subscriptions.list({
+        customer: user.id
+    })
 
     const paymentMethod = await stripeClient.subscriptions.list({
         customer: 'cus_KM4ctMjZxcr7QX'
     });
 
-    return res.send(paymentMethod)
+    return res.send(subscription)
 };

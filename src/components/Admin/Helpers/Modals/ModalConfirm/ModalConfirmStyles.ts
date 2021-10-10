@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion'
 
-export const ModalConfirmWrapper = styled(motion.div) <{ answer?: boolean }>`
+export const ModalConfirmWrapper = styled(motion.div)<{ answer?: boolean }>`
     position: fixed;
     top: 2rem;
     left: 45%;
     width: 40rem;
     background: ${props => props.theme.colors.white};
-    color: ${props => props.theme.colors.main_color};
+    color: ${props => props.theme.colors.primary};
+    border: 3px solid ${props => props.theme.colors.menu};
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 20px 40px rgb(0, 0, 0, 0.03);

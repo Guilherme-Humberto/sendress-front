@@ -1,11 +1,9 @@
 /* eslint-disable react/no-unknown-property */
 
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {
-  FiLayout,
   FiHome,
   FiUsers,
-  FiList,
   FiClock,
   FiSettings,
   FiMessageSquare,
@@ -15,8 +13,9 @@ import {
   HiOutlineMailOpen,
   HiChevronDoubleLeft,
   HiChevronDoubleRight,
-  HiOutlinePaperAirplane,
 } from 'react-icons/hi';
+import {BsGrid, BsListNested} from 'react-icons/bs';
+
 import {MenuLeftWrapper, LinkMenu} from './MenuLeftStyles';
 import {AdminContext} from '../../../../context/adminContext';
 
@@ -56,7 +55,7 @@ const MenuLeft: React.FC = () => {
           active={route === 'leads'}
           onClick={() => changeRoutes('leads')}>
           <FiUsers />
-          <p className="link-title">Leads</p>
+          <p className="link-title">Contatos</p>
           <div className="link-intro-wrapper">
             Gerencie seus emails ou leads cadastrados.
           </div>
@@ -66,8 +65,8 @@ const MenuLeft: React.FC = () => {
           href="#"
           active={route === 'segments'}
           onClick={() => changeRoutes('segments')}>
-          <FiList />
-          <p className="link-title">Segmentos</p>
+          <BsListNested />
+          <p className="link-title">Listas</p>
           <div className="link-intro-wrapper">
             Organize seus emails ou leads por listas.
           </div>

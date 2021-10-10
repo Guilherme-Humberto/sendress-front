@@ -13,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     body {
         min-height: 100vh;
-        background: #f5f3f0;
+        background: #fff;
     }
     body,
     input,
@@ -45,10 +45,13 @@ export const GlobalStyles = createGlobalStyle`
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
-        margin: 3rem 0;
+        border-top: 1.5px solid #ccc;
+        padding-top: 3rem;
+        margin-bottom: 4rem;
 
         h1 {
             font-size: 3rem;
+            font-weight: 500;
         }
 
         p {
@@ -57,15 +60,15 @@ export const GlobalStyles = createGlobalStyle`
         }
 
         .select-item {
-            background: #fff;
             cursor: pointer;
             transition: 0.5s;
-            border: 2px solid #fff;
+            border: 2px solid #ccc;
             padding: 0rem 1rem;
+            height: 4rem;
             width: 23rem;
             display: flex;
             align-items: center;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             
             select {
                 cursor: pointer;
@@ -76,9 +79,21 @@ export const GlobalStyles = createGlobalStyle`
                 background: transparent;
                 appearance: none;
             }
+        }
 
-            :hover {
-                transform: scale(1.1);
+        .filters-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+
+            input {
+                max-width: 25rem;
+                padding: 0.5rem 1rem;
+                height: 4rem;
+                background: transparent;
+                border: 2px solid #ccc;
+                outline: none;
+                border-radius: 0.5rem;
             }
         }
     }
@@ -87,7 +102,7 @@ export const GlobalStyles = createGlobalStyle`
         position: fixed;
         bottom: 3rem;
         right: 3rem;
-        background: ${props => props.theme.colors.main_color};
+        background: ${props => props.theme.colors.primary};
         width: 6rem;
         height: 6rem;
         border-radius: 10rem;
@@ -139,7 +154,7 @@ export const GlobalStyles = createGlobalStyle`
         position: absolute;
         z-index: 3;
         top: 100%;
-        background: #fff;
+        background: ${props => props.theme.colors.white};
         box-shadow: 0 10px 20px rgb(0, 0, 0, 0.1);
 
         display: none;
@@ -151,9 +166,9 @@ export const GlobalStyles = createGlobalStyle`
             width: 14rem;
 
             :hover {
-                color: #fff;
+                color: ${props => props.theme.colors.white};
                 cursor: pointer;
-                background: ${props => props.theme.colors.main_color};
+                background: ${props => props.theme.colors.primary};
             }
         }
     }

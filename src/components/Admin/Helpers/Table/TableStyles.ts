@@ -35,6 +35,7 @@ export const TableWrapper = styled.div`
 
     .widgetLgTr {
         display: flex;
+        flex-wrap: nowrap;
         align-items: center;
         background: #fff;
         padding: 2rem;
@@ -63,9 +64,18 @@ export const TableWrapper = styled.div`
         font-size: 2rem;
         color: #555;
     }
+
+    .widgetLgTr td:not(.widgetLgStatus, .widgetLgMenu) {
+        word-wrap: break-word;
+        max-width: 200px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; 
+    }
     
     .widgetLgTr:not(:last-child) {
-        border-bottom: 2px solid #f3f4f6;
+        border-bottom: 4px solid #f3f4f6;
     }
 
     .widgetLgStatus {

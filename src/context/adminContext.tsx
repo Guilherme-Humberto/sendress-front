@@ -107,12 +107,15 @@ export const AdminProvider = ({children}: {children: any}) => {
     setCookie(undefined, 'sendway.token', token, {
       maxAge: 60 * 60 * 1, // 1 hour
     });
+    setCookie(undefined, 'sendway.userid', user.id, {
+      maxAge: 60 * 60 * 1, // 1 hour
+    });
 
     getAPIClient().defaults.headers['Authorization'] = `Bearer ${token}`;
 
     setUser(user);
 
-    Router.push(`/admin/?id=${user.id}`);
+    Router.push(`/admin`);
     return {user, token};
   }
 

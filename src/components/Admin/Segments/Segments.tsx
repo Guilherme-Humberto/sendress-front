@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import * as Yup from 'yup';
 import {FiMenu} from 'react-icons/fi';
 import {BsChevronDown, BsPlus} from 'react-icons/bs';
@@ -39,6 +39,8 @@ const Lists: React.FC = () => {
   const [alertPopup, setAlertPopup] = useState(false);
   const [alertConfirm, setAlertConfirm] = useState(false);
   const [alertBody, setAlertBody] = useState('');
+  const [search, setSearch] = useState('');
+  const [searchFilter, setSearchFilter] = useState([]);
 
   const [error, setError] = useState<Error>({} as Error);
 
@@ -111,7 +113,7 @@ const Lists: React.FC = () => {
       .then(() => {
         setAlertBody('Lista deletada com sucesso');
         setAlertPopup(true);
-        refreshData()
+        refreshData();
 
         setTimeout(() => {
           setAlertPopup(false);
@@ -205,9 +207,19 @@ const Lists: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const findSegments = segments?.filter(({title}: {title: string}) =>
+      title.toLocaleLowerCase().includes(search),
+    );
+    setSearchFilter(findSegments);
+  }, [segments, search, setSearch]);
+
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
-  const currentLists = segments?.slice(indexOfFirstPost, indexOfLastPost);
+  const currentLists =
+    searchFilter?.length >= 1
+      ? searchFilter?.slice(indexOfFirstPost, indexOfLastPost)
+      : segments?.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNum: number) => setCurrentPage(pageNum);
   const nextPage = () => setCurrentPage(currentPage => currentPage + 1);
@@ -222,15 +234,23 @@ const Lists: React.FC = () => {
             <h1>Minhas listas</h1>
             <p>Acompanhe e gerencie suas listas cadastradas</p>
           </div>
-          <div className="select-item">
-            <select onChange={handleSelect} value="default">
-              <option value="default" disabled>
-                Ações
-              </option>
-              <option value="create">Cadastrar lista</option>
-              <option value="deleteMany">Excluir listas em massa</option>
-            </select>
-            <BsChevronDown />
+          <div className="filters-wrapper">
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
+              placeholder="Titulo da lista"
+            />
+            <div className="select-item">
+              <select onChange={handleSelect} value="default">
+                <option value="default" disabled>
+                  Ações
+                </option>
+                <option value="create">Cadastrar lista</option>
+                <option value="deleteMany">Excluir listas em massa</option>
+              </select>
+              <BsChevronDown />
+            </div>
           </div>
         </div>
         {segments?.length >= 1 ? (
@@ -327,11 +347,9 @@ const Lists: React.FC = () => {
             animation={{
               initial: {
                 opacity: 0,
-                x: 60,
               },
               animate: {
                 opacity: 1,
-                x: 0,
                 transition: {type: 'spring'},
               },
               exit: {
@@ -340,13 +358,6 @@ const Lists: React.FC = () => {
               },
             }}>
             <SegmentForm>
-              <div className="intro">
-                <h1>Criar lista</h1>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Laudantium fuga est voluptas maxime.
-                </p>
-              </div>
               <div className="form-wrapper">
                 <form onSubmit={handleCreateSegment}>
                   <Input
@@ -368,11 +379,9 @@ const Lists: React.FC = () => {
             animation={{
               initial: {
                 opacity: 0,
-                x: 60,
               },
               animate: {
                 opacity: 1,
-                x: 0,
                 transition: {type: 'spring'},
               },
               exit: {
@@ -381,17 +390,6 @@ const Lists: React.FC = () => {
               },
             }}>
             <SegmentForm>
-              <div className="intro">
-                <h1>Editar lista</h1>
-                <p>
-                  Lista: <strong>{segmentData.title}</strong>
-                </p>
-                <br />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Laudantium fuga est voluptas maxime.
-                </p>
-              </div>
               <div className="form-wrapper">
                 <form onSubmit={handleCreateSegment}>
                   <Input

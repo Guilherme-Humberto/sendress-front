@@ -17,7 +17,8 @@ export const ModalAlertWrapper = styled(motion.div)`
     width: 40rem;
     height: 8rem;
     background: ${props => props.theme.colors.white};
-    color: ${props => props.theme.colors.main_color};
+    color: ${props => props.theme.colors.primary};
+    border: 3px solid ${props => props.theme.colors.menu};
     padding: 1rem 2rem;
     border-radius: 1rem;
     box-shadow: 0 20px 40px rgb(0, 0, 0, 0.03);

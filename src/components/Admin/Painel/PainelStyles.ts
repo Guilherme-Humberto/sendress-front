@@ -11,7 +11,7 @@ export const ListCards = styled.div`
     gap: 3rem;
 
     div {
-        background: #fff;
+        background: ${props => props.theme.colors.secondary};
         width: 35rem;
         height: 28rem;
         padding: 4rem 2rem;
@@ -23,7 +23,7 @@ export const ListCards = styled.div`
 
         :hover {
             transition: 0.5s;
-            border-color: ${props => props.theme.colors.main_color};
+            border-color: ${props => props.theme.colors.primary};
             transform: translateY(-1rem);
             cursor: pointer;
         }
@@ -74,12 +74,12 @@ export const ListCards = styled.div`
             padding: 1rem 0;
             border-radius: 10rem;
             font-size: 1.8rem;
-            background: ${props => props.theme.colors.main_color};
+            background: ${props => props.theme.colors.primary};
         }
     }
 `
 export const ChartWrapper = styled.div`
-    background: #fff;
+    background: ${props => props.theme.colors.secondary};
     padding: 4rem 0rem;
     margin-top: 3rem;
     max-height: 35rem;

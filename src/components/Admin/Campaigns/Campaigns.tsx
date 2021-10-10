@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import * as Yup from 'yup';
 import {FiMenu, FiSend} from 'react-icons/fi';
 import {BsChevronDown, BsPlus} from 'react-icons/bs';
@@ -13,11 +13,15 @@ import {campaignValidation} from '../validations/campaign';
 import {getAPIClient} from '../../../services/api';
 import {useRouter} from 'next/router';
 import {AdminContext} from '../../../context/adminContext';
+import {compileHTMLContent} from '../utils/compileHtml';
+import ModalAlert from '../Helpers/Modals/ModalAlert/ModalAlert';
+import ModalConfirm from '../Helpers/Modals/ModalConfirm/ModalConfirm';
+import {refreshData} from '../utils/refreshData';
 
 interface CampaignsProps {
   id: number;
   name: string;
-  to: string;
+  segmentId: string;
   from: string;
   subject: string;
   content: string;
@@ -28,7 +32,7 @@ interface CampaignsProps {
 }
 
 interface Error {
-  to: string;
+  segmentId: string;
   from: string;
   name: string;
   subject: string;
@@ -50,8 +54,13 @@ const Campaigns: React.FC<Props> = ({segments}) => {
   const [itemsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [campaignsArr, setCampainsArr] = useState<string[]>([]);
+  const [search, setSearch] = useState('');
+  const [searchFilter, setSearchFilter] = useState([]);
+  const [alertPopup, setAlertPopup] = useState(false);
+  const [alertConfirm, setAlertConfirm] = useState(false);
+  const [alertBody, setAlertBody] = useState('');
 
-  const [to, setTo] = useState('');
+  const [segmentId, setSegment] = useState('');
   const [from, setFrom] = useState('');
   const [name, setName] = useState('');
   const [subject, setSubject] = useState('');
@@ -77,21 +86,29 @@ const Campaigns: React.FC<Props> = ({segments}) => {
 
   const handleSendCampaign = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const keys = {
+      username: 'Guilherme',
+      email: 'gabreu@gmail.com',
+      business: 'slideworks',
+      phone: '(11) 98544-9540',
+    };
+
     try {
       const data = {
         name,
         from,
-        to,
         subject,
-        content,
+        content: compileHTMLContent({content, data: keys}),
         description,
+        segmentId,
       };
 
       await campaignValidation.validate(data, {
         abortEarly: false,
       });
 
-      await getAPIClient()
+      getAPIClient()
         .post(`/campaign/create/`, data, {
           headers: {
             userid: user.id,
@@ -101,13 +118,26 @@ const Campaigns: React.FC<Props> = ({segments}) => {
         .then(res => {
           setName('');
           setFrom('');
-          setTo('');
+          setSegment('');
           setSubject('');
           setContent('');
           setActiveModalCreate(false);
-          console.log(res);
+
+          setAlertBody('Campanha criada com sucesso');
+          setAlertPopup(true);
+
+          setTimeout(() => {
+            setAlertPopup(false);
+          }, 2000);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          setAlertBody('Erro ao criar campanha, tente novamente mais tarde');
+          setAlertPopup(true);
+
+          setTimeout(() => {
+            setAlertPopup(false);
+          }, 2000);
+        });
     } catch (err) {
       let errors: any = [];
       if (err instanceof Yup.ValidationError) {
@@ -120,7 +150,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
       setError({
         name: errors[0] === 'name' ? errors[1] : '',
         from: errors[0] === 'from' ? errors[1] : '',
-        to: errors[0] === 'to' ? errors[1] : '',
+        segmentId: errors[0] === 'segmentId' ? errors[1] : '',
         subject: errors[0] === 'subject' ? errors[1] : '',
         content: errors[0] === 'content' ? errors[1] : '',
       });
@@ -128,23 +158,36 @@ const Campaigns: React.FC<Props> = ({segments}) => {
   };
 
   const handleDeleteCampaign = async (campaign: number) => {
-    try {
-      await getAPIClient().delete(`/campaign/delete/${campaign}`, {
+    getAPIClient()
+      .delete(`/campaign/delete/${campaign}`, {
         headers: {
           userid: user.id,
           Authorization: `Bearer ${token}`,
         },
+      })
+      .then(() => {
+        setAlertBody('Campanha deletada com sucesso');
+        setAlertPopup(true);
+
+        setTimeout(() => {
+          setAlertPopup(false);
+        }, 2000);
+      })
+      .catch(() => {
+        setAlertBody('Erro ao deletar campanha, tente novamente mais tarde');
+        setAlertPopup(true);
+
+        setTimeout(() => {
+          setAlertPopup(false);
+        }, 2000);
       });
-    } catch (error) {
-      alert('Erro ao deletar lista, tente novamente');
-    }
   };
 
   const handleUpdateCampaign = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const data = {
-        to: to ? to : 'email1@email.com',
+        segmentId: segmentId ? segmentId : 73,
         name: name ? name : campaignData.name,
         from: from ? from : campaignData.from,
         subject: subject ? subject : campaignData.subject,
@@ -156,8 +199,8 @@ const Campaigns: React.FC<Props> = ({segments}) => {
         abortEarly: false,
       });
 
-      await getAPIClient()
-        .put(`/campaign/update`, data, {
+      getAPIClient()
+        .put(`/campaign/update/${campaignData.id}`, data, {
           headers: {
             userid: user.id,
             Authorization: `Bearer ${token}`,
@@ -166,12 +209,29 @@ const Campaigns: React.FC<Props> = ({segments}) => {
         .then(res => {
           setName('');
           setFrom('');
-          setTo('');
+          setSegment('');
           setSubject('');
           setContent('');
           setActiveModalEdit(false);
+
+          setAlertBody('Campanha atualizada com sucesso');
+          setAlertPopup(true);
+          refreshData();
+
+          setTimeout(() => {
+            setAlertPopup(false);
+          }, 2000);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          setAlertBody(
+            'Erro ao atualizar campanha, tente novamente mais tarde.',
+          );
+          setAlertPopup(true);
+
+          setTimeout(() => {
+            setAlertPopup(false);
+          }, 2000);
+        });
     } catch (err) {
       let errors: any = [];
       if (err instanceof Yup.ValidationError) {
@@ -183,19 +243,51 @@ const Campaigns: React.FC<Props> = ({segments}) => {
       setError({
         name: errors[0] === 'name' ? errors[1] : '',
         from: errors[0] === 'from' ? errors[1] : '',
-        to: errors[0] === 'to' ? errors[1] : '',
+        segmentId: errors[0] === 'segmentId' ? errors[1] : '',
         subject: errors[0] === 'subject' ? errors[1] : '',
         content: errors[0] === 'content' ? errors[1] : '',
       });
     }
   };
 
+  const handleDeleteAllCampaigns = async () => {
+    setAlertConfirm(false);
+
+    getAPIClient()
+      .delete(`/campaign/deleteMany`, {
+        data: {campaigns},
+        headers: {
+          userid: user.id,
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        setAlertBody('Campanhas deletadas com sucesso');
+        setAlertPopup(true);
+        refreshData();
+
+        setTimeout(() => {
+          setAlertPopup(false);
+        }, 2000);
+      })
+      .catch(() => {
+        setAlertBody('Erro ao deletar campanhas, tente novamente mais tarde.');
+        setAlertPopup(true);
+
+        setTimeout(() => {
+          setAlertPopup(false);
+        }, 2000);
+      });
+  };
+
   const handleChangeStatus = async (campaign: number, status: string) => {
-    if (status === 'ACTIVE') {
-      await getAPIClient().put(
+    const campaignStatus = status === 'ACTIVE' ? 'DISABLED' : 'ACTIVE';
+
+    getAPIClient()
+      .put(
         `/campaign/update/${campaign}`,
         {
-          status: 'DISABLED',
+          status: campaignStatus,
         },
         {
           headers: {
@@ -203,22 +295,23 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             Authorization: `Bearer ${token}`,
           },
         },
-      );
-    }
-    if (status === 'DISABLED') {
-      await getAPIClient().put(
-        `/campaign/update/${campaign}`,
-        {
-          status: 'ACTIVE',
-        },
-        {
-          headers: {
-            userid: user.id,
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-    }
+      )
+      .then(() => {
+        setAlertBody('Status atualizado com sucesso');
+        setAlertPopup(true);
+
+        setTimeout(() => {
+          setAlertPopup(false);
+        }, 2000);
+      })
+      .catch(() => {
+        setAlertBody('Erro ao atualizar status, tente novamente mais tarde');
+        setAlertPopup(true);
+
+        setTimeout(() => {
+          setAlertPopup(false);
+        }, 2000);
+      });
   };
 
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -227,11 +320,25 @@ const Campaigns: React.FC<Props> = ({segments}) => {
     if (selectValue === 'create') {
       setActiveModalCreate(true);
     }
+
+    if (selectValue === 'deleteMany') {
+      setAlertConfirm(true);
+    }
   };
+
+  useEffect(() => {
+    const findLeads = campaigns?.filter(({name}: {name: string}) =>
+      name.toLocaleLowerCase().includes(search),
+    );
+    setSearchFilter(findLeads);
+  }, [campaigns, search, setSearch]);
 
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
-  const currentCampaigns = campaigns?.slice(indexOfFirstPost, indexOfLastPost);
+  const currentCampaigns =
+    searchFilter?.length >= 1
+      ? searchFilter?.slice(indexOfFirstPost, indexOfLastPost)
+      : campaigns?.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNum: number) => setCurrentPage(pageNum);
   const nextPage = () => setCurrentPage(currentPage => currentPage + 1);
@@ -246,15 +353,23 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             <h1>Minhas campanhas</h1>
             <p>Acompanhe e gerencie suas campanhas cadastrados</p>
           </div>
-          <div className="select-item">
-            <select onChange={handleSelect} value="default">
-              <option value="default" disabled>
-                Ações
-              </option>
-              <option value="create">Cadastrar campanha</option>
-              <option value="delete">Excluir em massa</option>
-            </select>
-            <BsChevronDown />
+          <div className="filters-wrapper">
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
+              placeholder="Nome da campanha"
+            />
+            <div className="select-item">
+              <select onChange={handleSelect} value="default">
+                <option value="default" disabled>
+                  Ações
+                </option>
+                <option value="create">Cadastrar campanha</option>
+                <option value="deleteMany">Excluir em massa</option>
+              </select>
+              <BsChevronDown />
+            </div>
           </div>
         </div>
         {campaigns?.length >= 1 ? (
@@ -268,7 +383,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             <table className="widgetLgTable">
               <tr className="widgetLgTr">
                 <th className="widgetLgTh">Nome</th>
-                <th className="widgetLgTh">Enviado por</th>
+                <th className="widgetLgTh">Remetente</th>
                 {/* <th className="widgetLgTh">Listas</th> */}
                 {/* <th className="widgetLgTh">Criado</th> */}
                 <th className="widgetLgTh">Status</th>
@@ -298,14 +413,14 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                     <FiMenu />
                     <div className="modal-actions">
                       <span onClick={() => handleDeleteCampaign(campaign.id)}>
-                        Excluir lead
+                        Excluir campanha
                       </span>
                       <span
                         onClick={() => {
                           setCampaignData(campaign);
                           setActiveModalEdit(true);
                         }}>
-                        Editar lead
+                        Editar campanha
                       </span>
                     </div>
                   </td>
@@ -342,11 +457,9 @@ const Campaigns: React.FC<Props> = ({segments}) => {
           animation={{
             initial: {
               opacity: 0,
-              x: 60,
             },
             animate: {
               opacity: 1,
-              x: 0,
               transition: {type: 'spring'},
             },
             exit: {
@@ -355,27 +468,12 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             },
           }}>
           <CampaignForm send>
-            <div className="intro">
-              <h1>Como enviar campanhas</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-                aspernatur beatae tempora.
-              </p>
-            </div>
             <div className="form-wrapper">
-              <h1>Enviar campanhas</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-                aspernatur beatae tempora.
-              </p>
               <form>
                 <label>
                   {campaigns.length <= 0
                     ? 'Você ainda não criou nenhuma campanha'
-                    : 'Campanha *'}{' '}
-                  <button>
-                    <BsPlus /> Nova campanha
-                  </button>
+                    : 'Campanha *'}
                 </label>
                 {campaigns?.length >= 1 && (
                   <>
@@ -394,10 +492,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                 <label>
                   {segments.length <= 0
                     ? 'Você ainda não criou nenhuma lista'
-                    : 'Lista *'}{' '}
-                  <button>
-                    <BsPlus /> Nova lista
-                  </button>
+                    : 'Lista *'}
                 </label>
                 {segments.length >= 1 && (
                   <>
@@ -421,14 +516,14 @@ const Campaigns: React.FC<Props> = ({segments}) => {
       )}
       {activeModalCreate && (
         <Modal
+          height={100}
+          width={110}
           animation={{
             initial: {
               opacity: 0,
-              x: 60,
             },
             animate: {
               opacity: 1,
-              x: 0,
               transition: {type: 'spring'},
             },
             exit: {
@@ -437,21 +532,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             },
           }}>
           <CampaignForm create>
-            <div className="intro">
-              <h1>Como criar sua campanha</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam
-                perferendis, quam rem fugiat doloribus non itaque ea possimus
-                alias repudiandae? Suscipit delectus architecto quasi temporibus
-                aut incidunt ab beatae in?
-              </p>
-            </div>
             <div className="form-wrapper">
-              <h1>Criar campanha</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-                aspernatur beatae tempora.
-              </p>
               <form onSubmit={handleSendCampaign}>
                 <Input
                   label="Título da campanha *"
@@ -477,17 +558,14 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                 <label>
                   {segments.length <= 0
                     ? 'Você ainda não criou nenhuma lista'
-                    : 'Lista *'}{' '}
-                  <button>
-                    <BsPlus /> Nova lista
-                  </button>
+                    : 'Lista *'}
                 </label>
                 {segments.length >= 1 && (
                   <>
                     <select
                       required
                       value="default"
-                      onChange={e => setTo(e.target.value)}>
+                      onChange={e => setSegment(e.target.value)}>
                       <option value="default" disabled>
                         Escolha uma lista
                       </option>
@@ -499,10 +577,6 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                     </select>
                   </>
                 )}
-                <strong className="btn-use-template">
-                  Escolher um template
-                </strong>
-                <br />
                 <Input
                   label="Assunto da campanha *"
                   placeholder="Informe o assunto da campanha"
@@ -521,14 +595,14 @@ const Campaigns: React.FC<Props> = ({segments}) => {
       )}
       {activeModalEdit && (
         <Modal
+          height={100}
+          width={110}
           animation={{
             initial: {
               opacity: 0,
-              x: 60,
             },
             animate: {
               opacity: 1,
-              x: 0,
               transition: {type: 'spring'},
             },
             exit: {
@@ -537,19 +611,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             },
           }}>
           <CampaignForm create>
-            <div className="intro">
-              <h1>Como editar campanha</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-                aspernatur beatae tempora.
-              </p>
-            </div>
             <div className="form-wrapper">
-              <h1>Editar campanha</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-                aspernatur beatae tempora.
-              </p>
               <form onSubmit={handleUpdateCampaign}>
                 <Input
                   label="Título da campanha *"
@@ -575,17 +637,14 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                 <label>
                   {segments.length <= 0
                     ? 'Você ainda não criou nenhuma lista'
-                    : 'Lista *'}{' '}
-                  <button>
-                    <BsPlus /> Nova lista
-                  </button>
+                    : 'Lista *'}
                 </label>
                 {segments.length >= 1 && (
                   <>
                     <select
                       required
                       value="default"
-                      onChange={e => setTo(e.target.value)}>
+                      onChange={e => setSegment(e.target.value)}>
                       <option value="default" disabled>
                         Escolha uma lista
                       </option>
@@ -597,10 +656,6 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                     </select>
                   </>
                 )}
-                <strong className="btn-use-template">
-                  Escolher um template
-                </strong>
-                <br />
                 <Input
                   label="Assunto da campanha *"
                   placeholder="Informe o assunto da campanha"
@@ -610,12 +665,24 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                   setState={setSubject}
                 />
                 <label>Conteudo da campanha *</label>
-                <Editor />
+                <Editor defaultValue={campaignData.content} />
                 <button type="submit">Editar campanha</button>
               </form>
             </div>
           </CampaignForm>
         </Modal>
+      )}
+      {alertPopup && (
+        <ModalAlert>
+          <h3>{alertBody}</h3>
+        </ModalAlert>
+      )}
+      {alertConfirm && (
+        <ModalConfirm
+          content="Tem certeza que deseja fazer isso?"
+          close={setAlertConfirm}
+          execute={handleDeleteAllCampaigns}
+        />
       )}
     </>
   );

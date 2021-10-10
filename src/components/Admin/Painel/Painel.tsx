@@ -148,7 +148,7 @@ const Painel: React.FC<PainelProps> = ({leads, segments, campaigns}) => {
               type="monotone"
               dataKey="uv"
               strokeWidth="4px"
-              stroke="#645BDE"
+              stroke="#e07a5f"
             />
           </LineChart>
         </ResponsiveContainer>

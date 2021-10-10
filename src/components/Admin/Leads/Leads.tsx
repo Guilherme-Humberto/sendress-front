@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import * as Yup from 'yup';
 import axios from 'axios';
 import {FiMenu} from 'react-icons/fi';
@@ -52,6 +52,8 @@ const Leads: React.FC<Props> = ({segments}) => {
   const [alertConfirm, setAlertConfirm] = useState(false);
   const [alertBody, setAlertBody] = useState('');
   const [service, setService] = useState('send-email');
+  const [search, setSearch] = useState('');
+  const [searchFilter, setSearchFilter] = useState([]);
 
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -362,9 +364,21 @@ const Leads: React.FC<Props> = ({segments}) => {
     }
   };
 
+  useEffect(() => {
+    const findLeads = leads?.filter(
+      ({name, email}: {name: string; email: string}) =>
+        email.toLocaleLowerCase().includes(search) ||
+        name.toLocaleLowerCase().includes(search),
+    );
+    setSearchFilter(findLeads);
+  }, [leads, search, setSearch]);
+
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
-  const currentLeads = leads?.slice(indexOfFirstPost, indexOfLastPost);
+  const currentLeads =
+    searchFilter?.length >= 1
+      ? searchFilter?.slice(indexOfFirstPost, indexOfLastPost)
+      : leads?.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNum: number) => setCurrentPage(pageNum);
   const nextPage = () => setCurrentPage(currentPage => currentPage + 1);
@@ -379,16 +393,24 @@ const Leads: React.FC<Props> = ({segments}) => {
             <h1>Meus leads</h1>
             <p>Acompanhe e gerencie seus leads cadastrados</p>
           </div>
-          <div className="select-item">
-            <select onChange={handleSelect} value="default">
-              <option value="default" disabled>
-                Ações
-              </option>
-              <option value="create">Cadastrar lead</option>
-              <option value="import">Importar leads</option>
-              <option value="delete">Excluir lead em massa</option>
-            </select>
-            <BsChevronDown />
+          <div className="filters-wrapper">
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
+              placeholder="Nome ou email do lead"
+            />
+            <div className="select-item">
+              <select onChange={handleSelect} value="default">
+                <option value="default" disabled>
+                  Ações
+                </option>
+                <option value="create">Cadastrar lead</option>
+                <option value="import">Importar leads</option>
+                <option value="delete">Excluir lead em massa</option>
+              </select>
+              <BsChevronDown />
+            </div>
           </div>
         </div>
         {leads?.length >= 1 ? (
@@ -496,11 +518,9 @@ const Leads: React.FC<Props> = ({segments}) => {
           animation={{
             initial: {
               opacity: 0,
-              x: 60,
             },
             animate: {
               opacity: 1,
-              x: 0,
               transition: {type: 'spring'},
             },
             exit: {
@@ -509,31 +529,6 @@ const Leads: React.FC<Props> = ({segments}) => {
             },
           }}>
           <LeadForm create>
-            <div className="intro">
-              <h1>Criar lead</h1>
-              <p>
-                Antes de enviar seus emails é necessário definir quem irá
-                recebé-los
-              </p>
-              <br />
-              <p>
-                Comece a cadastrar seus leads. Cada detalhe poderá ser
-                importante para sua estratégia de cold e-mails.
-                <br />
-                <br />
-                <span className="link-ref" onClick={handleDownloadCSVModel}>
-                  Baixar modelo <BsArrowRight />
-                </span>
-              </p>
-              <br />
-              <ul>
-                <li>Nome</li>
-                <li>Email *</li>
-                <li>Telefone</li>
-                <li>Empresa</li>
-                <li>Lista *</li>
-              </ul>
-            </div>
             <div>
               <div className="services-checkbox">
                 <div>
@@ -674,11 +669,9 @@ const Leads: React.FC<Props> = ({segments}) => {
           animation={{
             initial: {
               opacity: 0,
-              x: 60,
             },
             animate: {
               opacity: 1,
-              x: 0,
               transition: {type: 'spring'},
             },
             exit: {
@@ -687,21 +680,6 @@ const Leads: React.FC<Props> = ({segments}) => {
             },
           }}>
           <LeadForm import>
-            <div className="intro">
-              <h1>Importar Lead</h1>
-              <p>
-                Para facilitar o cadastro de seus leads crie um arquivo csv e
-                adicione os seguintes campos
-              </p>
-              <br />
-              <ul>
-                <li>Nome</li>
-                <li>Email </li>
-                <li>Telefone</li>
-                <li>Empresa</li>
-                <li>Lista</li>
-              </ul>
-            </div>
             <div>
               <div className="services-checkbox">
                 <div>
@@ -757,11 +735,9 @@ const Leads: React.FC<Props> = ({segments}) => {
           animation={{
             initial: {
               opacity: 0,
-              x: 60,
             },
             animate: {
               opacity: 1,
-              x: 0,
               transition: {type: 'spring'},
             },
             exit: {
@@ -769,14 +745,7 @@ const Leads: React.FC<Props> = ({segments}) => {
               transition: {duration: 0.6},
             },
           }}>
-          <LeadForm create>
-            <div className="intro">
-              <h1>Editar Lead</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Laudantium fuga est voluptas maxime.
-              </p>
-            </div>
+          <LeadForm edit>
             <div className="form-wrapper">
               <form onSubmit={handleEditLead}>
                 {leadData.name && (
