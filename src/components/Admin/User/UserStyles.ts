@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components';
 export const UserWrapper = styled.section`
   display: grid;
   grid-template-columns: 30rem 1fr;
+  border-top: 1px solid #ccc;
+  padding-top: 3rem;
 `;
 
 export const MenuUserTab = styled.div`
@@ -32,21 +34,19 @@ export const TabTitle = styled.h1<{ tabActive?: boolean }>`
         font-weight: 500 !important;
         transition: 0.5s;
         padding-left: 1rem;
-        border-left: 3.5px solid ${props => props.theme.colors.main_color};
-        color: ${props => props.theme.colors.main_color};
+        border-left: 3.5px solid ${props => props.theme.colors.primary};
+        color: ${props => props.theme.colors.primary};
     `}
 `
 
 export const MenuUserCenter = styled.div`
     padding: 4rem;
     height: 100%;
-    border-radius: 1rem;
-    background: ${props => props.theme.colors.white};
 
     .infos-wrapper .user-name {
         font-size: 4rem;
         font-weight: 600;
-        color: ${props => props.theme.colors.main_color};
+        color: ${props => props.theme.colors.primary};
     }
 
     form {
@@ -77,7 +77,7 @@ export const MenuUserCenter = styled.div`
         outline: none;
         cursor: pointer;
         color: ${props => props.theme.colors.white};
-        background: ${props => props.theme.colors.main_color};
+        background: ${props => props.theme.colors.primary};
     }
 
     .subs-wrapper img {
@@ -87,7 +87,7 @@ export const MenuUserCenter = styled.div`
     .subs-wrapper .product-name {
         font-size: 4.7rem;
         font-weight: 500;
-        color: ${props => props.theme.colors.main_color};
+        color: ${props => props.theme.colors.primary};
     }
 
     .subs-wrapper .product-desc {
@@ -105,7 +105,7 @@ export const MenuUserCenter = styled.div`
         margin-top: 2rem;
         font-size: 3rem;
         font-weight: 600;
-        color: ${props => props.theme.colors.main_color};
+        color: ${props => props.theme.colors.primary};
     }
 
     .subs-wrapper .plan-actions {
@@ -115,13 +115,15 @@ export const MenuUserCenter = styled.div`
         gap: 2rem;
 
         span {
-            background: ${props => props.theme.colors.main_color};
+            background: ${props => props.theme.colors.primary};
             font-weight: 600;
-            padding: 0.5rem 2rem;
+            padding: 1rem 2rem;
             cursor: pointer;
+            transition: 0.5s;
             color: ${props => props.theme.colors.white};
 
             :hover {
+                transition: 0.5s;
                 color: ${props => props.theme.colors.white};
                 background: ${props => props.theme.colors.font};
                 border-color: ${props => props.theme.colors.font};
@@ -134,7 +136,7 @@ export const MenuUserCenter = styled.div`
         margin-bottom: 1rem;
         padding-top: 2rem;
         border-top: 2px dashed #eee;
-        color: ${props => props.theme.colors.main_color};
+        color: ${props => props.theme.colors.primary};
     }
 
     .subs-wrapper .cancel-subscription-title {

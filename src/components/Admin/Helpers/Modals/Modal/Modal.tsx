@@ -8,15 +8,19 @@ interface ModalProps {
     animate: any;
     exit: any;
   };
+  height?: number;
+  width?: number;
 }
 
-const Modal: React.FC<ModalProps> = ({children, animation}) => {
+const Modal: React.FC<ModalProps> = ({children, animation, height, width}) => {
   return (
     <ModalWrapper
+      height={height ? height : 0}
+      width={width ? width : 0}
       initial={animation.initial}
       animate={animation.animate}
       exit={animation.exit}>
-      {children}
+      <div className="content">{children}</div>
     </ModalWrapper>
   );
 };

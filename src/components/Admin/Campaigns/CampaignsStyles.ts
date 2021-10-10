@@ -13,7 +13,7 @@ export const SendButton = styled.div`
     position: fixed;
     bottom: 3rem;
     right: 3rem;
-    background: #645BDE;
+    background: ${props => props.theme.colors.primary};
     width: 6rem;
     height: 6rem;
     border-radius: 10rem;
@@ -32,38 +32,7 @@ export const SendButton = styled.div`
 `
 
 export const CampaignForm = styled.div<ModalProps>`
-    display: grid;
-    grid-template-columns: 40rem 1fr;
-    gap: 1rem;
-
-    h1 {
-        font-size: clamp(2rem, 2.5vw, 3rem);
-        font-weight: 600;
-    }
-
-    p {
-        font-size: 1.8rem;
-        max-width: 80%;
-    }
-
     ${props => props.send && css`
-        div.intro {
-            background: #645BDE;
-            padding: 4rem;
-            color: #fff;
-            clip-path: polygon(0 0, 100% 0, 94% 100%, 0% 100%);
-
-            h1 {
-                font-size: 4rem;
-                font-weight: 700;
-            }
-        }
-
-        div.form-wrapper {
-            padding: 4rem;
-        }
-        height: 100vh;
-
         form {
             display: flex;
             flex-direction: column;
@@ -77,7 +46,7 @@ export const CampaignForm = styled.div<ModalProps>`
                 font-size: 1.7rem;
 
                 button {
-                    background: #e8e8e8;
+                    background: ${props => props.theme.colors.primary};
                     border: none;
                     outline: none;
                     font-size: 1.4rem;
@@ -103,7 +72,7 @@ export const CampaignForm = styled.div<ModalProps>`
             button {
                 margin-top: 2rem;
                 padding: 1rem 2rem;
-                background: #645BDE;
+                background: ${props => props.theme.colors.primary};
                 border: none;
                 outline: none;
                 font-size: 1.8rem;
@@ -117,21 +86,6 @@ export const CampaignForm = styled.div<ModalProps>`
     `}
 
     ${props => props.create && css`
-        div.intro {
-            background: #645BDE;
-            padding: 4rem;
-            color: #fff;
-            clip-path: polygon(0 0, 100% 0, 94% 100%, 0% 100%);
-
-            h1 {
-                font-size: 4rem;
-            }
-        }
-
-        div.form-wrapper {
-            padding: 4rem;
-        }
-
         form {
             display: flex;
             flex-direction: column;
@@ -145,7 +99,7 @@ export const CampaignForm = styled.div<ModalProps>`
                 font-size: 1.7rem;
 
                 button {
-                    background: #e8e8e8;
+                    background: ${props => props.theme.colors.primary};
                     border: none;
                     outline: none;
                     font-size: 1.4rem;
@@ -167,17 +121,22 @@ export const CampaignForm = styled.div<ModalProps>`
             input,
             select {
                 padding: 1rem 2rem;
+                border-radius: 10rem;
+                background: transparent;
+                appearance: none;
+                -moz-appearance: none;
+                outline: none;
             }
 
             .btn-use-template {
                 margin-top: 1rem;
                 cursor: pointer;
-                color: #645BDE;
+                color: ${props => props.theme.colors.primary};
             }
 
             button[type="submit"] {
                 padding: 1rem 2rem;
-                background: #645BDE;
+                background: ${props => props.theme.colors.primary};
                 border: none;
                 outline: none;
                 font-size: 1.8rem;
@@ -191,7 +150,7 @@ export const CampaignForm = styled.div<ModalProps>`
                 :hover {
                     cursor: pointer;
                     transition: 0.5s;
-                    background: ${props => props.theme.colors.font};
+                    background: ${props => props.theme.colors.primary};
                 }
             }
 

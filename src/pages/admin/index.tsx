@@ -46,11 +46,11 @@ const Admin: React.FC<AdminProps> = ({leads, segments, campaigns, senders}) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const userid = Number(context.query.id);
   const apiClient = getAPIClient(context);
   const {['sendway.token']: token} = parseCookies(context);
+  const {['sendway.userid']: userid} = parseCookies(context);
 
-  if (!token) {
+  if (!token || !userid) {
     return {
       redirect: {
         destination: '/',
