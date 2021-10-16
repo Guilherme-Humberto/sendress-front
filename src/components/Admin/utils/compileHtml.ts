@@ -1,11 +1,5 @@
 import HandleBars from 'handlebars'
 
-interface Props {
-    content: string
-    key: string
-    valeu: string
-}
-
 const compileHTMLContent = ({ ...props }) => {
     const template = HandleBars.compile(props.content)
 

@@ -13,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     body {
         min-height: 100vh;
-        background: #fff;
+        background: #f7f8fa;
     }
     body,
     input,

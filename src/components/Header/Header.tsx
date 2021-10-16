@@ -20,7 +20,7 @@ const Header: React.FC = () => {
         <nav>
           <Link href="/">
             <a href="">
-              <h2>Sendway</h2>
+              <h2>Sendrop</h2>
             </a>
           </Link>
           <div className="links-list">

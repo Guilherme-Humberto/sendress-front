@@ -22,10 +22,9 @@ interface CampaignsProps {
   id: number;
   name: string;
   segmentId: string;
-  from: string;
+  senderId: string;
   subject: string;
   content: string;
-  description: string;
   segments: string[];
   createAt: Date;
   status: string;
@@ -33,7 +32,7 @@ interface CampaignsProps {
 
 interface Error {
   segmentId: string;
-  from: string;
+  senderId: string;
   name: string;
   subject: string;
   content: string;
@@ -61,11 +60,10 @@ const Campaigns: React.FC<Props> = ({segments}) => {
   const [alertBody, setAlertBody] = useState('');
 
   const [segmentId, setSegment] = useState('');
-  const [from, setFrom] = useState('');
+  const [senderId, setSender] = useState('');
   const [name, setName] = useState('');
   const [subject, setSubject] = useState('');
   const [content, setContent] = useState('');
-  const [description, setDescription] = useState('');
   const [campaignData, setCampaignData] = useState<CampaignsProps>(
     {} as CampaignsProps,
   );
@@ -97,10 +95,9 @@ const Campaigns: React.FC<Props> = ({segments}) => {
     try {
       const data = {
         name,
-        from,
         subject,
         content: compileHTMLContent({content, data: keys}),
-        description,
+        senderId: 2,
         segmentId,
       };
 
@@ -117,7 +114,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
         })
         .then(res => {
           setName('');
-          setFrom('');
+          setSender('');
           setSegment('');
           setSubject('');
           setContent('');
@@ -145,11 +142,10 @@ const Campaigns: React.FC<Props> = ({segments}) => {
           errors = [error.path, error.message];
         });
       }
-      console.log(errors);
 
       setError({
         name: errors[0] === 'name' ? errors[1] : '',
-        from: errors[0] === 'from' ? errors[1] : '',
+        senderId: errors[0] === 'senderId' ? errors[1] : '',
         segmentId: errors[0] === 'segmentId' ? errors[1] : '',
         subject: errors[0] === 'subject' ? errors[1] : '',
         content: errors[0] === 'content' ? errors[1] : '',
@@ -189,10 +185,9 @@ const Campaigns: React.FC<Props> = ({segments}) => {
       const data = {
         segmentId: segmentId ? segmentId : 73,
         name: name ? name : campaignData.name,
-        from: from ? from : campaignData.from,
+        senderId: senderId ? senderId : campaignData.senderId,
         subject: subject ? subject : campaignData.subject,
         content: content ? content : campaignData.content,
-        description: description ? description : campaignData.description,
       };
 
       await campaignValidation.validate(data, {
@@ -208,7 +203,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
         })
         .then(res => {
           setName('');
-          setFrom('');
+          setSender('');
           setSegment('');
           setSubject('');
           setContent('');
@@ -242,7 +237,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
 
       setError({
         name: errors[0] === 'name' ? errors[1] : '',
-        from: errors[0] === 'from' ? errors[1] : '',
+        senderId: errors[0] === 'senderId' ? errors[1] : '',
         segmentId: errors[0] === 'segmentId' ? errors[1] : '',
         subject: errors[0] === 'subject' ? errors[1] : '',
         content: errors[0] === 'content' ? errors[1] : '',
@@ -394,7 +389,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                   <td className="widgetLgUser">
                     <span className="widgetLgName">{campaign.name}</span>
                   </td>
-                  <td className="widgetLgDate">{campaign.from}</td>
+                  <td className="widgetLgDate">{campaign.senderId}</td>
                   {/* <td className="widgetLgAmount">{campaign.segments.length}</td> */}
                   {/* <td className="widgetLgAmount">{campaign.createAt}</td> */}
                   <td
@@ -468,6 +463,11 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             },
           }}>
           <CampaignForm send>
+            <h1>Enviar campanha</h1>
+            <p>
+              Dúvidas de como enviar uma campanha? Consulte a{' '}
+              <strong>Documentação</strong>
+            </p>
             <div className="form-wrapper">
               <form>
                 <label>
@@ -542,16 +542,8 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                   value={name}
                   setState={setName}
                 />
-                <Input
-                  label="Descrição da campanha *"
-                  placeholder="Informe a descrição da campanha"
-                  error=""
-                  mask=""
-                  value={description}
-                  setState={setDescription}
-                />
                 <label>Remetente</label>
-                <select onChange={e => setFrom(e.target.value)}>
+                <select onChange={e => setSender(e.target.value)}>
                   <option value="">Teste</option>
                   <option value="email@email.com">email@email.com</option>
                 </select>
@@ -621,16 +613,8 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                   value={name}
                   setState={setName}
                 />
-                <Input
-                  label="Descrição da campanha *"
-                  placeholder={campaignData.description}
-                  error=""
-                  mask=""
-                  value={description}
-                  setState={setDescription}
-                />
                 <label>Remetente</label>
-                <select onChange={e => setFrom(e.target.value)}>
+                <select onChange={e => setSender(e.target.value)}>
                   <option value="">Teste</option>
                   <option value="email@email.com">email@email.com</option>
                 </select>

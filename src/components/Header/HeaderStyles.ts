@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 
 export const HeaderWrapper = styled.header`
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     padding: 2rem 10rem;
-    background: #fff;
     z-index: 99;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -18,8 +16,8 @@ export const HeaderWrapper = styled.header`
         align-items: center;
         gap: 5rem;
 
-        svg {
-            width: 10rem;
+        h2 {
+            color: ${props => props.theme.colors.primary};
         }
 
         .links-list {
@@ -30,10 +28,10 @@ export const HeaderWrapper = styled.header`
             a {
                 font-size: 1.8rem;
                 font-weight: 500;
-                color: ${props => props.theme.colors.font};
+                color: ${props => props.theme.colors.primary};
 
                 :hover {
-                    color: ${props => props.theme.colors.main_color};
+                    color: ${props => props.theme.colors.primary};
                 }
             }
         }
@@ -42,24 +40,24 @@ export const HeaderWrapper = styled.header`
     div:last-child {
         button:first-child {
             background: transparent;
-            color: ${props => props.theme.colors.main_color};
-            border: 2px solid ${props => props.theme.colors.main_color};
+            color: ${props => props.theme.colors.white};
+            border: 2px solid ${props => props.theme.colors.white};
             transition: 0.5s;
 
             :hover {
                 cursor: pointer;
                 transition: 0.5s;
-                border-color: ${props => props.theme.colors.main_color};
+                border-color: ${props => props.theme.colors.primary};
                 color: ${props => props.theme.fonts_color.white};
-                background: ${props => props.theme.colors.main_color};
+                background: ${props => props.theme.colors.primary};
             }
         }
 
         button {
             margin-right: 1rem;
             padding: 0.4rem 2rem;
-            color: ${props => props.theme.fonts_color.white};
-            background: ${props => props.theme.colors.main_color};
+            color: ${props => props.theme.colors.primary};
+            background: ${props => props.theme.colors.white};
             border-color: transparent;
             outline: none;
             border-radius: 10rem;
@@ -69,7 +67,8 @@ export const HeaderWrapper = styled.header`
             :hover {
                 cursor: pointer;
                 transition: 0.5s;
-                background: ${props => props.theme.colors.main_color};
+                color: ${props => props.theme.colors.white};
+                background: ${props => props.theme.colors.primary};
             }
         }
     }
