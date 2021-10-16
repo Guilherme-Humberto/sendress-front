@@ -42,6 +42,7 @@ export const TabTitle = styled.h1<{ tabActive?: boolean }>`
 export const MenuUserCenter = styled.div`
     padding: 4rem;
     height: 100%;
+    background: ${props => props.theme.colors.white};
 
     .infos-wrapper .user-name {
         font-size: 4rem;

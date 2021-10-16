@@ -1,137 +1,121 @@
 import React from 'react';
 import Image from 'next/image';
 import {AiOutlineClockCircle} from 'react-icons/ai';
-import {HiOutlineMailOpen, HiOutlineTemplate} from 'react-icons/hi';
+import {HiOutlineTemplate} from 'react-icons/hi';
+import {FiBarChart2} from 'react-icons/fi';
 import {
   HomeBlockTwoWrapper,
-  WrapperOne,
-  WrapperTwo,
+  CardWrapper,
   Card,
-  ImageWrapper,
+  IntroWrapper,
+  DashWrapper,
+  CardService,
 } from './HomeBlockTwoStyles';
 
 const HomeBlockTwo: React.FC = () => {
   return (
     <HomeBlockTwoWrapper>
-      <WrapperOne>
+      <h1>Aumente suas vendas</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, natus
+        doloribus? Laudantium quo vero nam!
+      </p>
+
+      <CardWrapper>
         <Card>
+          <div className="icon">
+            <FiBarChart2 />
+          </div>
           <div>
-            <h1>
-              <AiOutlineClockCircle />
-              Aumente sua produtividade
-            </h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eum
-              id amet blanditiis, quia atque.
-            </p>
+            <h1>Lorem ipsum dolor sit.</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
           </div>
         </Card>
         <Card>
+          <div className="icon">
+            <HiOutlineTemplate />
+          </div>
           <div>
-            <h1>
-              <HiOutlineMailOpen />
-              Aumente sua conversão
-            </h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eum
-              id amet blanditiis, quia atque.
-            </p>
+            <h1>Lorem ipsum dolor sit.</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
           </div>
         </Card>
         <Card>
+          <div className="icon">
+            <AiOutlineClockCircle />
+          </div>
           <div>
-            <h1>
-              <HiOutlineTemplate />
-              Opções de templates
-            </h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eum
-              id amet blanditiis, quia atque.
-            </p>
+            <h1>Lorem ipsum dolor sit.</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
           </div>
         </Card>
-      </WrapperOne>
-      <WrapperTwo>
+      </CardWrapper>
+      <IntroWrapper>
         <div>
-          <ImageWrapper>
-            <Image
-              src="/home/ilustration-lead.png"
-              alt="ilustration-lead"
-              layout="fill"
-              priority
-              objectFit="contain"
-            />
-          </ImageWrapper>
+          <h1>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis in
+            quas, consectetur illum id numquam corporis officia tempore
+            accusantium ea?
+          </h1>
+          <p>Lorem ipsum dolor sit amet.</p>
         </div>
         <div>
-          <h1>Cadastre seus leads</h1>
-          <p>
-            Entre com o as informações de seus leads. Cada detalhe poderá ser
-            importante para a criação de seus templates de cold e-mails.
-          </p>
-          <br />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti
-            quaerat voluptatibus iste adipisci culpa impedit veritatis? Est,
-            esse. Nulla blanditiis accusamus nesciunt facilis fugiat
-            consequatur, quam similique repellendus non ipsum?
-          </p>
+          <h1>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum,
+            autem.
+          </h1>
+          <p>Lorem ipsum dolor sit amet.</p>
         </div>
-      </WrapperTwo>
-      <WrapperTwo>
-        <div>
-          <h1>Organize seus envios</h1>
-          <p>
-            Entre com o as informações de seus leads. Cada detalhe poderá ser
-            importante para a criação de seus templates de cold e-mails.
-          </p>
-          <br />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti
-            quaerat voluptatibus iste adipisci culpa impedit veritatis? Est,
-            esse. Nulla blanditiis accusamus nesciunt facilis fugiat
-            consequatur, quam similique repellendus non ipsum?
-          </p>
-        </div>
-        <div>
-          <ImageWrapper>
-            <Image
-              src="/home/ilustration-list.png"
-              alt="ilustration-lead"
-              layout="fill"
-              priority
-              objectFit="contain"
-            />
-          </ImageWrapper>
-        </div>
-      </WrapperTwo>
-      <WrapperTwo>
-        <div>
-          <ImageWrapper>
-            <Image
-              src="/home/ilustration-camp.png"
-              alt="ilustration-lead"
-              layout="fill"
-              priority
-              objectFit="cover"
-            />
-          </ImageWrapper>
-        </div>
-        <div>
-          <h1>Cadastre suas campanhas</h1>
-          <p>
-            Entre com o as informações de seus leads. Cada detalhe poderá ser
-            importante para a criação de seus templates de cold e-mails.
-          </p>
-          <br />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti
-            quaerat voluptatibus iste adipisci culpa impedit veritatis? Est,
-            esse. Nulla blanditiis accusamus nesciunt facilis fugiat
-            consequatur, quam similique repellendus non ipsum?
-          </p>
-        </div>
-      </WrapperTwo>
+      </IntroWrapper>
+      <DashWrapper>
+        <CardService>
+          <div>
+            <h2>Cadastre seus leads</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Voluptatum, iure aut? At, aliquam debitis?
+            </p>
+          </div>
+          <Image
+            src="/home/img-lead.png"
+            width={700}
+            height={700}
+            quality={100}
+            alt="lead"
+          />
+        </CardService>
+        <CardService>
+          <Image
+            src="/home/img-list.png"
+            width={500}
+            height={500}
+            quality={100}
+            alt="lead"
+          />
+          <div>
+            <h2>Organize-se</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Voluptatum, iure aut? At, aliquam debitis?
+            </p>
+          </div>
+        </CardService>
+        <CardService>
+          <div>
+            <h2>Crie suas campanhas</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Voluptatum, iure aut? At, aliquam debitis?
+            </p>
+          </div>
+          <Image
+            src="/home/img-campaign.png"
+            width={700}
+            height={700}
+            alt="lead"
+          />
+        </CardService>
+      </DashWrapper>
     </HomeBlockTwoWrapper>
   );
 };

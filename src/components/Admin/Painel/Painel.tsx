@@ -64,10 +64,6 @@ const data = [
 const Painel: React.FC<PainelProps> = ({leads, segments, campaigns}) => {
   const {setRoute} = useContext(AdminContext);
 
-  // const leads = [];
-  // const segments = [];
-  // const campaigns = [{id: 1, title: 'Venda fria'}];
-
   return (
     <PainelWrapper>
       <ListCards>
@@ -117,7 +113,7 @@ const Painel: React.FC<PainelProps> = ({leads, segments, campaigns}) => {
               <h3>Minhas campanhas</h3>
               <ul>
                 {campaigns.slice(0, 5).map(campaign => (
-                  <li key={campaign.id}>{campaign.title}</li>
+                  <li key={campaign.id}>{campaign.name}</li>
                 ))}
               </ul>
             </>

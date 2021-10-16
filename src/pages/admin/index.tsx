@@ -24,7 +24,7 @@ const Admin: React.FC<AdminProps> = ({leads, segments, campaigns, senders}) => {
   const {route} = useContext(AdminContext);
 
   return (
-    <main>
+    <main style={{background: '#F0F1F8'}}>
       <Layout>
         <MenuLeft />
         <section style={{margin: '0 auto', width: '140rem'}}>

@@ -11,7 +11,7 @@ export const ListCards = styled.div`
     gap: 3rem;
 
     div {
-        background: ${props => props.theme.colors.secondary};
+        background: ${props => props.theme.colors.white};
         width: 35rem;
         height: 28rem;
         padding: 4rem 2rem;
@@ -79,7 +79,7 @@ export const ListCards = styled.div`
     }
 `
 export const ChartWrapper = styled.div`
-    background: ${props => props.theme.colors.secondary};
+    background: ${props => props.theme.colors.white};
     padding: 4rem 0rem;
     margin-top: 3rem;
     max-height: 35rem;

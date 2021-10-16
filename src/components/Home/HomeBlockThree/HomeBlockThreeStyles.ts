@@ -13,7 +13,7 @@ export const HomeBlockThreeWrapper = styled.section`
 
         h1 {
             font-size: 5rem;
-            color: ${props => props.theme.colors.main_color};
+            color: ${props => props.theme.colors.primary_dark};
         }
 
         p {
@@ -40,7 +40,7 @@ export const Card = styled.div<{ noColor: boolean }>`
     box-shadow: 0 20px 30px rgb(0, 0, 0, 0.09);
     color: ${props => props.theme.colors.font};
     background: #fff;
-    border: 2px solid ${props => !props.noColor ? '#645BDE' : '#fff'};
+    border: 2px solid ${props => !props.noColor ? props.theme.colors.primary_dark : '#fff'};
 
     .price {
         display: flex;
@@ -81,9 +81,9 @@ export const Card = styled.div<{ noColor: boolean }>`
         font-weight: 600;
         border: none;
         cursor: pointer;
-        color: ${props => props.noColor ? '#645BDE' : '#fff'};
-        background: ${props => !props.noColor ? '#645BDE' : '#fff'};
-        border: 2px solid ${props => props.noColor ? '#645BDE' : '#fff'};
+        color: ${props => props.noColor ? props.theme.colors.primary_dark  : '#fff'};
+        background: ${props => !props.noColor ? props.theme.colors.primary_dark  : '#fff'};
+        border: 2px solid ${props => props.noColor ? props.theme.colors.primary_dark  : '#fff'};
     }
 
     transition: 0.5s;

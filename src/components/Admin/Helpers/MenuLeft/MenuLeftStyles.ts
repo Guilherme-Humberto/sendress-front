@@ -5,13 +5,12 @@ export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
     width: ${props => props.changeMenu ? '10rem' : '30rem'};
     transition: 0.7s;
     min-height: 100vh;
-    background: ${props => props.theme.colors.primary};
-    border-right: 1px solid ${props => props.theme.colors.menu};
+    background: ${props => props.theme.colors.white};
 
     .logo-wrapper {
         padding: 1rem 2rem;
         color: ${props => props.theme.colors.white};
-        border-bottom: 1px solid ${props => props.theme.colors.menu};
+        background: ${props => props.theme.colors.primary};
 
         h1 {
             font-weight: 500;
@@ -53,7 +52,7 @@ export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
         margin: 0 2rem;
         font-size: 1.7rem;
         font-weight: 500;
-        color: ${props => props.theme.colors.white};
+        color: ${props => props.theme.colors.font};
         transition: 0.5s;
 
         ${props => props.changeMenu && css`
@@ -64,11 +63,11 @@ export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
     .change-menu-btn {
         position: absolute;
         bottom: 4rem;
-        left: 2.5rem;
+        right: -2.5rem;
         width: 5rem;
         height: 5rem;
         border-radius: 10rem;
-        background: ${props => props.theme.colors.font};
+        background: ${props => props.theme.colors.primary};
         border: none;
         outline: none;
         color: ${props => props.theme.colors.white};
@@ -83,8 +82,8 @@ export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
 
         :hover {
             transition: 0.5s;
-            color: ${props => props.theme.colors.font};
-            background: ${props => props.theme.colors.white};
+            color: ${props => props.theme.colors.white};
+            background: ${props => props.theme.colors.font};
         }
     }
 `;
@@ -94,7 +93,7 @@ export const LinkMenu = styled.a<{ active?: boolean, showLink?: boolean }>`
     align-items: center;
     gap: 1rem;
     padding: 1rem ${props => props.showLink ? '3rem' : '2rem'}; 
-    color: ${props => props.theme.colors.white};
+    color: ${props => props.theme.colors.font};
     transition: 0.5s;
     font-size: clamp(1rem, 2.5vw, 1.6rem); 
 
@@ -104,9 +103,9 @@ export const LinkMenu = styled.a<{ active?: boolean, showLink?: boolean }>`
 
     ${props => props.active && css`
         transition: 0.5s;
-        font-weight: 600;
-        color: #000;
-        border-left: 4px solid ${props => props.theme.colors.font};
+        font-weight: bold;
+        color: ${props => props.theme.colors.primary};
+        border-left: 4px solid ${props => props.theme.colors.primary};
     `};
 
     .link-intro-wrapper {
