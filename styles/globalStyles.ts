@@ -163,7 +163,8 @@ export const GlobalStyles = createGlobalStyle`
 
         span {
             padding: 1rem 2rem;
-            width: 14rem;
+            white-space: nowrap;
+            width: fit-content;
 
             :hover {
                 color: ${props => props.theme.colors.white};

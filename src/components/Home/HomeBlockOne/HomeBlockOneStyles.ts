@@ -10,11 +10,14 @@ export const HomeBlockOneWrapper = styled.section`
     align-items: center;
     justify-items: center;
     gap: 8rem;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
 
     height: 100vh;
     width: 100%;
     margin-bottom: 10rem;
+    background-size: cover;
+    background-attachment: fixed;
+    background-image: linear-gradient(rgb(0, 0, 0, 0.3), rgb(0, 0, 0, 0.3)), url("https://images.pexels.com/photos/3894383/pexels-photo-3894383.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
 
     div:first-child {
         padding-left: 7rem;
@@ -22,84 +25,56 @@ export const HomeBlockOneWrapper = styled.section`
 
     div:first-child form {
         display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        max-width: 50rem;
+        flex-direction: row;
+        justify-content: center;
+        margin: 2rem auto;
 
         input {
             padding: 1rem 2rem;
             border: none;
-            background: #fff;
-            font-size: 2rem;
+            background: ${props => props.theme.colors.white};
+            font-size: 1.6rem;
+            outline: none;
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
         }
-    }
 
-    .ilustration {
-        width: 100%;
-        height: 100%;
-        border-top-left-radius: 100%;
-        border-bottom-left-radius: 100%;
-        background: ${props => props.theme.colors.primary_light};
-        padding: 0 10rem;
-        animation: ${animateDiv} 5s ease-in-out infinite alternate;
+        button {
+            padding: 1rem 2rem;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            width: fit-content;
+            box-shadow: 0 10px 20px rgb(0, 0, 0, 0.1);
+            color: ${props => props.theme.colors.white};
+            background: ${props => props.theme.colors.primary};
+            font-size: 1.6rem;
+            font-weight: 600;
+            transition: 0.5s;
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        .social {
-            position: absolute;
-            right: 5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3rem;
-
-            svg {
-                font-size: 3rem;
-                color:  ${props => props.theme.colors.white};
+            :hover {
+                letter-spacing: 0.2rem;
+                transition: 0.5s;
+                cursor: pointer;
             }
         }
-
-        .photos-wrapper {
-            position: relative;
-            width: 60rem;
-            height: 60rem;
-        }
-
     }
 
     h1 {
-        font-size: 4.5rem;
-        background-clip: text;
-        background-image: linear-gradient(to left, #e07a5f, #ea5923);
-        -webkit-background-clip: text;
-        color: rgba(0,0,0,.2);
+        font-size: 5.5rem;
+        max-width: 90rem;
+        text-align: center;
+        color: ${props => props.theme.colors.white};
     }
 
     p.text-intro {
-        font-size: 2rem;
+        max-width: 80rem;
+        text-align: center;
+        font-weight: 300;
+        font-size: 2.2rem;
         margin: 2rem 0;
-    }
-
-    button {
-        padding: 1.5rem 5rem;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        width: fit-content;
-        box-shadow: 0 10px 20px rgb(0, 0, 0, 0.1);
         color: ${props => props.theme.colors.white};
-        background: ${props => props.theme.colors.primary};
-        font-size: 2rem;
-        font-weight: 600;
-        transition: 0.5s;
-        border-radius: 10rem;
-
-        :hover {
-            letter-spacing: 0.2rem;
-            transition: 0.5s;
-            cursor: pointer;
-        }
     }
 `;

@@ -1,14 +1,14 @@
-import React, {useState, useContext, useEffect} from 'react';
-import {FiSearch, FiUser} from 'react-icons/fi';
-import {RiNotificationLine, RiCloseFill} from 'react-icons/ri';
-import {AdminContext} from '../../../context/adminContext';
-import {HeaderWrapper} from './HeaderStyles';
+import React, { useState, useContext, useEffect } from 'react';
+import { FiSearch, FiUser } from 'react-icons/fi';
+import { RiNotificationLine, RiCloseFill } from 'react-icons/ri';
+import { AdminContext } from '../../../context/adminContext';
+import { HeaderWrapper } from './HeaderStyles';
 
 const HeaderAdmin: React.FC = () => {
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const [userMessage, setUserMessage] = useState('');
 
-  const {setRoute, user} = useContext(AdminContext);
+  const { setRoute, user } = useContext(AdminContext);
 
   useEffect(() => {
     const currentDate = Date.now();
@@ -41,10 +41,10 @@ const HeaderAdmin: React.FC = () => {
             <RiCloseFill onClick={() => setActiveSearch(state => !state)} />
           </form>
         )}
-        {!activeSearch && (
+        {/* {!activeSearch && (
           <FiSearch onClick={() => setActiveSearch(state => !state)} />
         )}
-        <RiNotificationLine />
+        <RiNotificationLine /> */}
         <FiUser onClick={() => setRoute('user')} />
       </div>
     </HeaderWrapper>

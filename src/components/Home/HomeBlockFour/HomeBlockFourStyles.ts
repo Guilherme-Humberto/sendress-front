@@ -5,7 +5,7 @@ export const HomeBlockFourWrapper = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #645BDE;
+    background: ${props => props.theme.colors.primary};
     padding: 4rem 0;
 
     div {

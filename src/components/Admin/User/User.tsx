@@ -1,17 +1,17 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import * as Yup from 'yup';
-import {useRouter} from 'next/router';
-import {destroyCookie} from 'nookies';
-import {BiUserCircle, BiLoaderAlt} from 'react-icons/bi';
-import {BsBookmarkCheck} from 'react-icons/bs';
-import {RiNotificationLine} from 'react-icons/ri';
-import {FiLogOut} from 'react-icons/fi';
-import {AdminContext} from '../../../context/adminContext';
+import { useRouter } from 'next/router';
+import { destroyCookie } from 'nookies';
+import { BiUserCircle, BiLoaderAlt } from 'react-icons/bi';
+import { BsBookmarkCheck } from 'react-icons/bs';
+import { RiNotificationLine } from 'react-icons/ri';
+import { FiLogOut } from 'react-icons/fi';
+import { AdminContext } from '../../../context/adminContext';
 import Input from '../Helpers/Input/Input';
-import {UserWrapper, MenuUserTab, TabTitle, MenuUserCenter} from './UserStyles';
-import {formatUnitAmount} from '../../Helpers/convertAmount';
-import {userEditValidation} from '../validations/user';
-import {getAPIClient} from '../../../services/api';
+import { UserWrapper, MenuUserTab, TabTitle, MenuUserCenter } from './UserStyles';
+import { formatUnitAmount } from '../../Helpers/convertAmount';
+import { userEditValidation } from '../validations/user';
+import { getAPIClient } from '../../../services/api';
 import ModalAlert from '../Helpers/Modals/ModalAlert/ModalAlert';
 
 interface Error {
@@ -22,7 +22,7 @@ interface Error {
 const User: React.FC = () => {
   const router = useRouter();
 
-  const {user, token, subscription, product, payment} =
+  const { user, token, subscription, product, payment } =
     useContext(AdminContext);
 
   const [tabActive, setTabActive] = useState('informations');
@@ -103,7 +103,7 @@ const User: React.FC = () => {
           'Content-Type': 'text/html',
         },
       })
-      .then(({data}) => {
+      .then(({ data }) => {
         setAlertBody('Abrindo portal de faturamento');
         setIsLoading(true);
 
@@ -137,11 +137,11 @@ const User: React.FC = () => {
             tabActive={tabActive === 'informations' ? true : false}>
             <BiUserCircle /> Dados pessoais
           </TabTitle>
-          <TabTitle
+          {/* <TabTitle
             onClick={() => handleChangeTab('notifications')}
             tabActive={tabActive === 'notifications' ? true : false}>
             <RiNotificationLine /> Notificações
-          </TabTitle>
+          </TabTitle> */}
           <TabTitle
             onClick={() => handleChangeTab('subscription')}
             tabActive={tabActive === 'subscription' ? true : false}>
@@ -155,7 +155,7 @@ const User: React.FC = () => {
           {tabActive === 'informations' && (
             <div className="infos-wrapper">
               <h1 className="user-name">Olá {user.name}</h1>
-              <p>Seja bem vindo ao seu perfil de usuário</p>
+              <p>Seja bem vindo ao seu perfil. <br /> Gerencie suas informações e sua assinatura a qualquer momento.</p>
 
               <form onSubmit={handleUpdateUser}>
                 <Input
@@ -178,7 +178,7 @@ const User: React.FC = () => {
                   label="CPF"
                   placeholder="Seu E-mail"
                   value={user.document}
-                  setState={() => {}}
+                  setState={() => { }}
                   mask=""
                   error=""
                   disabled
@@ -188,7 +188,7 @@ const User: React.FC = () => {
                     label="Endereço"
                     placeholder="Seu E-mail"
                     value={'Rua xxx - 4'}
-                    setState={() => {}}
+                    setState={() => { }}
                     mask=""
                     error=""
                   />
@@ -196,7 +196,7 @@ const User: React.FC = () => {
                     label="Cep"
                     placeholder="Seu E-mail"
                     value={'04923140'}
-                    setState={() => {}}
+                    setState={() => { }}
                     mask=""
                     error=""
                   />
@@ -262,10 +262,10 @@ const User: React.FC = () => {
       )}
       {isLoading && (
         <ModalAlert>
-          <h3 style={{display: 'flex', alignItems: 'center'}}>
+          <h3 style={{ display: 'flex', alignItems: 'center' }}>
             {alertBody}
             <BiLoaderAlt
-              style={{marginLeft: '1rem'}}
+              style={{ marginLeft: '1rem' }}
               className="loading-icon"
             />
           </h3>

@@ -33,33 +33,15 @@ const HomeBlockOne: React.FC = () => {
   return (
     <HomeBlockOneWrapper>
       <div>
-        <p>Criado por ProdBase</p>
-        <h1>Aumente sua conversão com envios automatizados de cold e-mails</h1>
+        <h1>Aumente sua conversão com envio de emails em massa e campanhas de cold-emails</h1>
         <p className="text-intro">
-          Diminua drasticamente o tempo de prospecção e aumente sua taxa de
-          conversão com envios agendados, e-mails personalizados e métricas de
-          sucesso
+          Diminua o tempo de prospecção e aumente sua taxa de
+          conversão com envio de emails personalizados e campanhas de cold-emails.
         </p>
         <form action="">
           <input type="text" placeholder="Informe seu e-mail" />
           <button>Quero experimentar</button>
         </form>
-      </div>
-      <div className="ilustration">
-        <div className="photos-wrapper">
-          <Image
-            src="/home/animation.svg"
-            layout="fill"
-            objectFit="cover"
-            className="img"
-            alt="photo"
-          />
-        </div>
-        <div className="social">
-          <AiOutlineInstagram />
-          <AiFillGithub />
-          <AiOutlineLinkedin />
-        </div>
       </div>
     </HomeBlockOneWrapper>
   );

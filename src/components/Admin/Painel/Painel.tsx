@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useRef} from 'react';
-import {BsArrowRight} from 'react-icons/bs';
-import {AdminContext} from '../../../context/adminContext';
+import React, { useContext, useEffect, useRef } from 'react';
+import { BsArrowRight } from 'react-icons/bs';
+import { AdminContext } from '../../../context/adminContext';
 import {
   CartesianGrid,
   Line,
@@ -9,7 +9,7 @@ import {
   YAxis,
   ResponsiveContainer,
 } from 'recharts';
-import {PainelWrapper, ListCards, ChartWrapper} from './PainelStyles';
+import { PainelWrapper, ListCards, ChartWrapper } from './PainelStyles';
 
 interface PainelProps {
   leads: any[];
@@ -61,8 +61,8 @@ const data = [
     amt: 2100,
   },
 ];
-const Painel: React.FC<PainelProps> = ({leads, segments, campaigns}) => {
-  const {setRoute} = useContext(AdminContext);
+const Painel: React.FC<PainelProps> = ({ leads, segments, campaigns }) => {
+  const { setRoute } = useContext(AdminContext);
 
   return (
     <PainelWrapper>
@@ -70,7 +70,7 @@ const Painel: React.FC<PainelProps> = ({leads, segments, campaigns}) => {
         <div onClick={() => setRoute('leads')}>
           {leads?.length >= 1 ? (
             <>
-              <h3>Últimos leads cadastrados</h3>
+              <h3>Meus contatos</h3>
               <ul>
                 {leads.slice(0, 5).map(lead => (
                   <li key={lead.id}>{lead.email}</li>
@@ -128,8 +128,8 @@ const Painel: React.FC<PainelProps> = ({leads, segments, campaigns}) => {
           )}
         </div>
         <div>
-          <h3>Novos templates</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id.</p>
+          <h3>Templates</h3>
+          <p>Veja os templates disponíveis para usar em suas campanhas.</p>
           <button>Opções de template</button>
         </div>
       </ListCards>

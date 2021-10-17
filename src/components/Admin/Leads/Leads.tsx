@@ -1,21 +1,21 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import * as Yup from 'yup';
 import axios from 'axios';
-import {FiMenu} from 'react-icons/fi';
-import {BsChevronDown, BsPlus, BsArrowRight} from 'react-icons/bs';
-import {RiCloseFill} from 'react-icons/ri';
-import {LeadsWrapper, LeadForm} from './LeadsStyles';
+import { FiMenu } from 'react-icons/fi';
+import { BsChevronDown, BsPlus, BsArrowRight } from 'react-icons/bs';
+import { RiCloseFill } from 'react-icons/ri';
+import { LeadsWrapper, LeadForm } from './LeadsStyles';
 import Table from '../Helpers/Table/Table';
 import Modal from '../Helpers/Modals/Modal/Modal';
 import ModalAlert from '../Helpers/Modals/ModalAlert/ModalAlert';
 import Input from '../Helpers/Input/Input';
-import {leadEditValidation, leadValidation} from '../validations/leads';
-import {getAPIClient} from '../../../services/api';
+import { leadEditValidation, leadValidation } from '../validations/leads';
+import { getAPIClient } from '../../../services/api';
 import useFetcher from '../../hooks/useSwr';
-import {useRouter} from 'next/router';
-import {AdminContext} from '../../../context/adminContext';
+import { useRouter } from 'next/router';
+import { AdminContext } from '../../../context/adminContext';
 import ModalConfirm from '../Helpers/Modals/ModalConfirm/ModalConfirm';
-import {refreshData} from '../utils/refreshData';
+import { refreshData } from '../utils/refreshData';
 
 interface LeadsProps {
   id?: number;
@@ -39,7 +39,7 @@ interface Props {
   segments: any[];
 }
 
-const Leads: React.FC<Props> = ({segments}) => {
+const Leads: React.FC<Props> = ({ segments }) => {
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,9 +65,9 @@ const Leads: React.FC<Props> = ({segments}) => {
 
   const [error, setError] = useState<Error>({} as Error);
 
-  const {token, user, setRoute} = useContext(AdminContext);
+  const { token, user, setRoute } = useContext(AdminContext);
 
-  const {data: leads} = useFetcher('/lead/listAll', {
+  const { data: leads } = useFetcher('/lead/listAll', {
     user: user.id,
     token,
   });
@@ -319,7 +319,7 @@ const Leads: React.FC<Props> = ({segments}) => {
 
     getAPIClient()
       .delete(`/lead/deleteMany`, {
-        data: {leads},
+        data: { leads },
         headers: {
           userid: user.id,
           Authorization: `Bearer ${token}`,
@@ -366,7 +366,7 @@ const Leads: React.FC<Props> = ({segments}) => {
 
   useEffect(() => {
     const findLeads = leads?.filter(
-      ({name, email}: {name: string; email: string}) =>
+      ({ name, email }: { name: string; email: string }) =>
         email.toLocaleLowerCase().includes(search) ||
         name.toLocaleLowerCase().includes(search),
     );
@@ -390,8 +390,8 @@ const Leads: React.FC<Props> = ({segments}) => {
       <LeadsWrapper>
         <div className="content-top">
           <div>
-            <h1>Meus leads</h1>
-            <p>Acompanhe e gerencie seus leads cadastrados</p>
+            <h1>Meus contatos</h1>
+            <p>Acompanhe e gerencie seus contatos cadastrados</p>
           </div>
           <div className="filters-wrapper">
             <input
@@ -445,9 +445,8 @@ const Leads: React.FC<Props> = ({segments}) => {
                         lead.status as string,
                       )
                     }
-                    className={`widgetLgStatus ${
-                      lead.status === 'ACTIVE' ? 'active' : 'disabled'
-                    }`}>
+                    className={`widgetLgStatus ${lead.status === 'ACTIVE' ? 'active' : 'disabled'
+                      }`}>
                     {lead.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
                   </td>
                   <td className="widgetLgMenu">
@@ -472,7 +471,7 @@ const Leads: React.FC<Props> = ({segments}) => {
         ) : (
           <div className="without-leads-msg">
             <h1>Você ainda não possuí nenhum lead cadastrado</h1>
-            <div style={{display: 'flex', alignItems: 'center', gap: 9}}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
               <strong onClick={() => setActiveModalCreate(true)}>
                 Cadastrar lead
               </strong>
@@ -521,11 +520,11 @@ const Leads: React.FC<Props> = ({segments}) => {
             },
             animate: {
               opacity: 1,
-              transition: {type: 'spring'},
+              transition: { type: 'spring' },
             },
             exit: {
               opacity: 0,
-              transition: {duration: 0.6},
+              transition: { duration: 0.6 },
             },
           }}>
           <LeadForm create>
@@ -672,11 +671,11 @@ const Leads: React.FC<Props> = ({segments}) => {
             },
             animate: {
               opacity: 1,
-              transition: {type: 'spring'},
+              transition: { type: 'spring' },
             },
             exit: {
               opacity: 0,
-              transition: {duration: 0.6},
+              transition: { duration: 0.6 },
             },
           }}>
           <LeadForm import>
@@ -705,11 +704,10 @@ const Leads: React.FC<Props> = ({segments}) => {
                 <label className="lead-file-wrapper">
                   {fileLead[0] !== undefined
                     ? (fileLead[0].name as string)
-                    : `Clique aqui para importar ${
-                        service === 'send-email'
-                          ? 'a lista de emails'
-                          : 'seus leads'
-                      }`}
+                    : `Clique aqui para importar ${service === 'send-email'
+                      ? 'a lista de emails'
+                      : 'seus leads'
+                    }`}
                   <input
                     type="file"
                     onChange={e =>
@@ -738,11 +736,11 @@ const Leads: React.FC<Props> = ({segments}) => {
             },
             animate: {
               opacity: 1,
-              transition: {type: 'spring'},
+              transition: { type: 'spring' },
             },
             exit: {
               opacity: 0,
-              transition: {duration: 0.6},
+              transition: { duration: 0.6 },
             },
           }}>
           <LeadForm edit>
