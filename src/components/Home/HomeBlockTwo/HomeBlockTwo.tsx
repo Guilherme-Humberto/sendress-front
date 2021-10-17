@@ -1,8 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
-import {AiOutlineClockCircle} from 'react-icons/ai';
-import {HiOutlineTemplate} from 'react-icons/hi';
-import {FiBarChart2} from 'react-icons/fi';
+import { AiOutlineClockCircle } from 'react-icons/ai';
+import { HiOutlineTemplate } from 'react-icons/hi';
+import {
+  FiBarChart2,
+  FiUsers,
+  FiMenu,
+  FiTrendingUp,
+  FiMessageSquare,
+  FiMap,
+} from 'react-icons/fi';
 import {
   HomeBlockTwoWrapper,
   CardWrapper,
@@ -10,16 +17,14 @@ import {
   IntroWrapper,
   DashWrapper,
   CardService,
+  ServicesWrapper,
+  ServicesTopics
 } from './HomeBlockTwoStyles';
 
 const HomeBlockTwo: React.FC = () => {
   return (
     <HomeBlockTwoWrapper>
-      <h1>Aumente suas vendas</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, natus
-        doloribus? Laudantium quo vero nam!
-      </p>
+      <p>Chegou a hora de conquistar ainda mais clientes. Automatize o envio das suas campanhas de email marketing e envie emails em massa para o mundo todo!!</p>
 
       <CardWrapper>
         <Card>
@@ -27,8 +32,8 @@ const HomeBlockTwo: React.FC = () => {
             <FiBarChart2 />
           </div>
           <div>
-            <h1>Lorem ipsum dolor sit.</h1>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+            <h1>Métricas de sucesso</h1>
+            <p>Acompanhe o engajamento de suas campanhas e acelere suas vendas.</p>
           </div>
         </Card>
         <Card>
@@ -36,8 +41,8 @@ const HomeBlockTwo: React.FC = () => {
             <HiOutlineTemplate />
           </div>
           <div>
-            <h1>Lorem ipsum dolor sit.</h1>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+            <h1>Templates prontos</h1>
+            <p>Conte com diversas opções de templates de email prontos para usar em suas campanhas.</p>
           </div>
         </Card>
         <Card>
@@ -45,77 +50,87 @@ const HomeBlockTwo: React.FC = () => {
             <AiOutlineClockCircle />
           </div>
           <div>
-            <h1>Lorem ipsum dolor sit.</h1>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+            <h1>Automatize</h1>
+            <p>Agende seus envios e aproveite o tempo nas estratégias de crescimento do seu negócio.</p>
           </div>
         </Card>
       </CardWrapper>
       <IntroWrapper>
         <div>
-          <h1>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis in
-            quas, consectetur illum id numquam corporis officia tempore
-            accusantium ea?
-          </h1>
-          <p>Lorem ipsum dolor sit amet.</p>
+          <h1><FiUsers /> Cadastre seus leads</h1>
+          <p>Preencha as informações dos seus leads. Cada detalhe poderá ser importante para a criação das suas campanhas de cold e-mails.</p>
         </div>
         <div>
-          <h1>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum,
-            autem.
-          </h1>
-          <p>Lorem ipsum dolor sit amet.</p>
+          <h1><FiMenu /> Organize-se</h1>
+          <p>Tanto para envio de emails em massa e campanhas de cold-emails. Organizar seus contatos em listas é uma boa forma de se manter organizado.</p>
+        </div>
+        <div>
+          <h1><FiMessageSquare /> Crie suas campanhas</h1>
+          <p>Crie e edite suas campanhas do seu jeito ou utilize as diversas opções de template com apenas um clique</p>
+        </div>
+        <div>
+          <h1><FiMap /> Sem fronteiras</h1>
+          <p>Não existem para suas campanhas. Envie emails para qualquer lugar do mundo.</p>
         </div>
       </IntroWrapper>
       <DashWrapper>
-        <CardService>
-          <div>
-            <h2>Cadastre seus leads</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatum, iure aut? At, aliquam debitis?
-            </p>
-          </div>
+        <div>
+          <h1>Dashboard fácil de interagir</h1>
+          <p>Aproveite todos os nossos serviços, gerencie informações pessoais e planos de assinatura facilmente.</p>
+        </div>
+        <div>
           <Image
-            src="/home/img-lead.png"
-            width={700}
-            height={700}
+            src="/home/dash-image.png"
+            layout="fill"
+            alt="depoiment image"
             quality={100}
-            alt="lead"
+            priority
           />
-        </CardService>
-        <CardService>
-          <Image
-            src="/home/img-list.png"
-            width={500}
-            height={500}
-            quality={100}
-            alt="lead"
-          />
-          <div>
-            <h2>Organize-se</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatum, iure aut? At, aliquam debitis?
-            </p>
-          </div>
-        </CardService>
-        <CardService>
-          <div>
-            <h2>Crie suas campanhas</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatum, iure aut? At, aliquam debitis?
-            </p>
-          </div>
-          <Image
-            src="/home/img-campaign.png"
-            width={700}
-            height={700}
-            alt="lead"
-          />
-        </CardService>
+        </div>
       </DashWrapper>
+      <ServicesWrapper>
+        <ServicesTopics>
+          <div>
+            <p>Gostei muito da ferramenta, atende perfeitamente minhas necessidades.</p>
+
+            <div className="perfil">
+              <Image
+                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                height={50}
+                width={50}
+                alt="depoiment image"
+              />
+              <strong>Guilherme Humberto</strong>
+            </div>
+          </div>
+          <div>
+            <p>Adorei a simplicidade da plataforma e a proposta. Estão realmente de parabéns.</p>
+
+            <div className="perfil">
+              <Image
+                src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                height={50}
+                width={50}
+                alt="depoiment image"
+              />
+              <strong>Guilherme Humberto</strong>
+            </div>
+          </div>
+          <div>
+            <p>Não conhecia a ferramente, fiquei muito satisfeito com o serviço. Meus parabéns.</p>
+
+            <div className="perfil">
+              <Image
+                src="https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                height={50}
+                width={50}
+                alt="depoiment image"
+              />
+              <strong>Guilherme Humberto</strong>
+            </div>
+          </div>
+        </ServicesTopics>
+      </ServicesWrapper>
     </HomeBlockTwoWrapper>
   );
 };

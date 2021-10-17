@@ -40,7 +40,7 @@ export const ModalRegisterWrapper = styled(motion.div)`
             border: none;
             outline: none;
             color: ${props => props.theme.fonts_color.white};
-            background: ${props => props.theme.colors.main_color};
+            background: ${props => props.theme.colors.primary_light};
             transition: 0.5s;
 
             :hover {

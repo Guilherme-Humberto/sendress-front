@@ -15,7 +15,7 @@ export const InputWrapper = styled.div`
         border-radius: 10rem;
         
         :focus {
-            border: 2px solid ${props => props.theme.colors.main_color};
+            border: 2px solid ${props => props.theme.colors.primary_light};
         }
     }
 `;

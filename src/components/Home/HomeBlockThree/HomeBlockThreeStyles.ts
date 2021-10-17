@@ -81,9 +81,9 @@ export const Card = styled.div<{ noColor: boolean }>`
         font-weight: 600;
         border: none;
         cursor: pointer;
-        color: ${props => props.noColor ? props.theme.colors.primary_dark  : '#fff'};
-        background: ${props => !props.noColor ? props.theme.colors.primary_dark  : '#fff'};
-        border: 2px solid ${props => props.noColor ? props.theme.colors.primary_dark  : '#fff'};
+        color: ${props => props.noColor ? props.theme.colors.primary_dark : '#fff'};
+        background: ${props => !props.noColor ? props.theme.colors.primary_dark : '#fff'};
+        border: 2px solid ${props => props.noColor ? props.theme.colors.primary_dark : '#fff'};
     }
 
     transition: 0.5s;

@@ -1,6 +1,6 @@
-import {GetStaticProps} from 'next';
+import { GetStaticProps } from 'next';
 import React from 'react';
-import {Stripe} from 'stripe';
+import { Stripe } from 'stripe';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import HomeBlockFour from '../components/Home/HomeBlockFour/HomeBlockFour';
@@ -18,7 +18,7 @@ interface Props {
   ];
 }
 
-const Home: React.FC<Props> = ({products}: Props) => {
+const Home: React.FC<Props> = ({ products }: Props) => {
   return (
     <>
       <Header />
@@ -31,7 +31,7 @@ const Home: React.FC<Props> = ({products}: Props) => {
         />
         <HomeBlockOne />
         <HomeBlockTwo />
-        <HomeBlockThree products={products} />
+        {/* <HomeBlockThree products={products} /> */}
       </main>
       <Footer />
     </>
@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const getProducts = getPrices.data.map(async price => {
     const product = await stripeClient.products.retrieve(String(price.product));
-    return {product, price};
+    return { product, price };
   });
 
   const formatResponse = await Promise.all(getProducts);

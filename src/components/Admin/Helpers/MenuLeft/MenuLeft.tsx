@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import {
   FiHome,
   FiUsers,
@@ -14,13 +14,13 @@ import {
   HiChevronDoubleLeft,
   HiChevronDoubleRight,
 } from 'react-icons/hi';
-import {BsGrid, BsListNested} from 'react-icons/bs';
+import { BsGrid, BsListNested } from 'react-icons/bs';
 
-import {MenuLeftWrapper, LinkMenu} from './MenuLeftStyles';
-import {AdminContext} from '../../../../context/adminContext';
+import { MenuLeftWrapper, LinkMenu } from './MenuLeftStyles';
+import { AdminContext } from '../../../../context/adminContext';
 
 const MenuLeft: React.FC = () => {
-  const {route, setRoute} = useContext(AdminContext);
+  const { route, setRoute } = useContext(AdminContext);
   const [changeMenu, setChangeMenu] = useState(false);
 
   const changeRoutes = (route: string) => setRoute(route);
@@ -29,10 +29,10 @@ const MenuLeft: React.FC = () => {
     <MenuLeftWrapper changeMenu={changeMenu}>
       <div className="logo-wrapper">
         {changeMenu ? (
-          <h1>SW</h1>
+          <h1>SD</h1>
         ) : (
           <h1>
-            Sendway <small>By Prodbase</small>
+            Sendrop <small>By Prodbase</small>
           </h1>
         )}
       </div>
@@ -97,8 +97,8 @@ const MenuLeft: React.FC = () => {
         <LinkMenu
           showLink={changeMenu}
           href="#"
-          active={route === 'automation'}
-          onClick={() => changeRoutes('automation')}>
+          active={route === 'schedule'}
+          onClick={() => changeRoutes('schedule')}>
           <FiClock />
           <p className="link-title">Programar envios</p>
           <div className="link-intro-wrapper">Automatize seus envios.</div>

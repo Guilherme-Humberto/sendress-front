@@ -6,16 +6,11 @@ export const HomeBlockTwoWrapper = styled.section`
     align-items: center;
     justify-content: center;
     height: 100%;
-    margin: 20rem auto;
-
-    & > h1 {
-        font-size: 4rem;
-        color: ${props => props.theme.colors.primary_dark};
-    }
+    margin: 10rem auto;
 
     & > p {
         font-size: 2rem;
-        max-width: 60rem;
+        max-width: 80rem;
         text-align: center;
     }
 `;
@@ -42,11 +37,12 @@ export const Card = styled.div`
     box-shadow: 0 10px 20px rgba(63, 63, 63, 0.02);
     transition: 0.5s;
     border: 3px solid ${props => props.theme.colors.white};
+    color: ${props => props.theme.colors.primary};
 
     :hover {
-        transition: 0.5s;
-        transform: translateY(-1rem);
-        border-color: ${props => props.theme.colors.primary_dark};
+        transition: 0.5s ease-in-out;
+        transform: scale(1.04);
+        border-color: ${props => props.theme.colors.orange};
     }
 
     .icon {
@@ -57,7 +53,7 @@ export const Card = styled.div`
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 10rem;
-        background: ${props => props.theme.colors.primary_dark};
+        background: ${props => props.theme.colors.primary};
         color: ${props => props.theme.colors.white};
         display: flex;
         align-items: center;
@@ -70,7 +66,7 @@ export const Card = styled.div`
 `
 
 export const IntroWrapper = styled.div`
-    background: linear-gradient(90.02deg, #E07A5F 8.62%, #F09F5A 92.77%);
+    background: ${props => props.theme.colors.primary};
     display: grid;
     gap: 7rem;
     grid-template-columns: repeat(2, 1fr);
@@ -83,10 +79,58 @@ export const IntroWrapper = styled.div`
 
     div {
         color: ${props => props.theme.colors.white};
+        max-width: 70rem;
+        margin: 0 auto;
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+
+            svg {
+                margin-right: 2rem;
+            }
+        }
+
+        p {
+            font-size: 2rem;
+        }
     }
 `
 
-export const DashWrapper = styled.div``
+export const DashWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10rem 0;
+    border-bottom: 5px dashed #ddd;
+
+    & > div:first-child {
+        text-align: center;
+        h1 {
+            font-size: 4rem;
+            color: ${props => props.theme.colors.primary};
+        }
+
+        p {
+            font-size: 2rem;
+            max-width: 70rem;
+            color: #777;
+        }
+    }
+
+    & > div:last-child {
+        position: relative;
+        width: 140rem;
+        height: 90rem;
+        margin-top: 8rem;
+
+        img {
+            object-fit: contain;
+        }
+    }
+`
 
 export const CardService = styled.div`
     display: grid;
@@ -113,5 +157,41 @@ export const CardService = styled.div`
 
     img {
         object-fit: contain;
+    }
+`
+
+export const ServicesWrapper = styled.div`
+    margin-top: 10rem;
+    width: 100%;
+    max-width: 140rem;
+`
+export const ServicesTopics = styled.div`
+    display: grid;
+    gap: 4rem;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+
+    & > div {
+        padding: 4rem;
+        border-radius: 2rem;
+        background: ${props => props.theme.colors.white};
+        max-width: 45rem;
+
+        .perfil {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+
+            img {
+                object-fit: cover;
+                border-radius: 100%;
+            }
+
+            strong {
+                font-weight: 500;
+            }
+        }
+
     }
 `
