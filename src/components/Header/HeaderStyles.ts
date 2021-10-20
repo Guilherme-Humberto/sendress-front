@@ -35,6 +35,12 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
                 color: ${props => props.theme.colors.white};
             }
         }
+
+        @media (max-width: 700px) {
+            .links-list {
+                display: none;
+            }
+        }
     }
 
     div:last-child {
