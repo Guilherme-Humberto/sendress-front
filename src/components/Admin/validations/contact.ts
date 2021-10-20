@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const leadValidation = yup.object().shape({
+export const contactValidation = yup.object().shape({
     name: yup.string(),
     phone: yup.string(),
     business: yup.string(),
@@ -8,7 +8,7 @@ export const leadValidation = yup.object().shape({
     segmentId: yup.string()
 })
 
-export const leadEditValidation = yup.object().shape({
+export const contactEditValidation = yup.object().shape({
     name: yup.string(),
     phone: yup.string(),
     business: yup.string(),

@@ -16,12 +16,14 @@ import {
   Card,
   IntroWrapper,
   DashWrapper,
-  CardService,
   ServicesWrapper,
   ServicesTopics
 } from './HomeBlockTwoStyles';
+import { useMediaQuery } from 'components/hooks/useMediaQuery';
 
 const HomeBlockTwo: React.FC = () => {
+
+  const mobile = useMediaQuery('(max-width: 550px)')
   return (
     <HomeBlockTwoWrapper>
       <p>Chegou a hora de conquistar ainda mais clientes. Automatize o envio das suas campanhas de email marketing e envie emails em massa para o mundo todo!!</p>
@@ -55,10 +57,10 @@ const HomeBlockTwo: React.FC = () => {
           </div>
         </Card>
       </CardWrapper>
-      <IntroWrapper>
+      <IntroWrapper id="services">
         <div>
-          <h1><FiUsers /> Cadastre seus leads</h1>
-          <p>Preencha as informações dos seus leads. Cada detalhe poderá ser importante para a criação das suas campanhas de cold e-mails.</p>
+          <h1><FiUsers /> Cadastre seus contatos</h1>
+          <p>Preencha as informações dos seus contatos. Cada detalhe poderá ser importante para a criação das suas campanhas de cold e-mails.</p>
         </div>
         <div>
           <h1><FiMenu /> Organize-se</h1>
@@ -68,25 +70,34 @@ const HomeBlockTwo: React.FC = () => {
           <h1><FiMessageSquare /> Crie suas campanhas</h1>
           <p>Crie e edite suas campanhas do seu jeito ou utilize as diversas opções de template com apenas um clique</p>
         </div>
-        <div>
+        {/* <div>
           <h1><FiMap /> Sem fronteiras</h1>
-          <p>Não existem para suas campanhas. Envie emails para qualquer lugar do mundo.</p>
-        </div>
+          <p>Não existem para suas campanhas. Envie emails para qualquer lugar do mundo em grande escala.</p>
+        </div> */}
       </IntroWrapper>
       <DashWrapper>
         <div>
           <h1>Dashboard fácil de interagir</h1>
           <p>Aproveite todos os nossos serviços, gerencie informações pessoais e planos de assinatura facilmente.</p>
         </div>
-        <div>
-          <Image
-            src="/home/dash-image.png"
-            layout="fill"
-            alt="depoiment image"
-            quality={100}
-            priority
-          />
-        </div>
+        {!mobile ? (
+          <div>
+            <Image
+              src="/home/dash-image.png"
+              layout="fill"
+              alt="depoiment image"
+              quality={100}
+              priority
+            />
+          </div>
+        ) : (
+          <ul>
+            <li>Gerencie seus contatos</li>
+            <li>Gerencie suas listas de contatos</li>
+            <li>Gerencie e envie suas campanhas</li>
+            <li>Automatize o envio dos seus emails</li>
+          </ul>
+        )}
       </DashWrapper>
       <ServicesWrapper>
         <ServicesTopics>
@@ -95,12 +106,12 @@ const HomeBlockTwo: React.FC = () => {
 
             <div className="perfil">
               <Image
-                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                 height={50}
                 width={50}
                 alt="depoiment image"
               />
-              <strong>Guilherme Humberto</strong>
+              <strong>Guilherme Abreu</strong>
             </div>
           </div>
           <div>
@@ -113,7 +124,7 @@ const HomeBlockTwo: React.FC = () => {
                 width={50}
                 alt="depoiment image"
               />
-              <strong>Guilherme Humberto</strong>
+              <strong>Amanda Ribeiro</strong>
             </div>
           </div>
           <div>
@@ -126,7 +137,7 @@ const HomeBlockTwo: React.FC = () => {
                 width={50}
                 alt="depoiment image"
               />
-              <strong>Guilherme Humberto</strong>
+              <strong>Rafaela Silva</strong>
             </div>
           </div>
         </ServicesTopics>

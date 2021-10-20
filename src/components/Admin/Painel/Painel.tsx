@@ -12,7 +12,7 @@ import {
 import { PainelWrapper, ListCards, ChartWrapper } from './PainelStyles';
 
 interface PainelProps {
-  leads: any[];
+  contacts: any[];
   segments: any[];
   campaigns: any[];
 }
@@ -61,28 +61,28 @@ const data = [
     amt: 2100,
   },
 ];
-const Painel: React.FC<PainelProps> = ({ leads, segments, campaigns }) => {
+const Painel: React.FC<PainelProps> = ({ contacts, segments, campaigns }) => {
   const { setRoute } = useContext(AdminContext);
 
   return (
     <PainelWrapper>
       <ListCards>
-        <div onClick={() => setRoute('leads')}>
-          {leads?.length >= 1 ? (
+        <div onClick={() => setRoute('contacts')}>
+          {contacts?.length >= 1 ? (
             <>
               <h3>Meus contatos</h3>
               <ul>
-                {leads.slice(0, 5).map(lead => (
-                  <li key={lead.id}>{lead.email}</li>
+                {contacts.slice(0, 5).map(contact => (
+                  <li key={contact.id}>{contact.email}</li>
                 ))}
               </ul>
             </>
           ) : (
             <>
-              <h3>Nenhum lead cadastrado</h3>
-              <small>Comece cadastrando seus leads</small>
+              <h3>Nenhum contato cadastrado</h3>
+              <small>Comece cadastrando seus contatos</small>
               <button className="btn-add">
-                Cadastrar lead <BsArrowRight />
+                Cadastrar contact <BsArrowRight />
               </button>
             </>
           )}

@@ -20,7 +20,7 @@ export const HomeBlockOneWrapper = styled.section`
     background-image: linear-gradient(rgb(0, 0, 0, 0.3), rgb(0, 0, 0, 0.3)), url("https://images.pexels.com/photos/3894383/pexels-photo-3894383.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
 
     div:first-child {
-        padding-left: 7rem;
+        padding: 0rem 2rem;
     }
 
     div:first-child form {
@@ -60,10 +60,24 @@ export const HomeBlockOneWrapper = styled.section`
                 cursor: pointer;
             }
         }
+
+        @media (max-width: 700px) {
+            flex-direction: column;
+
+            button {
+                width: 100%;
+                margin-top: 1.4rem;
+                border-radius: 0.5rem;
+            }
+
+            input {
+                border-radius: 0.5rem;
+            }
+        }
     }
 
     h1 {
-        font-size: 5.5rem;
+        font-size: clamp(3.1rem, 5vw, 5.5rem);
         max-width: 90rem;
         text-align: center;
         color: ${props => props.theme.colors.white};
@@ -73,8 +87,14 @@ export const HomeBlockOneWrapper = styled.section`
         max-width: 80rem;
         text-align: center;
         font-weight: 300;
-        font-size: 2.2rem;
+        font-size: clamp(0.4rem, 4vw, 2.2rem);
         margin: 2rem 0;
+        color: ${props => props.theme.colors.white};
+    }
+
+    .message-text {
+        display: flex;
+        justify-content: center;
         color: ${props => props.theme.colors.white};
     }
 `;

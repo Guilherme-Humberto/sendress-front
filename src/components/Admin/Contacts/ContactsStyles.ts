@@ -1,16 +1,16 @@
 import styled, { css } from 'styled-components';
 
-interface LeadFormProps {
+interface ContactFormProps {
     create?: boolean
     import?: boolean
     edit?: boolean
 }
 
-export const LeadsWrapper = styled.section`
+export const ContactsWrapper = styled.section`
     width: 100%;
 `;
 
-export const LeadForm = styled.div<LeadFormProps>`
+export const ContactForm = styled.div<ContactFormProps>`
     .services-checkbox {
         display: flex;
         align-items: center;

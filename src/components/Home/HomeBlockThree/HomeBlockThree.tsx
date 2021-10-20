@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Stripe} from 'stripe';
+import React, { useEffect, useState } from 'react';
+import { Stripe } from 'stripe';
 import axios from 'axios';
 import {
   HomeBlockThreeWrapper,
@@ -8,8 +8,8 @@ import {
 } from './HomeBlockThreeStyles';
 import ModalRegister from '../../Helpers/ModalRegister/ModalRegister';
 import ModalLogin from '../../Helpers/ModalLogin/ModalLogin';
-import {PlanProps} from '../../interfaces/IPlan';
-import {formatUnitAmount} from '../../Helpers/convertAmount';
+import { PlanProps } from '../../interfaces/IPlan';
+import { formatUnitAmount } from '../../Helpers/convertAmount';
 
 interface Props {
   products: [
@@ -20,13 +20,13 @@ interface Props {
   ];
 }
 
-const HomeBlockThree: React.FC<Props> = ({products}: Props) => {
+const HomeBlockThree: React.FC<Props> = ({ products }: Props) => {
   const [planData, setPlanData] = useState<PlanProps>({} as PlanProps);
   const [activeModalLogin, setActiveModalLogin] = useState<boolean>(false);
   const [activeModalRegister, setActiveModalRegister] =
     useState<boolean>(false);
 
-  const chooseAPlan = ({...props}: PlanProps) => {
+  const chooseAPlan = ({ ...props }: PlanProps) => {
     if (props.metadata.type === 'premium') {
       setPlanData(props);
       setActiveModalRegister(true);
@@ -47,7 +47,7 @@ const HomeBlockThree: React.FC<Props> = ({products}: Props) => {
           </p>
         </div>
         <PaymentsList>
-          {products.map(({product, price}) => (
+          {products.map(({ product, price }) => (
             <div key={product.id}>
               <Card
                 noColor={product.metadata.type === 'premium' ? false : true}>
@@ -60,7 +60,7 @@ const HomeBlockThree: React.FC<Props> = ({products}: Props) => {
                 <p className="description">{product.description}</p>
                 <ul>
                   <li>{product.metadata.lists}</li>
-                  <li>{product.metadata.leads}</li>
+                  <li>{product.metadata.contacts}</li>
                   <li>{product.metadata.templates}</li>
                   <li>{product.metadata.campanhas}</li>
                 </ul>
@@ -72,7 +72,7 @@ const HomeBlockThree: React.FC<Props> = ({products}: Props) => {
                       description: String(product.description),
                       unit_amount: Number(price.unit_amount),
                       unit_amount_decimal: String(price.unit_amount_decimal),
-                      metadata: {...product.metadata},
+                      metadata: { ...product.metadata },
                     });
                   }}>
                   Quero conferir

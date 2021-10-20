@@ -9,7 +9,7 @@ export const CampaignsWrapper = styled.section`
     width: 100%;
 `;
 
-export const SendButton = styled.div`
+export const SendButton = styled.button`
     position: fixed;
     bottom: 3rem;
     right: 3rem;
@@ -19,6 +19,8 @@ export const SendButton = styled.div`
     border-radius: 10rem;
     z-index: 99;
     cursor: pointer;
+    border: none;
+    outline: none;
 
     display: flex;
     align-items: center;

@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
     padding: 2rem 10rem;
     z-index: 99;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     transition: 0.5s;
     background: ${props => props.changeColor ? props.theme.colors.primary : 'transparent'};
@@ -19,6 +19,8 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
         gap: 5rem;
 
         h2 {
+            font-size: 4rem;
+            font-family: 'Pompiere', cursive;
             color: ${props => props.theme.colors.white};
         }
 
@@ -31,10 +33,6 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
                 font-size: 1.8rem;
                 font-weight: 500;
                 color: ${props => props.theme.colors.white};
-
-                :hover {
-                    color: ${props => props.theme.colors.primary};
-                }
             }
         }
     }
@@ -73,5 +71,9 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
                 background: #444;
             }
         }
+    }
+
+    @media (max-width: 700px) {
+        padding: 2rem;
     }
 `;

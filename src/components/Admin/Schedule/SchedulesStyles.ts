@@ -14,7 +14,7 @@ export const ScheduleList = styled.div`
     }
 `
 
-export const ScheduleButton = styled.div`
+export const ScheduleButton = styled.button`
     position: fixed;
     bottom: 3rem;
     right: 3rem;
@@ -24,6 +24,8 @@ export const ScheduleButton = styled.div`
     border-radius: 10rem;
     z-index: 99;
     cursor: pointer;
+    outline: none;
+    border: none;
 
     display: flex;
     align-items: center;
@@ -37,6 +39,11 @@ export const ScheduleButton = styled.div`
 `
 
 export const ScheduleForm = styled.div`
+    .modal-title {
+        font-size: 3rem;
+        color: ${props => props.theme.colors.primary};
+    }
+
     form {
         display: flex;
         flex-direction: column;
@@ -72,6 +79,17 @@ export const ScheduleForm = styled.div`
             input,
             select {
                 padding: 1rem 2rem;
+                border-radius: 10rem;
+                background: transparent;
+                background: transparent;
+                appearance: none;
+                -moz-appearance: none;
+                outline: none;
+                border: 1px solid ${props => props.theme.fonts_color.dark1};
+
+                :focus {
+                    border: 2px solid ${props => props.theme.colors.primary_light};
+                }
             }
 
             button {
@@ -82,10 +100,11 @@ export const ScheduleForm = styled.div`
                 outline: none;
                 font-size: 1.8rem;
                 border-radius: 0.4rem;
-                color: #fff;
+                color: ${props => props.theme.colors.white};
                 font-weight: 500;
                 transition: 0.5s;
                 width: fit-content;
+                cursor: pointer;
             }
 
             .dates-list {
@@ -102,6 +121,7 @@ export const ScheduleForm = styled.div`
                     padding: 0.4rem 1rem;
                     background: #F0F1F8;
                     border-radius: 10rem;
+                    cursor: pointer;
                 }
             }
     }

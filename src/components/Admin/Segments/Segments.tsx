@@ -1,17 +1,17 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import * as Yup from 'yup';
-import {FiMenu} from 'react-icons/fi';
-import {BsChevronDown, BsPlus} from 'react-icons/bs';
-import {RiCloseFill} from 'react-icons/ri';
-import {SegmentsWrapper, SegmentForm} from './SegmentsStyles';
+import { FiMenu } from 'react-icons/fi';
+import { BsChevronDown, BsPlus } from 'react-icons/bs';
+import { RiCloseFill } from 'react-icons/ri';
+import { SegmentsWrapper, SegmentForm } from './SegmentsStyles';
 import Table from '../Helpers/Table/Table';
 import Modal from '../Helpers/Modals/Modal/Modal';
 import Input from '../Helpers/Input/Input';
-import {segmentValidation} from '../validations/segment';
-import {getAPIClient} from '../../../services/api';
+import { segmentValidation } from '../validations/segment';
+import { getAPIClient } from '../../../services/api';
 import useFetcher from '../../hooks/useSwr';
-import {refreshData} from '../utils/refreshData';
-import {AdminContext} from '../../../context/adminContext';
+import { refreshData } from '../utils/refreshData';
+import { AdminContext } from '../../../context/adminContext';
 import ModalConfirm from '../Helpers/Modals/ModalConfirm/ModalConfirm';
 import ModalAlert from '../Helpers/Modals/ModalAlert/ModalAlert';
 
@@ -19,7 +19,7 @@ interface ListsProps {
   id: number;
   title: string;
   status: string;
-  leads: string[];
+  contacts: string[];
   createdAt: Date;
 }
 
@@ -44,9 +44,9 @@ const Lists: React.FC = () => {
 
   const [error, setError] = useState<Error>({} as Error);
 
-  const {token, user} = useContext(AdminContext);
+  const { token, user } = useContext(AdminContext);
 
-  const {data: segments} = useFetcher('/segment/listAll', {
+  const { data: segments } = useFetcher('/segment/listAll', {
     user: user.id,
     token,
   });
@@ -208,7 +208,7 @@ const Lists: React.FC = () => {
   };
 
   useEffect(() => {
-    const findSegments = segments?.filter(({title}: {title: string}) =>
+    const findSegments = segments?.filter(({ title }: { title: string }) =>
       title.toLocaleLowerCase().includes(search),
     );
     setSearchFilter(findSegments);
@@ -264,7 +264,7 @@ const Lists: React.FC = () => {
             <table className="widgetLgTable">
               <tr className="widgetLgTr">
                 <th className="widgetLgTh">Título</th>
-                <th className="widgetLgTh">Leads</th>
+                <th className="widgetLgTh">Contatos</th>
                 <th className="widgetLgTh">Criado</th>
                 <th className="widgetLgTh">Status</th>
                 <th className="widgetLgTh">Editar</th>
@@ -274,7 +274,7 @@ const Lists: React.FC = () => {
                   <td className="widgetLgUser">
                     <span className="widgetLgName">{list.title}</span>
                   </td>
-                  <td className="widgetLgDate">{list.leads.length}</td>
+                  <td className="widgetLgDate">{list.contacts.length}</td>
                   <td className="widgetLgDate">
                     {new Date(list.createdAt).toLocaleDateString()}
                   </td>
@@ -288,9 +288,8 @@ const Lists: React.FC = () => {
                           list.status as string,
                         )
                       }
-                      className={`widgetLgStatus ${
-                        list.status === 'ACTIVE' ? 'active' : 'disabled'
-                      }`}>
+                      className={`widgetLgStatus ${list.status === 'ACTIVE' ? 'active' : 'disabled'
+                        }`}>
                       {list.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
                     </td>
                   )}
@@ -350,11 +349,11 @@ const Lists: React.FC = () => {
               },
               animate: {
                 opacity: 1,
-                transition: {type: 'spring'},
+                transition: { type: 'spring' },
               },
               exit: {
                 opacity: 0,
-                transition: {duration: 0.6},
+                transition: { duration: 0.6 },
               },
             }}>
             <SegmentForm>
@@ -382,11 +381,11 @@ const Lists: React.FC = () => {
               },
               animate: {
                 opacity: 1,
-                transition: {type: 'spring'},
+                transition: { type: 'spring' },
               },
               exit: {
                 opacity: 0,
-                transition: {duration: 0.6},
+                transition: { duration: 0.6 },
               },
             }}>
             <SegmentForm>
