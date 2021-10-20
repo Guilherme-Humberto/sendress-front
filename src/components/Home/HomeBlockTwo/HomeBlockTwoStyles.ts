@@ -9,17 +9,22 @@ export const HomeBlockTwoWrapper = styled.section`
     margin: 10rem auto;
 
     & > p {
-        font-size: 2rem;
+        font-size: clamp(0.4rem, 4vw, 2rem);
         max-width: 80rem;
         text-align: center;
+        padding: 0 2rem;
     }
 `;
 
 export const CardWrapper = styled.div`
     display: grid;
     gap: 5rem;
-    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     margin-top: 15rem;
+    padding: 0 2rem;
+    width: 100%;
+    max-width: 140rem;
 `
 
 export const Card = styled.div`
@@ -42,7 +47,7 @@ export const Card = styled.div`
     :hover {
         transition: 0.5s ease-in-out;
         transform: scale(1.04);
-        border-color: ${props => props.theme.colors.orange};
+        border-color: ${props => props.theme.colors.primary};
     }
 
     .icon {
@@ -63,15 +68,19 @@ export const Card = styled.div`
             font-size: 4rem;
         }
     }
+
+    @media (max-width: 700px) {
+        width: 100%;
+    }
 `
 
 export const IntroWrapper = styled.div`
     background: ${props => props.theme.colors.primary};
     display: grid;
     gap: 7rem;
-    grid-template-columns: repeat(2, 1fr);
-    align-items: center;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr));
+    align-items: flex-start;
+    justify-items: center;
     width: 100%;
     margin-top: 15rem;
     padding: 20rem;
@@ -83,8 +92,9 @@ export const IntroWrapper = styled.div`
         margin: 0 auto;
 
         h1 {
-            font-size: 3rem;
+            font-size: clamp(2.2rem, 4vw, 3rem);
             margin-bottom: 1rem;
+            white-space: nowrap;
 
             svg {
                 margin-right: 2rem;
@@ -92,8 +102,13 @@ export const IntroWrapper = styled.div`
         }
 
         p {
-            font-size: 2rem;
+            font-size: clamp(1.6rem, 4vw, 2rem);
         }
+    }
+
+    @media (max-width: 1000px) {
+        padding: 10rem 3rem;
+        grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
     }
 `
 
@@ -109,12 +124,12 @@ export const DashWrapper = styled.div`
     & > div:first-child {
         text-align: center;
         h1 {
-            font-size: 4rem;
+            font-size: clamp(3rem, 4vw, 4rem);
             color: ${props => props.theme.colors.primary};
         }
 
         p {
-            font-size: 2rem;
+            font-size: clamp(1.4rem, 4vw, 2rem);
             max-width: 70rem;
             color: #777;
         }
@@ -122,42 +137,37 @@ export const DashWrapper = styled.div`
 
     & > div:last-child {
         position: relative;
-        width: 140rem;
-        height: 90rem;
+        width: 100%;
+        height: 60rem;
         margin-top: 8rem;
 
         img {
             object-fit: contain;
         }
-    }
-`
 
-export const CardService = styled.div`
-    display: grid;
-    gap: 8rem;
-    grid-template-columns: repeat(2, 1fr);
-    align-items: center;
-    margin-top: 5rem;
-
-    & > div {
-        h2 {
-            font-size: 5rem;
-            text-transform: capitalize;
-            letter-spacing: -0.2rem;
-            margin-bottom: 2rem;
-            font-weight: 700;
-            color: ${props => props.theme.colors.primary};
-        }
-
-        p {
-            font-size: 2rem;
-            max-width: 60rem;
+        @media (max-width: 730px) {
+            height: 40rem;
         }
     }
 
-    img {
-        object-fit: contain;
+    @media (max-width: 550px) {
+        ul {
+            margin-top: 2rem;
+            width: 100%;
+            padding-left: 2rem;
+            list-style: disc;
+
+            li {
+                margin-left: 2rem;
+            }
+        }
+
+        & > div:first-child {
+            text-align: left;
+            padding-left: 2rem;
+        }
     }
+
 `
 
 export const ServicesWrapper = styled.div`
@@ -169,6 +179,7 @@ export const ServicesTopics = styled.div`
     display: grid;
     gap: 4rem;
     width: 100%;
+    justify-items: center;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
 
     & > div {

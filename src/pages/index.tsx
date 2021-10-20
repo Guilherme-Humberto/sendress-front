@@ -24,7 +24,7 @@ const Home: React.FC<Props> = ({ products }: Props) => {
       <Header />
       <main>
         <SeoComponent
-          title="Example"
+          title="Envhei - Facilite o email marketing"
           desc=""
           keywords=""
           url="https://example.com.br/"
@@ -38,26 +38,26 @@ const Home: React.FC<Props> = ({ products }: Props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const stripeSecretKey = String(process.env.STRIPE_SECRET_KEY);
-  const stripeClient = new Stripe(stripeSecretKey, {
-    apiVersion: '2020-08-27',
-  });
-  const getPrices = await stripeClient.prices.list();
+// export const getStaticProps: GetStaticProps = async () => {
+//   const stripeSecretKey = String(process.env.STRIPE_SECRET_KEY);
+//   const stripeClient = new Stripe(stripeSecretKey, {
+//     apiVersion: '2020-08-27',
+//   });
+//   const getPrices = await stripeClient.prices.list();
 
-  const getProducts = getPrices.data.map(async price => {
-    const product = await stripeClient.products.retrieve(String(price.product));
-    return { product, price };
-  });
+//   const getProducts = getPrices.data.map(async price => {
+//     const product = await stripeClient.products.retrieve(String(price.product));
+//     return { product, price };
+//   });
 
-  const formatResponse = await Promise.all(getProducts);
+//   const formatResponse = await Promise.all(getProducts);
 
-  return {
-    props: {
-      products: formatResponse,
-    },
-    revalidate: 10,
-  };
-};
+//   return {
+//     props: {
+//       products: formatResponse,
+//     },
+//     revalidate: 10,
+//   };
+// };
 
 export default Home;

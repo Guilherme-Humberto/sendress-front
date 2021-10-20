@@ -1,14 +1,14 @@
-import React, {useState, useContext} from 'react';
-import {SendersWrapper, SenderForm} from './SendersStyles';
-import {FiMenu} from 'react-icons/fi';
-import {RiCloseFill} from 'react-icons/ri';
+import React, { useState, useContext } from 'react';
+import { SendersWrapper, SenderForm } from './SendersStyles';
+import { FiMenu } from 'react-icons/fi';
+import { RiCloseFill } from 'react-icons/ri';
 import Table from '../Helpers/Table/Table';
 import useFetcher from '../../hooks/useSwr';
 import Modal from '../Helpers/Modals/Modal/Modal';
 import Input from '../Helpers/Input/Input';
 import User from '../User/User';
-import {AdminContext} from '../../../context/adminContext';
-import {BsChevronDown} from 'react-icons/bs';
+import { AdminContext } from '../../../context/adminContext';
+import { BsChevronDown } from 'react-icons/bs';
 
 interface SendersProps {
   id: number;
@@ -33,9 +33,9 @@ const Senders: React.FC = () => {
 
   const [error, setError] = useState<Error>({} as Error);
 
-  const {user, token} = useContext(AdminContext);
+  const { user, token } = useContext(AdminContext);
 
-  const {data: senders} = useFetcher('/sender/listAll', {
+  const { data: senders } = useFetcher('/sender/listAll', {
     user: user.id,
     token,
   });
@@ -84,17 +84,16 @@ const Senders: React.FC = () => {
                 <th className="widgetLgTh">Status</th>
                 <th className="widgetLgTh">Editar</th>
               </tr>
-              {currentSenders.map((lead: SendersProps) => (
-                <tr key={lead.id} className="widgetLgTr">
+              {currentSenders.map((sender: SendersProps) => (
+                <tr key={sender.id} className="widgetLgTr">
                   <td className="widgetLgUser">
-                    <span className="widgetLgName">{lead.title}</span>
+                    <span className="widgetLgName">{sender.title}</span>
                   </td>
-                  <td className="widgetLgDate">{lead.email}</td>
+                  <td className="widgetLgDate">{sender.email}</td>
                   <td
-                    className={`widgetLgStatus ${
-                      lead.status ? 'active' : 'disabled'
-                    }`}>
-                    {lead.status ? 'Active' : 'Inativo'}
+                    className={`widgetLgStatus ${sender.status ? 'active' : 'disabled'
+                      }`}>
+                    {sender.status ? 'Active' : 'Inativo'}
                   </td>
                   <td className="widgetLgMenu">
                     <FiMenu />
@@ -129,11 +128,11 @@ const Senders: React.FC = () => {
             animate: {
               opacity: 1,
               x: 0,
-              transition: {type: 'spring'},
+              transition: { type: 'spring' },
             },
             exit: {
               opacity: 0,
-              transition: {duration: 0.6},
+              transition: { duration: 0.6 },
             },
           }}>
           <SenderForm>

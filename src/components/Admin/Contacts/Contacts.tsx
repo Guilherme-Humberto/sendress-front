@@ -4,12 +4,12 @@ import axios from 'axios';
 import { FiMenu } from 'react-icons/fi';
 import { BsChevronDown, BsPlus, BsArrowRight } from 'react-icons/bs';
 import { RiCloseFill } from 'react-icons/ri';
-import { LeadsWrapper, LeadForm } from './LeadsStyles';
+import { ContactsWrapper, ContactForm } from './ContactsStyles';
 import Table from '../Helpers/Table/Table';
 import Modal from '../Helpers/Modals/Modal/Modal';
 import ModalAlert from '../Helpers/Modals/ModalAlert/ModalAlert';
 import Input from '../Helpers/Input/Input';
-import { leadEditValidation, leadValidation } from '../validations/leads';
+import { contactEditValidation, contactValidation } from '../validations/contact';
 import { getAPIClient } from '../../../services/api';
 import useFetcher from '../../hooks/useSwr';
 import { useRouter } from 'next/router';
@@ -17,7 +17,7 @@ import { AdminContext } from '../../../context/adminContext';
 import ModalConfirm from '../Helpers/Modals/ModalConfirm/ModalConfirm';
 import { refreshData } from '../utils/refreshData';
 
-interface LeadsProps {
+interface ContactsProps {
   id?: number;
   name?: string;
   email?: string;
@@ -31,7 +31,7 @@ interface LeadsProps {
   status?: string;
 }
 
-interface Error extends Omit<LeadsProps, 'id' | 'business' | 'status'> {
+interface Error extends Omit<ContactsProps, 'id' | 'business' | 'status'> {
   invalidFile?: string;
 }
 
@@ -39,7 +39,7 @@ interface Props {
   segments: any[];
 }
 
-const Leads: React.FC<Props> = ({ segments }) => {
+const Contacts: React.FC<Props> = ({ segments }) => {
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,14 +60,14 @@ const Leads: React.FC<Props> = ({ segments }) => {
   const [phone, setPhone] = useState<string>('');
   const [segmentId, setSegment] = useState<number | null>(0);
   const [business, setBusiness] = useState<string>('');
-  const [fileLead, setFileLead] = useState<FileList>({} as FileList);
-  const [leadData, setLeadData] = useState<LeadsProps>({} as LeadsProps);
+  const [fileContact, setFileContact] = useState<FileList>({} as FileList);
+  const [contactData, setContactData] = useState<ContactsProps>({} as ContactsProps);
 
   const [error, setError] = useState<Error>({} as Error);
 
   const { token, user, setRoute } = useContext(AdminContext);
 
-  const { data: leads } = useFetcher('/lead/listAll', {
+  const { data: contacts } = useFetcher('/contact/listAll', {
     user: user.id,
     token,
   });
@@ -94,7 +94,7 @@ const Leads: React.FC<Props> = ({ segments }) => {
         };
       }
 
-      await leadValidation.validate(data, {
+      await contactValidation.validate(data, {
         abortEarly: false,
       });
 
@@ -102,7 +102,7 @@ const Leads: React.FC<Props> = ({ segments }) => {
         service === 'cold-emails' ? 'cold-emails' : 'send-email';
 
       await getAPIClient()
-        .post(`/lead/create`, data, {
+        .post(`/contact/create`, data, {
           headers: {
             userid: user.id,
             typemodel: typeModel,
@@ -150,22 +150,22 @@ const Leads: React.FC<Props> = ({ segments }) => {
       return null;
     }
     setError({});
-    setFileLead(file);
+    setFileContact(file);
   };
 
-  const handleImportLeads = async () => {
-    if (!fileLead[0] || fileLead[0] === null) {
+  const handleImportContacts = async () => {
+    if (!fileContact[0] || fileContact[0] === null) {
       alert('Arquivo não encontrado, tente novamente');
       return null;
     }
 
     const formData = new FormData();
-    formData.append('file', fileLead[0]);
+    formData.append('file', fileContact[0]);
 
     const typeModel = service === 'cold-emails' ? 'cold-emails' : 'send-email';
 
     getAPIClient()
-      .post(`/lead/import`, formData, {
+      .post(`/contact/import`, formData, {
         headers: {
           userid: user.id,
           typemodel: typeModel,
@@ -194,9 +194,9 @@ const Leads: React.FC<Props> = ({ segments }) => {
       });
   };
 
-  const handleDeleteLead = async (lead: number) => {
+  const handleDeleteContact = async (contact: number) => {
     getAPIClient()
-      .delete(`/lead/delete/${lead}`, {
+      .delete(`/contact/delete/${contact}`, {
         headers: {
           userid: user.id,
           Authorization: `Bearer ${token}`,
@@ -212,7 +212,7 @@ const Leads: React.FC<Props> = ({ segments }) => {
         }, 2000);
       })
       .catch(() => {
-        setAlertBody('Erro ao deletar lead, tente novamento mais tarde');
+        setAlertBody('Erro ao deletar contato, tente novamento mais tarde');
         setAlertPopup(true);
 
         setTimeout(() => {
@@ -221,13 +221,13 @@ const Leads: React.FC<Props> = ({ segments }) => {
       });
   };
 
-  const handleChangeStatus = async (lead: number, status: string) => {
-    const leadStatus = status === 'ACTIVE' ? 'DISABLED' : 'ACTIVE';
+  const handleChangeStatus = async (contact: number, status: string) => {
+    const contactStatus = status === 'ACTIVE' ? 'DISABLED' : 'ACTIVE';
     getAPIClient()
       .put(
-        `/lead/update/${lead}`,
+        `/contact/update/${contact}`,
         {
-          status: leadStatus,
+          status: contactStatus,
         },
         {
           headers: {
@@ -254,23 +254,23 @@ const Leads: React.FC<Props> = ({ segments }) => {
       });
   };
 
-  const handleEditLead = async (e: React.FormEvent) => {
+  const handleEditContact = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const data = {
-        name: name ? name : leadData.name,
-        email: email ? email : leadData.email,
-        phone: phone ? phone : leadData.phone,
-        business: business ? business : leadData.business,
-        segmentId: segmentId ? segmentId : leadData.segmentId,
+        name: name ? name : contactData.name,
+        email: email ? email : contactData.email,
+        phone: phone ? phone : contactData.phone,
+        business: business ? business : contactData.business,
+        segmentId: segmentId ? segmentId : contactData.segmentId,
       };
 
-      await leadEditValidation.validate(data, {
+      await contactEditValidation.validate(data, {
         abortEarly: false,
       });
 
       getAPIClient()
-        .put(`/lead/update/${leadData.id}`, data, {
+        .put(`/contact/update/${contactData.id}`, data, {
           headers: {
             userid: user.id,
             Authorization: `Bearer ${token}`,
@@ -314,12 +314,12 @@ const Leads: React.FC<Props> = ({ segments }) => {
     }
   };
 
-  const handleDeleteAllLeads = async () => {
+  const handleDeleteAllContacts = async () => {
     setAlertConfirm(false);
 
     getAPIClient()
-      .delete(`/lead/deleteMany`, {
-        data: { leads },
+      .delete(`/contact/deleteMany`, {
+        data: { contacts },
         headers: {
           userid: user.id,
           Authorization: `Bearer ${token}`,
@@ -365,20 +365,20 @@ const Leads: React.FC<Props> = ({ segments }) => {
   };
 
   useEffect(() => {
-    const findLeads = leads?.filter(
+    const findContacts = contacts?.filter(
       ({ name, email }: { name: string; email: string }) =>
         email.toLocaleLowerCase().includes(search) ||
         name.toLocaleLowerCase().includes(search),
     );
-    setSearchFilter(findLeads);
-  }, [leads, search, setSearch]);
+    setSearchFilter(findContacts);
+  }, [contacts, search, setSearch]);
 
   const indexOfLastPost = currentPage * itemsPerPage;
   const indexOfFirstPost = indexOfLastPost - itemsPerPage;
-  const currentLeads =
+  const currentContacts =
     searchFilter?.length >= 1
       ? searchFilter?.slice(indexOfFirstPost, indexOfLastPost)
-      : leads?.slice(indexOfFirstPost, indexOfLastPost);
+      : contacts?.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNum: number) => setCurrentPage(pageNum);
   const nextPage = () => setCurrentPage(currentPage => currentPage + 1);
@@ -387,7 +387,7 @@ const Leads: React.FC<Props> = ({ segments }) => {
 
   return (
     <>
-      <LeadsWrapper>
+      <ContactsWrapper>
         <div className="content-top">
           <div>
             <h1>Meus contatos</h1>
@@ -398,25 +398,25 @@ const Leads: React.FC<Props> = ({ segments }) => {
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
-              placeholder="Nome ou email do lead"
+              placeholder="Nome ou email do contato"
             />
             <div className="select-item">
               <select onChange={handleSelect} value="default">
                 <option value="default" disabled>
                   Ações
                 </option>
-                <option value="create">Cadastrar lead</option>
-                <option value="import">Importar leads</option>
-                <option value="delete">Excluir lead em massa</option>
+                <option value="create">Cadastrar contato</option>
+                <option value="import">Importar contatos</option>
+                <option value="delete">Excluir contato em massa</option>
               </select>
               <BsChevronDown />
             </div>
           </div>
         </div>
-        {leads?.length >= 1 ? (
+        {contacts?.length >= 1 ? (
           <Table
             itemsTotalPerPage={itemsPerPage}
-            totalItems={leads.length}
+            totalItems={contacts.length}
             paginate={paginate}
             nextPage={nextPage}
             prevPage={prevPage}
@@ -430,37 +430,37 @@ const Leads: React.FC<Props> = ({ segments }) => {
                 <th className="widgetLgTh">Status</th>
                 <th className="widgetLgTh">Editar</th>
               </tr>
-              {currentLeads.map((lead: LeadsProps) => (
-                <tr key={lead.id} className="widgetLgTr">
+              {currentContacts.map((contact: ContactsProps) => (
+                <tr key={contact.id} className="widgetLgTr">
                   <td className="widgetLgUser">
-                    <span className="widgetLgName">{lead.name}</span>
+                    <span className="widgetLgName">{contact.name}</span>
                   </td>
-                  <td className="widgetLgDate">{lead.email}</td>
-                  <td className="widgetLgAmount">{lead.phone}</td>
-                  <td className="widgetLgAmount">{lead.business}</td>
+                  <td className="widgetLgDate">{contact.email}</td>
+                  <td className="widgetLgAmount">{contact.phone}</td>
+                  <td className="widgetLgAmount">{contact.business}</td>
                   <td
                     onClick={() =>
                       handleChangeStatus(
-                        lead.id as number,
-                        lead.status as string,
+                        contact.id as number,
+                        contact.status as string,
                       )
                     }
-                    className={`widgetLgStatus ${lead.status === 'ACTIVE' ? 'active' : 'disabled'
+                    className={`widgetLgStatus ${contact.status === 'ACTIVE' ? 'active' : 'disabled'
                       }`}>
-                    {lead.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
+                    {contact.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
                   </td>
                   <td className="widgetLgMenu">
                     <FiMenu />
                     <div className="modal-actions">
-                      <span onClick={() => handleDeleteLead(lead.id as number)}>
-                        Excluir lead
+                      <span onClick={() => handleDeleteContact(contact.id as number)}>
+                        Excluir contato
                       </span>
                       <span
                         onClick={() => {
-                          setLeadData(lead);
+                          setContactData(contact);
                           setActiveModalEdit(true);
                         }}>
-                        Editar lead
+                        Editar contato
                       </span>
                     </div>
                   </td>
@@ -470,14 +470,14 @@ const Leads: React.FC<Props> = ({ segments }) => {
           </Table>
         ) : (
           <div className="without-leads-msg">
-            <h1>Você ainda não possuí nenhum lead cadastrado</h1>
+            <h1>Você ainda não possuí nenhum contato cadastrado</h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
               <strong onClick={() => setActiveModalCreate(true)}>
-                Cadastrar lead
+                Cadastrar contato
               </strong>
               <strong>|</strong>
               <strong onClick={() => setActiveModalImport(true)}>
-                Importar leads
+                Importar contatos
               </strong>
             </div>
           </div>
@@ -493,8 +493,8 @@ const Leads: React.FC<Props> = ({ segments }) => {
           <button
             className="btn-close-modal"
             onClick={() => {
-              if (fileLead !== null) {
-                setFileLead({} as FileList);
+              if (fileContact !== null) {
+                setFileContact({} as FileList);
               }
               setActiveModalImport(active => !active);
             }}>
@@ -505,13 +505,13 @@ const Leads: React.FC<Props> = ({ segments }) => {
           <button
             className="btn-close-modal"
             onClick={() => {
-              setLeadData({});
+              setContactData({});
               setActiveModalEdit(active => !active);
             }}>
             <RiCloseFill />
           </button>
         )}
-      </LeadsWrapper>
+      </ContactsWrapper>
       {activeModalCreate && (
         <Modal
           animation={{
@@ -527,7 +527,7 @@ const Leads: React.FC<Props> = ({ segments }) => {
               transition: { duration: 0.6 },
             },
           }}>
-          <LeadForm create>
+          <ContactForm create>
             <div>
               <div className="services-checkbox">
                 <div>
@@ -660,7 +660,7 @@ const Leads: React.FC<Props> = ({ segments }) => {
                 </div>
               )}
             </div>
-          </LeadForm>
+          </ContactForm>
         </Modal>
       )}
       {activeModalImport && (
@@ -678,7 +678,7 @@ const Leads: React.FC<Props> = ({ segments }) => {
               transition: { duration: 0.6 },
             },
           }}>
-          <LeadForm import>
+          <ContactForm import>
             <div>
               <div className="services-checkbox">
                 <div>
@@ -702,11 +702,11 @@ const Leads: React.FC<Props> = ({ segments }) => {
               </div>
               <div className="form-wrapper">
                 <label className="lead-file-wrapper">
-                  {fileLead[0] !== undefined
-                    ? (fileLead[0].name as string)
+                  {fileContact[0] !== undefined
+                    ? (fileContact[0].name as string)
                     : `Clique aqui para importar ${service === 'send-email'
                       ? 'a lista de emails'
-                      : 'seus leads'
+                      : 'seus contatos'
                     }`}
                   <input
                     type="file"
@@ -718,14 +718,14 @@ const Leads: React.FC<Props> = ({ segments }) => {
                 {error.invalidFile && (
                   <strong className="error-msg">{error.invalidFile}</strong>
                 )}
-                <button onClick={handleImportLeads}>
+                <button onClick={handleImportContacts}>
                   {service === 'send-email'
                     ? 'Importar lista de emails'
-                    : 'Importar leads'}
+                    : 'Importar contatos'}
                 </button>
               </div>
             </div>
-          </LeadForm>
+          </ContactForm>
         </Modal>
       )}
       {activeModalEdit && (
@@ -743,13 +743,13 @@ const Leads: React.FC<Props> = ({ segments }) => {
               transition: { duration: 0.6 },
             },
           }}>
-          <LeadForm edit>
+          <ContactForm edit>
             <div className="form-wrapper">
-              <form onSubmit={handleEditLead}>
-                {leadData.name && (
+              <form onSubmit={handleEditContact}>
+                {contactData.name && (
                   <Input
                     label="Nome"
-                    placeholder={leadData.name as string}
+                    placeholder={contactData.name as string}
                     mask=""
                     error={error.name ? error.name : ''}
                     value={name}
@@ -758,26 +758,26 @@ const Leads: React.FC<Props> = ({ segments }) => {
                 )}
                 <Input
                   label="Email *"
-                  placeholder={leadData.email as string}
+                  placeholder={contactData.email as string}
                   mask=""
                   error={error.email ? error.email : ''}
                   value={email}
                   setState={setEmail}
                 />
-                {leadData.phone && (
+                {contactData.phone && (
                   <Input
                     label="Telefone"
-                    placeholder={leadData.phone as string}
+                    placeholder={contactData.phone as string}
                     mask="(99) 99999-9999"
                     error={error.phone ? error.phone : ''}
                     value={phone}
                     setState={setPhone}
                   />
                 )}
-                {leadData.business && (
+                {contactData.business && (
                   <Input
                     label="Empresa"
-                    placeholder={leadData.business as string}
+                    placeholder={contactData.business as string}
                     mask=""
                     error=""
                     value={business}
@@ -808,10 +808,10 @@ const Leads: React.FC<Props> = ({ segments }) => {
                   </select>
                 )}
                 {error.segmentId && <strong>{error.segmentId}</strong>}
-                <button type="submit">Editar lead</button>
+                <button type="submit">Editar contato</button>
               </form>
             </div>
-          </LeadForm>
+          </ContactForm>
         </Modal>
       )}
       {alertPopup && (
@@ -823,11 +823,11 @@ const Leads: React.FC<Props> = ({ segments }) => {
         <ModalConfirm
           content="Tem certeza que deseja fazer isso?"
           close={setAlertConfirm}
-          execute={handleDeleteAllLeads}
+          execute={handleDeleteAllContacts}
         />
       )}
     </>
   );
 };
 
-export default Leads;
+export default Contacts;

@@ -12,6 +12,12 @@ export const FooterWrapper = styled.footer`
     h3 {
         display: flex;
         align-items: center;
+        font-size: 3rem;
+        font-family: 'Pompiere', cursive;
+
+        span {
+            font-size: 2rem;
+        }
     }
 
     h3 div {

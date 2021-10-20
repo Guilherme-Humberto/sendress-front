@@ -52,12 +52,12 @@ const MenuLeft: React.FC = () => {
         <LinkMenu
           showLink={changeMenu}
           href="#"
-          active={route === 'leads'}
-          onClick={() => changeRoutes('leads')}>
+          active={route === 'contacts'}
+          onClick={() => changeRoutes('contacts')}>
           <FiUsers />
           <p className="link-title">Contatos</p>
           <div className="link-intro-wrapper">
-            Gerencie seus emails ou leads cadastrados.
+            Gerencie contatos cadastrados.
           </div>
         </LinkMenu>
         <LinkMenu
@@ -68,7 +68,7 @@ const MenuLeft: React.FC = () => {
           <BsListNested />
           <p className="link-title">Listas</p>
           <div className="link-intro-wrapper">
-            Organize seus emails ou leads por listas.
+            Organize seus contatos.
           </div>
         </LinkMenu>
         <LinkMenu

@@ -1,22 +1,22 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import * as Yup from 'yup';
-import {FiMenu, FiSend} from 'react-icons/fi';
-import {BsChevronDown, BsPlus} from 'react-icons/bs';
-import {CampaignsWrapper, SendButton, CampaignForm} from './CampaignsStyles';
-import {RiCloseFill} from 'react-icons/ri';
+import { FiMenu, FiSend } from 'react-icons/fi';
+import { BsChevronDown, BsPlus } from 'react-icons/bs';
+import { CampaignsWrapper, SendButton, CampaignForm } from './CampaignsStyles';
+import { RiCloseFill } from 'react-icons/ri';
 import Table from '../Helpers/Table/Table';
 import Modal from '../Helpers/Modals/Modal/Modal';
 import Editor from '../Helpers/Editor/TemplateBuilder';
 import useFetcher from '../../hooks/useSwr';
 import Input from '../Helpers/Input/Input';
-import {campaignValidation} from '../validations/campaign';
-import {getAPIClient} from '../../../services/api';
-import {useRouter} from 'next/router';
-import {AdminContext} from '../../../context/adminContext';
-import {compileHTMLContent} from '../utils/compileHtml';
+import { campaignValidation } from '../validations/campaign';
+import { getAPIClient } from '../../../services/api';
+import { useRouter } from 'next/router';
+import { AdminContext } from '../../../context/adminContext';
+import { compileHTMLContent } from '../utils/compileHtml';
 import ModalAlert from '../Helpers/Modals/ModalAlert/ModalAlert';
 import ModalConfirm from '../Helpers/Modals/ModalConfirm/ModalConfirm';
-import {refreshData} from '../utils/refreshData';
+import { refreshData } from '../utils/refreshData';
 
 interface CampaignsProps {
   id: number;
@@ -43,7 +43,7 @@ interface Props {
   senders: any[];
 }
 
-const Campaigns: React.FC<Props> = ({segments}) => {
+const Campaigns: React.FC<Props> = ({ segments }) => {
   const router = useRouter();
 
   const [activeModalSend, setActiveModalSend] = useState(false);
@@ -70,9 +70,9 @@ const Campaigns: React.FC<Props> = ({segments}) => {
 
   const [error, setError] = useState<Error>({} as Error);
 
-  const {token, user} = useContext(AdminContext);
+  const { token, user } = useContext(AdminContext);
 
-  const {data: campaigns} = useFetcher('/campaign/listAll', {
+  const { data: campaigns } = useFetcher('/campaign/listAll', {
     user: user.id,
     token,
   });
@@ -96,7 +96,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
       const data = {
         name,
         subject,
-        content: compileHTMLContent({content, data: keys}),
+        content: compileHTMLContent({ content, data: keys }),
         senderId: 2,
         segmentId,
       };
@@ -250,7 +250,7 @@ const Campaigns: React.FC<Props> = ({segments}) => {
 
     getAPIClient()
       .delete(`/campaign/deleteMany`, {
-        data: {campaigns},
+        data: { campaigns },
         headers: {
           userid: user.id,
           Authorization: `Bearer ${token}`,
@@ -322,10 +322,10 @@ const Campaigns: React.FC<Props> = ({segments}) => {
   };
 
   useEffect(() => {
-    const findLeads = campaigns?.filter(({name}: {name: string}) =>
+    const findContacts = campaigns?.filter(({ name }: { name: string }) =>
       name.toLocaleLowerCase().includes(search),
     );
-    setSearchFilter(findLeads);
+    setSearchFilter(findContacts);
   }, [campaigns, search, setSearch]);
 
   const indexOfLastPost = currentPage * itemsPerPage;
@@ -399,9 +399,8 @@ const Campaigns: React.FC<Props> = ({segments}) => {
                         campaign.status as string,
                       )
                     }
-                    className={`widgetLgStatus ${
-                      campaign.status === 'ACTIVE' ? 'active' : 'disabled'
-                    }`}>
+                    className={`widgetLgStatus ${campaign.status === 'ACTIVE' ? 'active' : 'disabled'
+                      }`}>
                     {campaign.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
                   </td>
                   <td className="widgetLgMenu">
@@ -455,11 +454,11 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             },
             animate: {
               opacity: 1,
-              transition: {type: 'spring'},
+              transition: { type: 'spring' },
             },
             exit: {
               opacity: 0,
-              transition: {duration: 0.6},
+              transition: { duration: 0.6 },
             },
           }}>
           <CampaignForm send>
@@ -524,11 +523,11 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             },
             animate: {
               opacity: 1,
-              transition: {type: 'spring'},
+              transition: { type: 'spring' },
             },
             exit: {
               opacity: 0,
-              transition: {duration: 0.6},
+              transition: { duration: 0.6 },
             },
           }}>
           <CampaignForm create>
@@ -595,11 +594,11 @@ const Campaigns: React.FC<Props> = ({segments}) => {
             },
             animate: {
               opacity: 1,
-              transition: {type: 'spring'},
+              transition: { type: 'spring' },
             },
             exit: {
               opacity: 0,
-              transition: {duration: 0.6},
+              transition: { duration: 0.6 },
             },
           }}>
           <CampaignForm create>

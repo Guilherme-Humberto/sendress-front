@@ -20,13 +20,15 @@ const Header: React.FC = () => {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    const handleChangeHeaderOnScroll = () => {
-      setTop(window.pageYOffset);
-      setState(elementRef.current.offsetTop);
-    }
-    window.addEventListener("scroll", handleChangeHeaderOnScroll);
+    if (router.pathname === "/") {
+      const handleChangeHeaderOnScroll = () => {
+        setTop(window.pageYOffset);
+        setState(elementRef.current.offsetTop);
+      }
+      window.addEventListener("scroll", handleChangeHeaderOnScroll);
 
-    return () => window.removeEventListener('scroll', handleChangeHeaderOnScroll)
+      return () => window.removeEventListener('scroll', handleChangeHeaderOnScroll)
+    }
   }, [top]);
 
   return (
@@ -35,24 +37,26 @@ const Header: React.FC = () => {
         <nav>
           <Link href="/">
             <a href="">
-              <h2>Sendrop</h2>
+              <h2>Envhei</h2>
             </a>
           </Link>
           <div className="links-list">
-            <Link href="/">
+            {/* <Link href="/">
               <a href="">Sobre a piperbase</a>
-            </Link>
-            <Link href="/">
+            </Link> */}
+            {/* <Link href="#services">
               <a href="">Nossos preços</a>
-            </Link>
-            <Link href="/">
-              <a href="">Serviços</a>
+            </Link> */}
+            <Link href="#services">
+              <a href="">Nossos Serviços</a>
             </Link>
           </div>
         </nav>
         <div>
-          <FiInstagram size={25} color={"#fff"} />
-          <button onClick={() => setActiveModalLogin(true)}>Acessar minha conta</button>
+          <Link href="https://www.instagram.com/envhei/">
+            <a target="_blank"><FiInstagram size={25} color={"#fff"} /></a>
+          </Link>
+          {/* <button onClick={() => setActiveModalLogin(true)}>Acessar minha conta</button> */}
           {/* <button>Criar conta</button> */}
         </div>
       </HeaderWrapper>

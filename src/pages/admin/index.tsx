@@ -4,7 +4,7 @@ import HeaderAdmin from '../../components/Admin/Header/Header';
 import Layout from '../../components/Admin/Helpers/Layout/Layout';
 import MenuLeft from '../../components/Admin/Helpers/MenuLeft/MenuLeft';
 import { AdminContext } from '../../context/adminContext';
-import Leads from '../../components/Admin/Leads/Leads';
+import Contacts from '../../components/Admin/Contacts/Contacts';
 import Lists from '../../components/Admin/Segments/Segments';
 import Campaigns from '../../components/Admin/Campaigns/Campaigns';
 import { GetServerSideProps } from 'next';
@@ -15,13 +15,13 @@ import { parseCookies } from 'nookies';
 import Schedule from 'components/Admin/Schedule/Schedules';
 
 interface AdminProps {
-  leads: any[];
+  contacts: any[];
   segments: any[];
   campaigns: any[];
   senders: any[];
 }
 
-const Admin: React.FC<AdminProps> = ({ leads, segments, campaigns, senders }) => {
+const Admin: React.FC<AdminProps> = ({ contacts, segments, campaigns, senders }) => {
   const { route } = useContext(AdminContext);
 
   return (
@@ -31,9 +31,9 @@ const Admin: React.FC<AdminProps> = ({ leads, segments, campaigns, senders }) =>
         <section style={{ margin: '0 auto', width: '140rem' }}>
           <HeaderAdmin />
           {route === 'painel' && (
-            <Painel leads={leads} segments={segments} campaigns={campaigns} />
+            <Painel contacts={contacts} segments={segments} campaigns={campaigns} />
           )}
-          {route === 'leads' && <Leads segments={segments} />}
+          {route === 'contacts' && <Contacts segments={segments} />}
           {route === 'segments' && <Lists />}
           {route === 'campaigns' && (
             <Campaigns segments={segments} senders={senders} />
@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     };
   }
 
-  const { data: leadsResponse } = await apiClient.get('/lead/listAll', {
+  const { data: contactsResponse } = await apiClient.get('/contact/listAll', {
     headers: { userid, Authorization: `Bearer ${token}` },
   });
 
@@ -79,7 +79,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   return {
     props: {
-      leads: leadsResponse,
+      contacts: contactsResponse,
       segments: segmentsResponse,
       campaigns: campaignsRespomse,
       senders: sendersRespomse,

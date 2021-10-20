@@ -5,7 +5,7 @@ import Document, {
   Main,
   NextScript,
 } from 'next/document';
-import {ServerStyleSheet} from 'styled-components';
+import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -45,6 +45,8 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
             rel="stylesheet"
           />
+
+          <link href="https://fonts.googleapis.com/css2?family=Pompiere&display=swap" rel="stylesheet" />
         </Head>
         <body>
           <Main />

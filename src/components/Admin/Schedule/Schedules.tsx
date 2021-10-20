@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import * as Yup from 'yup'
 import { BsChevronDown } from 'react-icons/bs';
 import { FiCheckSquare, FiMenu } from 'react-icons/fi';
 import { RiCloseFill } from 'react-icons/ri';
@@ -8,6 +9,14 @@ import Table from '../Helpers/Table/Table';
 
 import { SchedulesWrapper, ScheduleList, ScheduleButton, ScheduleForm } from './SchedulesStyles';
 import { AdminContext } from 'context/adminContext';
+import { getAPIClient } from 'services/api';
+import { scheduleValidation } from '../validations/schedule';
+import { refreshData } from '../utils/refreshData';
+import ModalAlert from '../Helpers/Modals/ModalAlert/ModalAlert';
+
+interface ScheduleDataProps {
+    dates: number[]
+}
 
 const Schedule: React.FC = () => {
     const [itemsPerPage] = useState(3);
@@ -19,30 +28,152 @@ const Schedule: React.FC = () => {
     const [alertPopup, setAlertPopup] = useState(false);
     const [alertConfirm, setAlertConfirm] = useState(false);
     const [alertBody, setAlertBody] = useState('');
-    const [campaignsArr, setCampainsArr] = useState<number[]>([]);
+    const [datesList, setDatesList] = useState<number[]>([]);
+
+    const [segmentValue, setSegment] = useState('');
+    const [campaignValue, setCampaign] = useState('');
+    const [scheduleData, setScheduleData] = useState<ScheduleDataProps>({} as ScheduleDataProps);
 
     const [activeModalSchedule, setActiveModalSchedule] = useState(false);
-
-    const schedules = [
-        {
-            id: 1,
-            dateValue: '1 dia',
-            segment: 'Marketing',
-            campaign: 'Campanha de teste'
-        }
-    ]
+    const [activeModalScheduleEdit, setActiveModalScheduleEdit] = useState(false);
 
     const { token, user } = useContext(AdminContext);
 
     const { data: campaigns } = useFetcher('/campaign/listAll', {
-        user: user.id,
-        token,
+        user: user.id, token,
     });
 
     const { data: segments } = useFetcher('/segment/listAll', {
-        user: user.id,
-        token,
+        user: user.id, token,
     });
+
+    const { data: schedules } = useFetcher('/schedule/listAll', {
+        user: user.id, token,
+    });
+
+    const handleScheduleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault()
+        try {
+            const defaultSegment = segments.find(title => title === 'Default')
+
+            const data = {
+                dates: datesList.map(date => String(date)),
+                segmentId: Number(segmentValue) ? Number(segmentValue) : defaultSegment.id,
+                campaignId: Number(campaignValue)
+            };
+
+            console.log(defaultSegment)
+            await scheduleValidation.validate(data, {
+                abortEarly: false,
+            });
+
+            getAPIClient()
+                .post(`/schedule/create`, data, {
+                    headers: {
+                        userid: user.id,
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then(() => {
+                    setSegment('')
+                    setCampaign('')
+                    setDatesList([])
+                    setAlertBody('Agenda criada com sucesso');
+                    setAlertPopup(true);
+                    refreshData();
+                    setActiveModalSchedule(false)
+
+                    setTimeout(() => {
+                        setAlertPopup(false);
+                    }, 2000);
+                })
+                .catch(err => {
+                    setAlertBody(
+                        'Erro ao criar agenda, tente novamente mais tarde.',
+                    );
+                    setAlertPopup(true);
+
+                    setTimeout(() => {
+                        setAlertPopup(false);
+                    }, 2000);
+                });
+        } catch (err) {
+            let errors: any = [];
+            if (err instanceof Yup.ValidationError) {
+                err.inner.forEach((error: Yup.ValidationError) => {
+                    errors = [error.path, error.message];
+                });
+            }
+            console.log(errors)
+            // setError({
+            //     name: errors[0] === 'name' ? errors[1] : '',
+            //     senderId: errors[0] === 'senderId' ? errors[1] : '',
+            //     segmentId: errors[0] === 'segmentId' ? errors[1] : '',
+            //     subject: errors[0] === 'subject' ? errors[1] : '',
+            //     content: errors[0] === 'content' ? errors[1] : '',
+            // });
+        }
+    }
+
+    const handleChangeStatus = async (schedule: number, status: string) => {
+        const scheduleStatus = status === 'ACTIVE' ? 'DISABLED' : 'ACTIVE';
+
+        getAPIClient()
+            .put(
+                `/schedule/update/${schedule}`,
+                {
+                    status: scheduleStatus,
+                },
+                {
+                    headers: {
+                        userid: user.id,
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            )
+            .then(() => {
+                setAlertBody('Status atualizado com sucesso');
+                setAlertPopup(true);
+
+                setTimeout(() => {
+                    setAlertPopup(false);
+                }, 2000);
+            })
+            .catch(() => {
+                setAlertBody('Erro ao atualizar status, tente novamente mais tarde');
+                setAlertPopup(true);
+
+                setTimeout(() => {
+                    setAlertPopup(false);
+                }, 2000);
+            });
+    };
+
+    const handleDeleteSchedule = async (schedule: number) => {
+        getAPIClient()
+            .delete(`/schedule/delete/${schedule}`, {
+                headers: {
+                    userid: user.id,
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then(() => {
+                setAlertBody('Agenda deletada com sucesso');
+                setAlertPopup(true);
+
+                setTimeout(() => {
+                    setAlertPopup(false);
+                }, 2000);
+            })
+            .catch(() => {
+                setAlertBody('Erro ao deletar agenda, tente novamente mais tarde');
+                setAlertPopup(true);
+
+                setTimeout(() => {
+                    setAlertPopup(false);
+                }, 2000);
+            });
+    };
 
     const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectValue = event.target.value;
@@ -56,12 +187,17 @@ const Schedule: React.FC = () => {
         }
     };
 
-    const handleAddCamps = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const valueInDate = new Date(e.target.value)
-        const incrementDay = valueInDate.setDate(valueInDate.getDate() + 1)
+    const handleAddCamps = (event: React.ChangeEvent<HTMLInputElement> & React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            const valueInDate = new Date(event.target.value)
+            const incrementDay = valueInDate.setDate(valueInDate.getDate() + 1)
+            const compareDates = valueInDate.getDate() >= (new Date(dateMinValue).getDate() + 1)
 
-        const value = e.target.value !== 'Invalid Date' && incrementDay;
-        setCampainsArr(camp => Array.from(new Set([...camp, value])));
+            if (compareDates) {
+                const value = event.target.value !== 'Invalid Date' && incrementDay;
+                setDatesList(camp => Array.from(new Set([...camp, value])));
+            }
+        }
     };
 
     const formatDateString = (date: number) => (
@@ -98,18 +234,6 @@ const Schedule: React.FC = () => {
                         <h1>Minhas agendas</h1>
                         <p>Acompanhe e gerencie suas agendas cadastradas</p>
                     </div>
-                    <div className="filters-wrapper">
-                        <div className="select-item">
-                            <select onChange={handleSelect} value="default">
-                                <option value="default" disabled>
-                                    Ações
-                                </option>
-                                <option value="create">Cadastrar agenda</option>
-                                {/* <option value="deleteMany">Excluir em massa</option> */}
-                            </select>
-                            <BsChevronDown />
-                        </div>
-                    </div>
                 </div>
                 {schedules?.length >= 1 ? (
                     <Table
@@ -121,9 +245,9 @@ const Schedule: React.FC = () => {
                         currentPage={currentPage}>
                         <table className="widgetLgTable">
                             <tr className="widgetLgTr">
-                                <th className="widgetLgTh">Frequência</th>
-                                <th className="widgetLgTh">Lista</th>
-                                <th className="widgetLgTh">Campanha</th>
+                                <th className="widgetLgTh">Agendados</th>
+                                <th className="widgetLgTh">ID da lista</th>
+                                <th className="widgetLgTh">ID da campanha</th>
                                 {/* <th className="widgetLgTh">Criado</th> */}
                                 <th className="widgetLgTh">Status</th>
                                 <th className="widgetLgTh">Editar</th>
@@ -131,13 +255,18 @@ const Schedule: React.FC = () => {
                             {currentSchedules.map((schedule) => (
                                 <tr key={schedule.id} className="widgetLgTr">
                                     <td className="widgetLgUser">
-                                        <span className="widgetLgName">{schedule.dateValue}</span>
+                                        <span className="widgetLgName">{schedule.dates.length}</span>
                                     </td>
-                                    <td className="widgetLgDate">{schedule.segment}</td>
+                                    <td className="widgetLgDate">{schedule.segmentId}</td>
                                     {/* <td className="widgetLgAmount">{campaign.segments.length}</td> */}
-                                    <td className="widgetLgAmount">{schedule.campaign}</td>
+                                    <td className="widgetLgAmount">{schedule.campaignId}</td>
                                     <td
-                                        onClick={() => { }}
+                                        onClick={() =>
+                                            handleChangeStatus(
+                                                schedule.id as number,
+                                                schedule.status as string,
+                                            )
+                                        }
                                         className={`widgetLgStatus ${schedule.status === 'ACTIVE' ? 'active' : 'disabled'
                                             }`}>
                                         {schedule.status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
@@ -145,11 +274,14 @@ const Schedule: React.FC = () => {
                                     <td className="widgetLgMenu">
                                         <FiMenu />
                                         <div className="modal-actions">
-                                            <span onClick={() => { }}>
+                                            <span onClick={() => handleDeleteSchedule(schedule.id)}>
                                                 Excluir agenda
                                             </span>
                                             <span
-                                                onClick={() => { }}>
+                                                onClick={() => {
+                                                    setScheduleData(schedule);
+                                                    setActiveModalScheduleEdit(true);
+                                                }}>
                                                 Editar agenda
                                             </span>
                                         </div>
@@ -161,7 +293,7 @@ const Schedule: React.FC = () => {
                 ) : (
                     <div className="without-leads-msg">
                         <h1>Você ainda não possuí nenhuma campanha cadastrado</h1>
-                        <strong onClick={() => { }}>
+                        <strong onClick={() => setActiveModalSchedule(true)}>
                             Cadastrar campanha
                         </strong>
                     </div>
@@ -187,30 +319,30 @@ const Schedule: React.FC = () => {
                         },
                     }}>
                     <ScheduleForm>
-                        <h1>Cadastre uma agenda</h1>
+                        <h1 className="modal-title">Cadastre uma agenda</h1>
                         <div className="form-wrapper">
-                            <form onSubmit={() => { }}>
+                            <form onSubmit={handleScheduleSubmit}>
                                 <label>Frenquência</label>
-                                <input type="date" min={dateMinValue} max={dateMaxValue} onChange={handleAddCamps} />
+                                <input type="date" min={dateMinValue} max={dateMaxValue} onKeyPress={handleAddCamps} />
 
                                 <div className="dates-list">
-                                    {campaignsArr.map(item => (
-                                        <span key={item}>{new Date(item).toLocaleDateString()}</span>
+                                    {datesList.map(item => (
+                                        <span onClick={() => setDatesList(datesList.filter(date => date !== item))} key={item}>{new Date(item).toLocaleDateString()}</span>
                                     ))}
                                 </div>
 
                                 <label>Lista</label>
-                                <select onChange={e => { }}>
+                                <select onChange={e => setSegment(e.target.value)} defaultValue="DEFAULT">
                                     <option value="DEFAULT" disabled>Escolha uma lista</option>
                                     {segments.map(segment => (
-                                        <option key={segment.id} value="">{segment.title}</option>
+                                        <option key={segment.id} value={segment.id}>{segment.title}</option>
                                     ))}
                                 </select>
                                 <label>Campanha</label>
-                                <select onChange={e => { }} defaultValue="DEFAULT">
+                                <select onChange={e => setCampaign(e.target.value)} defaultValue="DEFAULT">
                                     <option value="DEFAULT" disabled>Escolha uma campanha</option>
                                     {campaigns.map(campaign => (
-                                        <option key={campaign.id} value="">{campaign.name}</option>
+                                        <option key={campaign.id} value={campaign.id}>{campaign.name}</option>
                                     ))}
                                 </select>
                                 <button type="submit">Criar agenda</button>
@@ -218,6 +350,60 @@ const Schedule: React.FC = () => {
                         </div>
                     </ScheduleForm>
                 </Modal>
+            )}
+            {activeModalScheduleEdit && (
+                <Modal
+                    animation={{
+                        initial: {
+                            opacity: 0,
+                        },
+                        animate: {
+                            opacity: 1,
+                            transition: { type: 'spring' },
+                        },
+                        exit: {
+                            opacity: 0,
+                            transition: { duration: 0.6 },
+                        },
+                    }}>
+                    <ScheduleForm>
+                        <h1 className="modal-title">Editar uma agenda</h1>
+                        {console.log(scheduleData)}
+                        <div className="form-wrapper">
+                            <form onSubmit={handleScheduleSubmit}>
+                                <label>Frenquência</label>
+                                <input type="date" min={dateMinValue} max={dateMaxValue} onKeyPress={handleAddCamps} />
+
+                                <div className="dates-list">
+                                    {scheduleData.dates.map(item => (
+                                        <span onClick={() => setDatesList(datesList.filter(date => date !== item))} key={item}>{new Date(Number(item)).toLocaleDateString()}</span>
+                                    ))}
+                                </div>
+
+                                <label>Lista</label>
+                                <select onChange={e => setSegment(e.target.value)} defaultValue="DEFAULT">
+                                    <option value="DEFAULT" disabled>Escolha uma lista</option>
+                                    {segments.map(segment => (
+                                        <option key={segment.id} value={segment.id}>{segment.title}</option>
+                                    ))}
+                                </select>
+                                <label>Campanha</label>
+                                <select onChange={e => setCampaign(e.target.value)} defaultValue="DEFAULT">
+                                    <option value="DEFAULT" disabled>Escolha uma campanha</option>
+                                    {campaigns.map(campaign => (
+                                        <option key={campaign.id} value={campaign.id}>{campaign.name}</option>
+                                    ))}
+                                </select>
+                                <button type="submit">Criar agenda</button>
+                            </form>
+                        </div>
+                    </ScheduleForm>
+                </Modal>
+            )}
+            {alertPopup && (
+                <ModalAlert>
+                    <h3>{alertBody}</h3>
+                </ModalAlert>
             )}
         </>
     );
