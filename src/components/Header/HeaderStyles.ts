@@ -19,8 +19,8 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
         gap: 5rem;
 
         h2 {
-            font-size: 4rem;
-            font-family: 'Pompiere', cursive;
+            font-size: 2.5rem;
+            font-weight: 300;
             color: ${props => props.theme.colors.white};
         }
 
