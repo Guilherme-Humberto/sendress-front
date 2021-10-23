@@ -24,10 +24,10 @@ const Home: React.FC<Props> = ({ products }: Props) => {
       <Header />
       <main>
         <SeoComponent
-          title="Envhei - Facilite o email marketing"
+          title="Forenvio - Facilite o email marketing"
           desc=""
           keywords=""
-          url="https://example.com.br/"
+          url="https://forenvio.com.br/"
         />
         <HomeBlockOne />
         <HomeBlockTwo />

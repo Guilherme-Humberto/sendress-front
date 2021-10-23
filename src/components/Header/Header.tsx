@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FiInstagram } from 'react-icons/fi'
@@ -37,7 +38,7 @@ const Header: React.FC = () => {
         <nav>
           <Link href="/">
             <a href="">
-              <h2>Envhei</h2>
+              <h2><Image src="/logo.png" alt="logo" height={60} width={60} /> forenvio</h2>
             </a>
           </Link>
           <div className="links-list">
