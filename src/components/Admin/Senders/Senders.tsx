@@ -49,9 +49,6 @@ const Senders: React.FC = () => {
   const currentSenders = senders?.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNum: number) => setCurrentPage(pageNum);
-  const nextPage = () => setCurrentPage(currentPage => currentPage + 1);
-  const prevPage = () =>
-    setCurrentPage(currentPage => (currentPage === 1 ? 1 : currentPage - 1));
 
   return (
     <>
@@ -73,10 +70,7 @@ const Senders: React.FC = () => {
           <Table
             itemsTotalPerPage={itemsPerPage}
             totalItems={senders.length}
-            paginate={paginate}
-            nextPage={nextPage}
-            prevPage={prevPage}
-            currentPage={currentPage}>
+            paginate={paginate}>
             <table className="widgetLgTable">
               <tr className="widgetLgTr">
                 <th className="widgetLgTh">Nome</th>

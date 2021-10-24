@@ -222,9 +222,6 @@ const Lists: React.FC = () => {
       : segments?.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNum: number) => setCurrentPage(pageNum);
-  const nextPage = () => setCurrentPage(currentPage => currentPage + 1);
-  const prevPage = () =>
-    setCurrentPage(currentPage => (currentPage === 1 ? 1 : currentPage - 1));
 
   return (
     <>
@@ -257,10 +254,7 @@ const Lists: React.FC = () => {
           <Table
             itemsTotalPerPage={itemsPerPage}
             totalItems={segments.length}
-            paginate={paginate}
-            nextPage={nextPage}
-            prevPage={prevPage}
-            currentPage={currentPage}>
+            paginate={paginate}>
             <table className="widgetLgTable">
               <tr className="widgetLgTr">
                 <th className="widgetLgTh">Título</th>

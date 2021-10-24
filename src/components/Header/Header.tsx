@@ -36,8 +36,11 @@ const Header: React.FC = () => {
       <HeaderWrapper ref={elementRef} changeColor={top > state ? true : false}>
         <nav>
           <Link href="/">
-            <a href="">
-              <h2>Forenvio</h2>
+            <a className="logo-wrapper">
+              <div className="circle">
+                <h2>Set</h2>
+              </div>
+              <h2>Campaign</h2>
             </a>
           </Link>
           <div className="links-list">
@@ -56,7 +59,7 @@ const Header: React.FC = () => {
           <Link href="https://www.instagram.com/envhei/">
             <a target="_blank"><FiInstagram size={25} color={"#fff"} /></a>
           </Link>
-          {/* <button onClick={() => setActiveModalLogin(true)}>Acessar minha conta</button> */}
+          <button onClick={() => setActiveModalLogin(true)}>Acessar minha conta</button>
           {/* <button>Criar conta</button> */}
         </div>
       </HeaderWrapper>

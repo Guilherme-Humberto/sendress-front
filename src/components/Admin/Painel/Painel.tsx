@@ -82,7 +82,7 @@ const Painel: React.FC<PainelProps> = ({ contacts, segments, campaigns }) => {
               <h3>Nenhum contato cadastrado</h3>
               <small>Comece cadastrando seus contatos</small>
               <button className="btn-add">
-                Cadastrar contact <BsArrowRight />
+                Cadastrar contatos <BsArrowRight />
               </button>
             </>
           )}

@@ -12,6 +12,18 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
     justify-content: space-between;
     transition: 0.5s;
     background: ${props => props.changeColor ? props.theme.colors.primary : 'transparent'};
+
+    .logo-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+
+        .circle {
+            border-radius: 100rem;
+            padding: 0.8rem;
+            border: 2px solid ${props => props.theme.colors.white};
+        }
+    }
     
     nav {
         display: flex;
@@ -19,8 +31,8 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
         gap: 5rem;
 
         h2 {
-            font-size: 2.5rem;
-            font-weight: 300;
+            font-size: 2rem;
+            font-weight: 500;
             color: ${props => props.theme.colors.white};
         }
 
