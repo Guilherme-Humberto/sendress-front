@@ -13,6 +13,8 @@ import Senders from '../../components/Admin/Senders/Senders';
 import User from '../../components/Admin/User/User';
 import { parseCookies } from 'nookies';
 import Schedule from 'components/Admin/Schedule/Schedules';
+import SeoComponent from 'components/SeoComponent/SeoComponent';
+import Blog from 'components/Admin/Blog/Blog';
 
 interface AdminProps {
   contacts: any[];
@@ -25,25 +27,34 @@ const Admin: React.FC<AdminProps> = ({ contacts, segments, campaigns, senders })
   const { route } = useContext(AdminContext);
 
   return (
-    <main style={{ background: '#F0F1F8' }}>
-      <Layout>
-        <MenuLeft />
-        <section style={{ margin: '0 auto', width: '140rem' }}>
-          <HeaderAdmin />
-          {route === 'painel' && (
-            <Painel contacts={contacts} segments={segments} campaigns={campaigns} />
-          )}
-          {route === 'contacts' && <Contacts segments={segments} />}
-          {route === 'segments' && <Lists />}
-          {route === 'campaigns' && (
-            <Campaigns segments={segments} senders={senders} />
-          )}
-          {route === 'senders' && <Senders />}
-          {route === 'user' && <User />}
-          {route === 'schedule' && <Schedule />}
-        </section>
-      </Layout>
-    </main>
+    <>
+      <SeoComponent
+        title="SetCampaign | Painel"
+        desc=""
+        keywords=""
+        url="https://setcampaign.com.br/"
+      />
+      <main style={{ background: '#F0F1F8' }}>
+        <Layout>
+          <MenuLeft />
+          <section style={{ margin: '0 auto', width: '140rem' }}>
+            <HeaderAdmin />
+            {route === 'painel' && (
+              <Painel contacts={contacts} segments={segments} campaigns={campaigns} />
+            )}
+            {route === 'contacts' && <Contacts segments={segments} />}
+            {route === 'segments' && <Lists />}
+            {route === 'campaigns' && (
+              <Campaigns segments={segments} senders={senders} />
+            )}
+            {route === 'senders' && <Senders />}
+            {route === 'user' && <User />}
+            {route === 'schedule' && <Schedule />}
+            {route === 'blog' && <Blog />}
+          </section>
+        </Layout>
+      </main>
+    </>
   );
 };
 

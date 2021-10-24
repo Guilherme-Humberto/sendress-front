@@ -21,14 +21,14 @@ interface Props {
 const Home: React.FC<Props> = ({ products }: Props) => {
   return (
     <>
+      <SeoComponent
+        title="SetCampaign | Facilite o email marketing"
+        desc=""
+        keywords=""
+        url="https://setcampaign.com.br/"
+      />
       <Header />
       <main>
-        <SeoComponent
-          title="Forenvio - Facilite o email marketing"
-          desc=""
-          keywords=""
-          url="https://forenvio.com.br/"
-        />
         <HomeBlockOne />
         <HomeBlockTwo />
         {/* <HomeBlockThree products={products} /> */}

@@ -14,7 +14,7 @@ import {
   HiChevronDoubleLeft,
   HiChevronDoubleRight,
 } from 'react-icons/hi';
-import { BsGrid, BsListNested } from 'react-icons/bs';
+import { BsBook, BsListNested } from 'react-icons/bs';
 
 import { MenuLeftWrapper, LinkMenu } from './MenuLeftStyles';
 import { AdminContext } from '../../../../context/adminContext';
@@ -29,18 +29,24 @@ const MenuLeft: React.FC = () => {
     <MenuLeftWrapper changeMenu={changeMenu}>
       <div className="logo-wrapper">
         {changeMenu ? (
-          <h1>SD</h1>
+          <div className="logo-wrapper-admin">
+            <div className="circle">
+              <h1>Set</h1>
+            </div>
+          </div>
         ) : (
-          <h1>
-            Sendrop <small>By Prodbase</small>
-          </h1>
+          <div className="logo-wrapper-admin">
+            <div className="circle">
+              <h1>Set</h1>
+            </div>
+            <h1>Campaign</h1>
+          </div>
         )}
       </div>
       <nav className="geral-navs">
         <h3 className="sec-title">Geral</h3>
         <LinkMenu
           showLink={changeMenu}
-          href="#"
           active={route === 'painel'}
           onClick={() => changeRoutes('painel')}>
           <FiHome />
@@ -51,7 +57,6 @@ const MenuLeft: React.FC = () => {
         </LinkMenu>
         <LinkMenu
           showLink={changeMenu}
-          href="#"
           active={route === 'contacts'}
           onClick={() => changeRoutes('contacts')}>
           <FiUsers />
@@ -62,7 +67,6 @@ const MenuLeft: React.FC = () => {
         </LinkMenu>
         <LinkMenu
           showLink={changeMenu}
-          href="#"
           active={route === 'segments'}
           onClick={() => changeRoutes('segments')}>
           <BsListNested />
@@ -73,7 +77,6 @@ const MenuLeft: React.FC = () => {
         </LinkMenu>
         <LinkMenu
           showLink={changeMenu}
-          href="#"
           active={route === 'campaigns'}
           onClick={() => changeRoutes('campaigns')}>
           <FiMessageSquare />
@@ -84,7 +87,6 @@ const MenuLeft: React.FC = () => {
         </LinkMenu>
         <LinkMenu
           showLink={changeMenu}
-          href="#"
           active={route === 'senders'}
           onClick={() => changeRoutes('senders')}>
           <HiOutlineMailOpen />
@@ -96,7 +98,6 @@ const MenuLeft: React.FC = () => {
         <h3 className="sec-title">Automação</h3>
         <LinkMenu
           showLink={changeMenu}
-          href="#"
           active={route === 'schedule'}
           onClick={() => changeRoutes('schedule')}>
           <FiClock />
@@ -106,18 +107,16 @@ const MenuLeft: React.FC = () => {
         <h3 className="sec-title">Sistema</h3>
         <LinkMenu
           showLink={changeMenu}
-          href="#"
-          active={route === 'configs'}
-          onClick={() => changeRoutes('configs')}>
-          <FiSettings />
-          <p className="link-title">Configurações</p>
+          active={route === 'blog'}
+          onClick={() => changeRoutes('blog')}>
+          <BsBook />
+          <p className="link-title">Conteúdos</p>
           <div className="link-intro-wrapper">
-            Acesse as configurações do seu painel.
+            Dicas sobre email marketing
           </div>
         </LinkMenu>
         <LinkMenu
           showLink={changeMenu}
-          href="#"
           active={route === 'docs'}
           onClick={() => changeRoutes('docs')}>
           <HiOutlineDocumentText />
