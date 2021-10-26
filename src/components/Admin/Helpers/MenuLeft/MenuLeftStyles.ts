@@ -2,36 +2,28 @@ import styled, { css } from 'styled-components';
 
 export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
     position: relative;
-    width: ${props => props.changeMenu ? '10rem' : '30rem'};
+    width: ${props => props.changeMenu ? '10rem' : '28rem'};
     transition: 0.7s;
     min-height: 100vh;
     background: ${props => props.theme.colors.white};
 
     .logo-wrapper {
         padding: 1rem 2rem;
-        color: ${props => props.theme.colors.white};
-        background: ${props => props.theme.colors.primary};
+        color: ${props => props.theme.colors.primary};
 
         display: flex;
         align-items: center;
-        gap: 0.7rem;
 
         .logo-wrapper-admin {
             display: flex;
             align-items: center;
-            gap: 0.7rem;
-
-            .circle {
-                border-radius: 100rem;
-                padding: 0.8rem;
-                border: 2px solid ${props => props.theme.colors.white};
-            }
         }
 
         h1 {
-            font-weight: 500;
+            font-weight: 600;
             text-transform: capitalize;
-            font-size: 1.8rem;
+            font-size: 2.3rem;
+            text-align: center;
 
             small {
                 font-size: 1.1rem;
@@ -53,7 +45,7 @@ export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
     .geral-navs {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 1.5rem;
         margin-top: 5rem;
 
         ${props => props.changeMenu && css`
@@ -125,8 +117,8 @@ export const LinkMenu = styled.button<{ active?: boolean, showLink?: boolean }>`
     ${props => props.active && css`
         transition: 0.5s;
         font-weight: bold;
-        color: ${props => props.theme.colors.primary};
-        border-left: 4px solid ${props => props.theme.colors.primary};
+        color: ${props => props.theme.colors.white};
+        background: ${props => props.theme.colors.primary};
     `};
 
     .link-intro-wrapper {

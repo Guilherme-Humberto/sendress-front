@@ -1,4 +1,8 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, keyframes } from 'styled-components'
+
+const rotateAnimation = keyframes`
+    from { transform: rotate(360deg) }
+`
 
 export const GlobalStyles = createGlobalStyle`
     *,
@@ -41,6 +45,26 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0 auto;
     }
 
+    .is-loading-wrapper {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        h2 {
+            font-size: 2.3rem;
+            margin-top: 1rem;
+            color: ${props => props.theme.colors.primary};
+        }
+
+        svg {
+            font-size: 4rem;
+            animation: ${rotateAnimation} 1s linear infinite;
+            color: ${props => props.theme.colors.primary};
+        }
+    }
+
     .content-top {
         display: flex;
         align-items: flex-end;
@@ -51,7 +75,8 @@ export const GlobalStyles = createGlobalStyle`
 
         h1 {
             font-size: 3rem;
-            font-weight: 500;
+            font-weight: bold;
+            color: ${props => props.theme.colors.font};
         }
 
         p {
@@ -62,13 +87,14 @@ export const GlobalStyles = createGlobalStyle`
         .select-item {
             cursor: pointer;
             transition: 0.5s;
-            border: 2px solid #ccc;
             padding: 0rem 1rem;
             height: 4rem;
-            width: 23rem;
+            width: 13rem;
             display: flex;
             align-items: center;
             border-radius: 0.5rem;
+            background: ${props => props.theme.colors.white};
+            border: none;
             
             select {
                 cursor: pointer;
@@ -76,8 +102,8 @@ export const GlobalStyles = createGlobalStyle`
                 width: 100%;
                 outline: none;
                 border: none;
-                background: transparent;
                 appearance: none;
+                background: transparent;
             }
         }
 
@@ -86,15 +112,26 @@ export const GlobalStyles = createGlobalStyle`
             align-items: center;
             gap: 2rem;
 
-            input {
+            .input-search-wrapper {
+                display: flex;
+                align-items: center;
+                background: ${props => props.theme.colors.white};
                 max-width: 25rem;
+                border-radius: 0.5rem;
+
+                svg {
+                    font-size: 2rem;
+                    margin-left: 1rem;
+                }
+            }
+            input {
                 padding: 0.5rem 1rem;
                 height: 4rem;
-                background: transparent;
-                border: 2px solid #ccc;
+                border: none;
+                width: 100%;
                 outline: none;
-                border-radius: 0.5rem;
             }
+
         }
     }
 
@@ -169,6 +206,89 @@ export const GlobalStyles = createGlobalStyle`
             :hover {
                 color: ${props => props.theme.colors.white};
                 cursor: pointer;
+                background: ${props => props.theme.colors.primary};
+            }
+        }
+    }
+
+    .editor-page-wrapper {
+        display: flex;
+
+        .editor-page-wrapper-intro.disabled {
+            background: ${props => props.theme.colors.white};
+            width: 0rem;
+            transition: .5s;
+            border-right: 3px dashed #F0F1F8;
+        }
+
+        .editor-page-wrapper-intro {
+            padding: 3rem;
+            width: 40rem;
+            position: relative;
+            transition: .5s;
+        }
+
+        .editor-page-wrapper-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: ${props => props.theme.colors.font};
+            margin-bottom: 3rem;
+
+            svg {
+                font-size: 2.3rem;
+            }
+        }
+
+        .editor-page-wrapper-btn-float {
+            position: absolute;
+            z-index: 2;
+            bottom: 0;
+            left: 100%;
+            transform: translate(-50%, -50%);
+            width: 4.4rem;
+            height: 4.4rem;
+            border-radius: 10rem;
+            background: ${props => props.theme.colors.primary};
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: ${props => props.theme.colors.white};
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: 0.5s;
+
+            svg {
+                font-size: 2.5rem;
+            }
+
+            :hover {
+                transition: 0.5s;
+                color: ${props => props.theme.colors.white};
+                background: ${props => props.theme.colors.font};
+            }
+        }
+
+        .template-form {
+            margin-top: 5rem;
+
+            input {
+                width: 100%;
+                padding: 0.5rem 1rem;
+                border: 2px solid #eee;
+                outline: none;
+            }
+
+            button {
+                width: 100%;
+                margin-top: 1rem;
+                outline: none;
+                border: none;
+                height: 4rem;
+                color: ${props => props.theme.colors.white};
                 background: ${props => props.theme.colors.primary};
             }
         }

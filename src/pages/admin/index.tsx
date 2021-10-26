@@ -14,7 +14,8 @@ import User from '../../components/Admin/User/User';
 import { parseCookies } from 'nookies';
 import Schedule from 'components/Admin/Schedule/Schedules';
 import SeoComponent from 'components/SeoComponent/SeoComponent';
-import Blog from 'components/Admin/Blog/Blog';
+import Blog from '../../components/Admin/Blog/Blog';
+import TemplateBuilder from '../../components/Admin/Templates/Templates'
 
 interface AdminProps {
   contacts: any[];
@@ -48,6 +49,7 @@ const Admin: React.FC<AdminProps> = ({ contacts, segments, campaigns, senders })
               <Campaigns segments={segments} senders={senders} />
             )}
             {route === 'senders' && <Senders />}
+            {route === 'email-builder' && <TemplateBuilder />}
             {route === 'user' && <User />}
             {route === 'schedule' && <Schedule />}
             {route === 'blog' && <Blog />}

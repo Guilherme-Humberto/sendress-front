@@ -13,11 +13,13 @@ import {
   HiOutlineMailOpen,
   HiChevronDoubleLeft,
   HiChevronDoubleRight,
+  HiOutlineTemplate,
 } from 'react-icons/hi';
 import { BsBook, BsListNested } from 'react-icons/bs';
 
 import { MenuLeftWrapper, LinkMenu } from './MenuLeftStyles';
 import { AdminContext } from '../../../../context/adminContext';
+import { BiHelpCircle } from 'react-icons/bi';
 
 const MenuLeft: React.FC = () => {
   const { route, setRoute } = useContext(AdminContext);
@@ -91,6 +93,16 @@ const MenuLeft: React.FC = () => {
           onClick={() => changeRoutes('senders')}>
           <HiOutlineMailOpen />
           <p className="link-title">Remetentes</p>
+          <div className="link-intro-wrapper">
+            Gerencie todos os seus remetentes.
+          </div>
+        </LinkMenu>
+        <LinkMenu
+          showLink={changeMenu}
+          active={route === 'email-builder'}
+          onClick={() => changeRoutes('email-builder')}>
+          <HiOutlineTemplate />
+          <p className="link-title">Meus templates</p>
           <div className="link-intro-wrapper">
             Gerencie todos os seus remetentes.
           </div>

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import * as Yup from 'yup';
-import { FiMenu } from 'react-icons/fi';
+import { FiMenu, FiSearch } from 'react-icons/fi';
 import { BsChevronDown, BsPlus } from 'react-icons/bs';
 import { RiCloseFill } from 'react-icons/ri';
 import { SegmentsWrapper, SegmentForm } from './SegmentsStyles';
@@ -232,12 +232,15 @@ const Lists: React.FC = () => {
             <p>Acompanhe e gerencie suas listas cadastradas</p>
           </div>
           <div className="filters-wrapper">
-            <input
-              type="text"
-              value={search}
-              onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
-              placeholder="Titulo da lista"
-            />
+            <div className="input-search-wrapper">
+              <FiSearch />
+              <input
+                type="text"
+                value={search}
+                onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
+                placeholder="Digite aqui..."
+              />
+            </div>
             <div className="select-item">
               <select onChange={handleSelect} value="default">
                 <option value="default" disabled>
