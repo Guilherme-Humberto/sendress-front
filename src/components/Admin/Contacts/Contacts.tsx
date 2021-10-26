@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { FiMenu } from 'react-icons/fi';
+import { FiMenu, FiSearch } from 'react-icons/fi';
 import { BsChevronDown, BsPlus, BsArrowRight } from 'react-icons/bs';
 import { RiCloseFill } from 'react-icons/ri';
 import { ContactsWrapper, ContactForm } from './ContactsStyles';
@@ -391,12 +391,15 @@ const Contacts: React.FC<Props> = ({ segments }) => {
             <p>Acompanhe e gerencie seus contatos cadastrados</p>
           </div>
           <div className="filters-wrapper">
-            <input
-              type="text"
-              value={search}
-              onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
-              placeholder="Nome ou email do contato"
-            />
+            <div className="input-search-wrapper">
+              <FiSearch />
+              <input
+                type="text"
+                value={search}
+                onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
+                placeholder="Digite aqui..."
+              />
+            </div>
             <div className="select-item">
               <select onChange={handleSelect} value="default">
                 <option value="default" disabled>

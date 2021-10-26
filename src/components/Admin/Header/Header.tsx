@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { FiSearch, FiUser } from 'react-icons/fi';
-import { RiNotificationLine, RiCloseFill } from 'react-icons/ri';
+import { RiCloseFill } from 'react-icons/ri';
 import { AdminContext } from '../../../context/adminContext';
 import { HeaderWrapper } from './HeaderStyles';
 

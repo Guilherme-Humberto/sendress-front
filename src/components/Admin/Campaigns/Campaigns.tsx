@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import * as Yup from 'yup';
-import { FiMenu, FiSend } from 'react-icons/fi';
+import { FiMenu, FiSearch, FiSend } from 'react-icons/fi';
 import { BsChevronDown, BsPlus } from 'react-icons/bs';
 import { CampaignsWrapper, SendButton, CampaignForm } from './CampaignsStyles';
 import { RiCloseFill } from 'react-icons/ri';
@@ -346,12 +346,15 @@ const Campaigns: React.FC<Props> = ({ segments }) => {
             <p>Acompanhe e gerencie suas campanhas cadastrados</p>
           </div>
           <div className="filters-wrapper">
-            <input
-              type="text"
-              value={search}
-              onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
-              placeholder="Nome da campanha"
-            />
+            <div className="input-search-wrapper">
+              <FiSearch />
+              <input
+                type="text"
+                value={search}
+                onChange={e => setSearch(e.target.value.toLocaleLowerCase())}
+                placeholder="Digite aqui..."
+              />
+            </div>
             <div className="select-item">
               <select onChange={handleSelect} value="default">
                 <option value="default" disabled>
