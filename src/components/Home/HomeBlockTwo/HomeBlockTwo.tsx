@@ -64,7 +64,7 @@ const HomeBlockTwo: React.FC = () => {
         </div>
         <div>
           <h1><FiMenu /> Organize-se</h1>
-          <p>Tanto para envio de emails em massa e campanhas de cold-emails. Organizar seus contatos em listas é uma boa forma de se manter organizado.</p>
+          <p>Organizar seus contatos em listas é uma boa forma de se manter organizado.</p>
         </div>
         <div>
           <h1><FiMessageSquare /> Crie suas campanhas</h1>
