@@ -19,22 +19,22 @@ const SeoComponent: React.FC<SeoComponentProps> = ({
     return (
         <Head>
             <title>{title}</title>
-            <meta name="author" content="sinestesya" />
+            <meta name="author" content="sendress" />
             <meta name="keywords" content={keywords} />
             <meta name="description" content={desc} />
             <meta
                 property="og:image"
-                content="https://prodbase.com.br/favicon.ico"
+                content="https://sendress/favicon.ico"
             />
             <link rel="canonical" href={url} />
             <meta property="og:url" content={url} />
             <meta property="og:type" content="website" />
             <meta property="og:title" content={title} />
-            <meta property="og:image:alt" content="prodbase image" />
+            <meta property="og:image:alt" content="sendress image" />
             <meta property="og:description" content={desc} />
-            <meta property="og:site_name" content="prodbase" />
+            <meta property="og:site_name" content="sendress" />
             <meta property="og:locale" content="pt_BR" />
-            <meta property="article:author" content="prodbase" />
+            <meta property="article:author" content="sendress" />
             <meta name="robots" content={index || 'index,follow'} />
             <meta name="googlebot" content={index || 'index,follow'} />
             <meta

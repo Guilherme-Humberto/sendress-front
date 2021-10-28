@@ -40,6 +40,7 @@ export const GlobalStyles = createGlobalStyle`
     a:visited {
         text-decoration: none;
     }
+
     .constraint {
         max-width: 1700px;
         margin: 0 auto;
@@ -280,6 +281,15 @@ export const GlobalStyles = createGlobalStyle`
                 padding: 0.5rem 1rem;
                 border: 2px solid #eee;
                 outline: none;
+                margin-bottom: 3rem;
+            }
+
+            textarea {
+                padding: 1rem;
+                outline: none;
+                border: 2px solid #eee;
+                height: 20rem;
+                max-width: 30rem;
             }
 
             button {

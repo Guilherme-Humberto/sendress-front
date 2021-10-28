@@ -11,19 +11,18 @@ interface Props {
 }
 
 const Builder: React.FC<Props> = ({ setContentEditor }) => {
-  const [editor, setEditor] = useState();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const editorr = grape.init({
+      const editor = grape.init({
         container: '#email-builder',
         plugins: [
           grapesjsRte,
-          grapesjsNewsletter
+          grapesjsNewsletter,
         ],
       })
 
-      editorr.Panels.addButton('options', [{
+      editor.Panels.addButton('options', [{
         id: 'save-db',
         className: 'fa fa-floppy-o',
         command: 'save-db',
@@ -31,21 +30,30 @@ const Builder: React.FC<Props> = ({ setContentEditor }) => {
       }]
       );
 
-      editorr.Commands.add('save-db', {
+      editor.Commands.add('save-db', {
         run: function (editor, sender) {
-          var htmldata = editor.getHtml();
+          // var htmldata = editor.getHtml();
+          var htmldata = editor.Commands.run('gjs-get-inlined-html')
           setContentEditor(htmldata)
         }
       });
 
-      editorr.on('asset:upload:end', (response) => {
+      editor.on('asset:upload:end', (response) => {
         alert('response')
       });
 
-      editorr.on('asset:upload:error', (err) => {
+      editor.on('asset:upload:error', (err) => {
         console.log(err);
       });
-      setEditor(editorr)
+
+      const panelManager = editor.Panels;
+      console.log(panelManager)
+      panelManager.removeButton('Panels', 'deviceDesktop');
+
+      const deviceManager = editor.Devices;
+
+      deviceManager.remove('desktop');
+      deviceManager.select('tablet');
     }
   }, []);
 

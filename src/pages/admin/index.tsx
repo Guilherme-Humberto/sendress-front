@@ -30,10 +30,10 @@ const Admin: React.FC<AdminProps> = ({ contacts, segments, campaigns, senders })
   return (
     <>
       <SeoComponent
-        title="SetCampaign | Painel"
-        desc=""
-        keywords=""
-        url="https://setcampaign.com.br/"
+        title="Sendress | Painel"
+        desc="Aumente sua conversão com envio de emails em massa e campanhas de cold-emails."
+        keywords="Email marketing, Marketing digital, Prospecção de leads, Envio de emails, Emails em massa"
+        url="https://sendress.app/"
       />
       <main style={{ background: '#F0F1F8' }}>
         <Layout>
@@ -52,7 +52,7 @@ const Admin: React.FC<AdminProps> = ({ contacts, segments, campaigns, senders })
             {route === 'email-builder' && <TemplateBuilder />}
             {route === 'user' && <User />}
             {route === 'schedule' && <Schedule />}
-            {route === 'blog' && <Blog />}
+            {route === 'docs' && <Blog />}
           </section>
         </Layout>
       </main>

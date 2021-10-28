@@ -99,4 +99,8 @@ export const BuilderWrapper = styled.div`
     .gjs-field-arrow-u {
         border-bottom: 4px solid ${props => props.theme.colors.font};
     }
+
+    .gjs-pn-devices-c .gjs-pn-buttons span[title="Desktop"] {
+        display: none;
+    }
 `;

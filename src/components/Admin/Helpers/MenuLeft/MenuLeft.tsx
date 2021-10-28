@@ -7,6 +7,7 @@ import {
   FiClock,
   FiSettings,
   FiMessageSquare,
+  FiInstagram,
 } from 'react-icons/fi';
 import {
   HiOutlineDocumentText,
@@ -16,10 +17,8 @@ import {
   HiOutlineTemplate,
 } from 'react-icons/hi';
 import { BsBook, BsListNested } from 'react-icons/bs';
-
 import { MenuLeftWrapper, LinkMenu } from './MenuLeftStyles';
 import { AdminContext } from '../../../../context/adminContext';
-import { BiHelpCircle } from 'react-icons/bi';
 
 const MenuLeft: React.FC = () => {
   const { route, setRoute } = useContext(AdminContext);
@@ -33,15 +32,13 @@ const MenuLeft: React.FC = () => {
         {changeMenu ? (
           <div className="logo-wrapper-admin">
             <div className="circle">
-              <h1>Set</h1>
+              <h1>SED</h1>
             </div>
           </div>
         ) : (
           <div className="logo-wrapper-admin">
-            <div className="circle">
-              <h1>Set</h1>
-            </div>
-            <h1>Campaign</h1>
+            <h1>Sendress</h1>
+            <small>Email marketing</small>
           </div>
         )}
       </div>
@@ -119,20 +116,20 @@ const MenuLeft: React.FC = () => {
         <h3 className="sec-title">Sistema</h3>
         <LinkMenu
           showLink={changeMenu}
-          active={route === 'blog'}
-          onClick={() => changeRoutes('blog')}>
+          active={route === 'docs'}
+          onClick={() => changeRoutes('docs')}>
           <BsBook />
-          <p className="link-title">Conteúdos</p>
+          <p className="link-title">Documentação</p>
           <div className="link-intro-wrapper">
             Dicas sobre email marketing
           </div>
         </LinkMenu>
         <LinkMenu
           showLink={changeMenu}
-          active={route === 'docs'}
-          onClick={() => changeRoutes('docs')}>
-          <HiOutlineDocumentText />
-          <p className="link-title">Documentação</p>
+          active={route === 'configs'}
+          onClick={() => changeRoutes('configs')}>
+          <FiSettings />
+          <p className="link-title">Configurações</p>
           <div className="link-intro-wrapper">
             Aprenda mais sobre o SendWay.
           </div>

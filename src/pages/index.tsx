@@ -22,10 +22,10 @@ const Home: React.FC<Props> = ({ products }: Props) => {
   return (
     <>
       <SeoComponent
-        title="SetCampaign | Facilite o email marketing"
-        desc=""
-        keywords=""
-        url="https://setcampaign.com.br/"
+        title="Sendress | Facilite o email marketing"
+        desc="Aumente sua conversão com envio de emails em massa e campanhas de cold-emails."
+        keywords="Email marketing, Marketing digital, prospecção de leads, envio de emails, emails em massa"
+        url="https://sendress.app/"
       />
       <Header />
       <main>

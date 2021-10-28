@@ -65,7 +65,7 @@ const HomeBlockOne: React.FC = () => {
         </p>
         <form onSubmit={handleContact}>
           <input type="email" required placeholder="Informe seu e-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <button>Quero experimentar</button>
+          <button>Quero conhecer</button>
         </form>
         {message && <span className="message-text">{message}</span>}
       </div>
