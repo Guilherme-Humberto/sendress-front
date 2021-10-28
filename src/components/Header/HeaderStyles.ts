@@ -30,9 +30,11 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
         align-items: center;
         gap: 5rem;
 
-        h2 {
-            font-size: 2rem;
-            font-weight: 500;
+        h1 {
+            font-size: 4rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            font-family: 'Pompiere', sans-serif;
             color: ${props => props.theme.colors.white};
         }
 

@@ -9,25 +9,24 @@ export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
 
     .logo-wrapper {
         padding: 1rem 2rem;
-        color: ${props => props.theme.colors.primary};
+        color: ${props => props.theme.colors.white};
+        background: ${props => props.theme.colors.primary};
 
         display: flex;
         align-items: center;
 
-        .logo-wrapper-admin {
-            display: flex;
-            align-items: center;
-        }
-
         h1 {
             font-weight: 600;
+            letter-spacing: .2rem;
             text-transform: capitalize;
-            font-size: 2.3rem;
+            font-size: 2.4rem;
             text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
 
-            small {
-                font-size: 1.1rem;
-                font-weight: 400;
+            svg {
+                font-size: 2.5rem;
             }
         }
 
@@ -46,7 +45,7 @@ export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
-        margin-top: 5rem;
+        margin-top: 2rem;
 
         ${props => props.changeMenu && css`
             gap: 4rem;
@@ -58,7 +57,7 @@ export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
     }
 
     .sec-title {
-        margin: 0 2rem;
+        margin: 2rem 2rem 0 2rem;
         font-size: 1.7rem;
         font-weight: 500;
         color: ${props => props.theme.colors.font};
@@ -102,23 +101,24 @@ export const LinkMenu = styled.button<{ active?: boolean, showLink?: boolean }>`
     align-items: center;
     gap: 1rem;
     padding: 1rem ${props => props.showLink ? '3rem' : '2rem'}; 
-    color: ${props => props.theme.colors.font};
+    color: #222;
     transition: 0.5s;
     font-size: clamp(1rem, 2.5vw, 1.6rem);
     cursor: pointer;
     background: transparent;
     outline: none;
     border: none;
+    border-left: 4px solid transparent;
 
     svg {
-        font-size: 2.5rem;
+        font-size: 2.1rem;
     }
 
     ${props => props.active && css`
         transition: 0.5s;
         font-weight: bold;
-        color: ${props => props.theme.colors.white};
-        background: ${props => props.theme.colors.primary};
+        color: ${props => props.theme.colors.primary};
+        border-left-color: ${props => props.theme.colors.primary};
     `};
 
     .link-intro-wrapper {

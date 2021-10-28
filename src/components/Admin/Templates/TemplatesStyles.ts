@@ -2,11 +2,15 @@ import styled from 'styled-components';
 
 export const TemplatesWrapper = styled.section`
     .list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+        margin-top: 9rem;
 
         .template-card {
-            max-height: 30rem;
-            width: 100%;
-            overflow-y: scroll;
+            max-width: 30rem;
+            font-size: 1.2rem !important;
+            height: 15rem;
+            background: ${props => props.theme.colors.white};
         }
     }
 

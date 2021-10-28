@@ -37,10 +37,7 @@ const Header: React.FC = () => {
         <nav>
           <Link href="/">
             <a className="logo-wrapper">
-              <div className="circle">
-                <h2>Set</h2>
-              </div>
-              <h2>Campaign</h2>
+              <h1>Sendress</h1>
             </a>
           </Link>
           <div className="links-list">
@@ -56,7 +53,7 @@ const Header: React.FC = () => {
           </div>
         </nav>
         <div>
-          <Link href="https://www.instagram.com/envhei/">
+          <Link href="https://www.instagram.com/sendress.app/">
             <a target="_blank"><FiInstagram size={25} color={"#fff"} /></a>
           </Link>
           {/* <button onClick={() => setActiveModalLogin(true)}>Acessar minha conta</button> */}
