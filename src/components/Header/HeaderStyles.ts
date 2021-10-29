@@ -12,18 +12,6 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
     justify-content: space-between;
     transition: 0.5s;
     background: ${props => props.changeColor ? props.theme.colors.primary : 'transparent'};
-
-    .logo-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 0.7rem;
-
-        .circle {
-            border-radius: 100rem;
-            padding: 0.8rem;
-            border: 2px solid ${props => props.theme.colors.white};
-        }
-    }
     
     nav {
         display: flex;
@@ -53,6 +41,10 @@ export const HeaderWrapper = styled.header<{ changeColor?: boolean }>`
         @media (max-width: 700px) {
             .links-list {
                 display: none;
+            }
+
+            h1 {
+                font-size: 3rem;
             }
         }
     }

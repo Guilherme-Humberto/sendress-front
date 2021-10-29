@@ -56,15 +56,15 @@ const EmailBuilder: React.FC = () => {
           )}
           {introOpen && (
             <>
-              <h1>Criar template</h1>
-              <p>Liberte sua criatividade e crie campanhas personalizadas do seu jeito.</p>
+              <h1>Criar modelo de email</h1>
+              <p>Liberte sua criatividade e crie modelos de email personalizadas do seu jeito.</p>
               <div className="template-form">
                 <label>Nome do template</label>
-                <input type="text" placeholder="Digite o nome da campanha..." disabled={contentEditor.length === 0 ? true : false} onChange={(e) => setTemplateName(e.target.value)} />
+                <input type="text" placeholder="Digite o nome do modelo..." disabled={contentEditor.length === 0 ? true : false} onChange={(e) => setTemplateName(e.target.value)} />
                 <br />
-                <label>Assunto da campanha</label>
-                <textarea placeholder="Digite aqui qual o assunto da campanha..." disabled={contentEditor.length === 0 ? true : false} onChange={(e) => setSubjectPart(e.target.value)} />
-                <button onClick={handleSaveTemplate}>Salvar informações</button>
+                {/* <label>Assunto da </label>
+                <textarea placeholder="Digite aqui qual o assunto da campanha..." disabled={contentEditor.length === 0 ? true : false} onChange={(e) => setSubjectPart(e.target.value)} /> */}
+                <button onClick={handleSaveTemplate}>Gravar nome</button>
               </div>
             </>
           )}
