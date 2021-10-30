@@ -229,7 +229,7 @@ const Schedule: React.FC = () => {
             <SchedulesWrapper>
                 <div className="content-top">
                     <div>
-                        <h1>Minhas agendas</h1>
+                        <h1>Minhas agendas <small>{schedules?.length >= 1 && `${schedules?.length} agendas cadastradas`}</small></h1>
                         <p>Acompanhe e gerencie suas agendas cadastradas</p>
                     </div>
                 </div>

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi'
 import Pagination from '../Helpers/Pagination/Pagination';
 import { contents } from '../utils/contentBlog';
-import { BlogWrapper, SearchWrapper, ContentWrapper } from './BlogStyles';
+import { DocsWrapper, SearchWrapper, ContentWrapper } from './DocsStyles';
 
-const Blog: React.FC = () => {
-  const [itemsPerPage] = useState(3);
+const Docs: React.FC = () => {
+  const [itemsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState('');
   const [searchFilter, setSearchFilter] = useState([]);
@@ -27,7 +27,7 @@ const Blog: React.FC = () => {
   const paginate = (pageNum: number) => setCurrentPage(pageNum);
 
   return (
-    <BlogWrapper>
+    <DocsWrapper>
       <SearchWrapper>
         <div className="form-search">
           <FiSearch />
@@ -55,8 +55,8 @@ const Blog: React.FC = () => {
           paginate={paginate}
         />
       </div>
-    </BlogWrapper>
+    </DocsWrapper>
   )
 }
 
-export default Blog;
+export default Docs;

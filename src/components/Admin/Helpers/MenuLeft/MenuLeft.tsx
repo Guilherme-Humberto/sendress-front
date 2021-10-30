@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 
 import React, { useState, useContext } from 'react';
+import Image from 'next/image'
 import {
   FiHome,
   FiUsers,
@@ -31,14 +32,12 @@ const MenuLeft: React.FC = () => {
       <div className="logo-wrapper">
         {changeMenu ? (
           <div className="logo-wrapper-admin">
-            <div className="circle">
-              <h1>SED</h1>
-            </div>
+            <Image src="/icon-logo.svg" alt="icon-logo" width={40} height={40} />
           </div>
         ) : (
           <div className="logo-wrapper-admin">
+            <Image src="/icon-logo.svg" alt="icon-logo" width={40} height={40} />
             <h1>Sendress</h1>
-            <small>Email marketing</small>
           </div>
         )}
       </div>
@@ -99,7 +98,7 @@ const MenuLeft: React.FC = () => {
           active={route === 'email-builder'}
           onClick={() => changeRoutes('email-builder')}>
           <HiOutlineTemplate />
-          <p className="link-title">Meus templates</p>
+          <p className="link-title">Templates</p>
           <div className="link-intro-wrapper">
             Gerencie todos os seus remetentes.
           </div>

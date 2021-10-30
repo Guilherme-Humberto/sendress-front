@@ -55,7 +55,7 @@ const Senders: React.FC = () => {
       <SendersWrapper>
         <div className="content-top">
           <div>
-            <h1>Meus remetentes</h1>
+            <h1>Meus remetentes <small>{senders?.length >= 1 && `${senders?.length} remetentes cadastrados`}</small></h1>
             <p>Acompanhe e gerencie seus remetentes cadastrados</p>
           </div>
           <div className="select-item">

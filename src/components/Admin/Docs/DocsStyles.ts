@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
-export const BlogWrapper = styled.section`
+export const DocsWrapper = styled.section`
     padding-top: 8rem;
     border-top: 1px solid #ccc;
+    margin-bottom: 8rem;
 `;
 
 export const SearchWrapper = styled.div`
