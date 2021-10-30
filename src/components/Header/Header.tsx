@@ -56,7 +56,7 @@ const Header: React.FC = () => {
           <Link href="https://www.instagram.com/sendress.app/">
             <a target="_blank"><FiInstagram size={25} color={"#fff"} /></a>
           </Link>
-          <button onClick={() => setActiveModalLogin(true)}>Acessar minha conta</button>
+          {/* <button onClick={() => setActiveModalLogin(true)}>Acessar minha conta</button> */}
           {/* <button>Criar conta</button> */}
         </div>
       </HeaderWrapper>
