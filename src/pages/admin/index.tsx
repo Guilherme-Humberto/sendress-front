@@ -14,7 +14,7 @@ import User from '../../components/Admin/User/User';
 import { parseCookies } from 'nookies';
 import Schedule from 'components/Admin/Schedule/Schedules';
 import SeoComponent from 'components/SeoComponent/SeoComponent';
-import Blog from '../../components/Admin/Blog/Blog';
+import Docs from '../../components/Admin/Docs/Docs';
 import TemplateBuilder from '../../components/Admin/Templates/Templates'
 
 interface AdminProps {
@@ -22,9 +22,10 @@ interface AdminProps {
   segments: any[];
   campaigns: any[];
   senders: any[];
+  awsTemplates: any[]
 }
 
-const Admin: React.FC<AdminProps> = ({ contacts, segments, campaigns, senders }) => {
+const Admin: React.FC<AdminProps> = ({ contacts, segments, campaigns, senders, awsTemplates }) => {
   const { route } = useContext(AdminContext);
 
   return (
@@ -35,7 +36,7 @@ const Admin: React.FC<AdminProps> = ({ contacts, segments, campaigns, senders })
         keywords="Email marketing, Marketing digital, Prospecção de leads, Envio de emails, Emails em massa"
         url="https://sendress.app/"
       />
-      <main style={{ background: '#F0F1F8' }}>
+      <main style={{ background: '#f7f5f5' }}>
         <Layout>
           <MenuLeft />
           <section style={{ margin: '0 auto', width: '140rem' }}>
@@ -49,10 +50,10 @@ const Admin: React.FC<AdminProps> = ({ contacts, segments, campaigns, senders })
               <Campaigns segments={segments} senders={senders} />
             )}
             {route === 'senders' && <Senders />}
-            {route === 'email-builder' && <TemplateBuilder />}
+            {route === 'email-builder' && <TemplateBuilder awsTemplates={awsTemplates} />}
             {route === 'user' && <User />}
             {route === 'schedule' && <Schedule />}
-            {route === 'docs' && <Blog />}
+            {route === 'docs' && <Docs />}
           </section>
         </Layout>
       </main>
@@ -90,12 +91,17 @@ export const getServerSideProps: GetServerSideProps = async context => {
     headers: { userid, Authorization: `Bearer ${token}` },
   });
 
+  const { data: awsTemplates } = await apiClient.get('/templates/aws/listAll', {
+    headers: { userid, Authorization: `Bearer ${token}` },
+  });
+
   return {
     props: {
       contacts: contactsResponse,
       segments: segmentsResponse,
       campaigns: campaignsRespomse,
       senders: sendersRespomse,
+      awsTemplates
     },
   };
 };

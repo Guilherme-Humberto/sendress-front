@@ -3,6 +3,7 @@ import 'suneditor/dist/css/suneditor.min.css';
 import type { AppProps } from 'next/app';
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '../../styles/globalStyles';
 import { theme } from '../../themes/primary';
@@ -25,8 +26,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <GlobalStyles />
         {!isLoading ? <Component {...pageProps} /> : (
           <div className="is-loading-wrapper">
-            <AiOutlineLoading3Quarters />
-            <h2>Estamos preparando tudo para você...</h2>
+            <Image src="/icon-logo.svg" alt="icon-logo" width={80} height={80} />
+            <h2>Estamos deixando tudo pronto!!</h2>
           </div>
         )}
       </AdminProvider>

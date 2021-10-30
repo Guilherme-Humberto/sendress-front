@@ -1,44 +1,31 @@
 import styled, { css } from 'styled-components';
 
 export const MenuLeftWrapper = styled.div<{ changeMenu?: boolean }>`
-    position: relative;
+    position: sticky;
+    top: 0;
     width: ${props => props.changeMenu ? '10rem' : '28rem'};
     transition: 0.7s;
     min-height: 100vh;
     background: ${props => props.theme.colors.white};
+    border-right: 2px solid ${props => props.theme.colors.menu};
+
+    .logo-wrapper-admin {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        svg {
+            height: 5rem;
+            width: 5rem;
+        }
+    }
 
     .logo-wrapper {
         padding: 1rem 2rem;
-        color: ${props => props.theme.colors.white};
-        background: ${props => props.theme.colors.primary};
-
-        display: flex;
-        align-items: center;
-
-        h1 {
-            font-weight: 600;
-            letter-spacing: .2rem;
-            text-transform: capitalize;
-            font-size: 2.4rem;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-
-            svg {
-                font-size: 2.5rem;
-            }
-        }
-
-        .logo-icon {
-            font-size: 2rem;
-            margin-left: 1.5rem;
-            transform: rotate(45deg);
-        }
-
-        ${props => props.changeMenu && css`
-            text-align: center;
-        `}
     }
 
     .geral-navs {
@@ -109,6 +96,11 @@ export const LinkMenu = styled.button<{ active?: boolean, showLink?: boolean }>`
     outline: none;
     border: none;
     border-left: 4px solid transparent;
+
+    :hover {
+        color: ${props => props.theme.colors.white};
+        background: ${props => props.theme.colors.primary};
+    }
 
     svg {
         font-size: 2.1rem;

@@ -6,4 +6,5 @@ export const LayoutWrapper = styled.section`
     gap: 3rem;
     height: 100vh;
     max-height: 100vh;
+    overflow-y: scroll;
 `;

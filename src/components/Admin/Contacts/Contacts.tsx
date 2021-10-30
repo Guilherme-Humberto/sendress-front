@@ -387,7 +387,7 @@ const Contacts: React.FC<Props> = ({ segments }) => {
       <ContactsWrapper>
         <div className="content-top">
           <div>
-            <h1>Meus contatos</h1>
+            <h1>Meus contatos <small>{contacts?.length >= 1 && `${contacts?.length} contatos cadastrados`}</small></h1>
             <p>Acompanhe e gerencie seus contatos cadastrados</p>
           </div>
           <div className="filters-wrapper">

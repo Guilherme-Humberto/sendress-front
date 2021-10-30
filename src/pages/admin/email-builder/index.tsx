@@ -42,10 +42,10 @@ const EmailBuilder: React.FC = () => {
   return (
     <>
       <SeoComponent
-        title="SetCampaign | Painel"
-        desc=""
-        keywords=""
-        url="https://setcampaign.com.br/"
+        title="Sendress | Painel"
+        desc="Aumente sua conversão com envio de emails em massa e campanhas de cold-emails."
+        keywords="Email marketing, Marketing digital, Prospecção de leads, Envio de emails, Emails em massa"
+        url="https://sendress.app/"
       />
       <main className="editor-page-wrapper">
         <section className={`editor-page-wrapper-intro ${!introOpen ? 'disabled' : ''}`}>
@@ -62,8 +62,8 @@ const EmailBuilder: React.FC = () => {
                 <label>Nome do template</label>
                 <input type="text" placeholder="Digite o nome do modelo..." disabled={contentEditor.length === 0 ? true : false} onChange={(e) => setTemplateName(e.target.value)} />
                 <br />
-                {/* <label>Assunto da </label>
-                <textarea placeholder="Digite aqui qual o assunto da campanha..." disabled={contentEditor.length === 0 ? true : false} onChange={(e) => setSubjectPart(e.target.value)} /> */}
+                <label>Assunto da </label>
+                <textarea placeholder="Digite aqui qual o assunto da campanha..." disabled={contentEditor.length === 0 ? true : false} onChange={(e) => setSubjectPart(e.target.value)} />
                 <button onClick={handleSaveTemplate}>Gravar nome</button>
               </div>
             </>

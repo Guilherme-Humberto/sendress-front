@@ -342,7 +342,7 @@ const Campaigns: React.FC<Props> = ({ segments }) => {
       <CampaignsWrapper>
         <div className="content-top">
           <div>
-            <h1>Minhas campanhas</h1>
+            <h1>Minhas campanhas <small>{campaigns?.length >= 1 && `${campaigns?.length} campanhas cadastradas`}</small></h1>
             <p>Acompanhe e gerencie suas campanhas cadastrados</p>
           </div>
           <div className="filters-wrapper">

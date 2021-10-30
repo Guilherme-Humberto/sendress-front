@@ -53,13 +53,7 @@ export const GlobalStyles = createGlobalStyle`
         align-items: center;
         justify-content: center;
 
-        h2 {
-            font-size: 2.3rem;
-            margin-top: 1rem;
-            color: ${props => props.theme.colors.primary};
-        }
-
-        svg {
+        img {
             font-size: 4rem;
             animation: ${rotateAnimation} 1s linear infinite;
             color: ${props => props.theme.colors.primary};
@@ -78,6 +72,12 @@ export const GlobalStyles = createGlobalStyle`
             font-size: 3rem;
             font-weight: bold;
             color: ${props => props.theme.colors.font};
+
+            small {
+                font-weight: 300;
+                font-size: 2rem;
+                margin-left: 1rem;
+            }
         }
 
         p {

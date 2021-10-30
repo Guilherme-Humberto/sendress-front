@@ -228,7 +228,7 @@ const Lists: React.FC = () => {
       <SegmentsWrapper>
         <div className="content-top">
           <div>
-            <h1>Minhas listas</h1>
+            <h1>Minhas listas <small>{segments?.length >= 1 && `${segments?.length} listas cadastradas`}</small></h1>
             <p>Acompanhe e gerencie suas listas cadastradas</p>
           </div>
           <div className="filters-wrapper">
