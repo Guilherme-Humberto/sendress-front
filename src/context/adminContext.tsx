@@ -104,10 +104,10 @@ export const AdminProvider = ({children}: {children: any}) => {
       password,
     });
 
-    setCookie(undefined, 'sendway.token', token, {
+    setCookie(undefined, 'sendress.token', token, {
       maxAge: 60 * 60 * 1, // 1 hour
     });
-    setCookie(undefined, 'sendway.userid', user.id, {
+    setCookie(undefined, 'sendress.userid', user.id, {
       maxAge: 60 * 60 * 1, // 1 hour
     });
 
