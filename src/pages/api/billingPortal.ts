@@ -9,7 +9,7 @@ const stripeClient = new Stripe(stripeSecretKey, {
 module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const billing = await stripeClient.billingPortal.sessions.create({
-        customer: 'cus_KM4ctMjZxcr7QX',
+        customer: req.headers.customerid,
         return_url: 'https://stripe.com/docs/billing/subscriptions/customer-portal'
     })
 
